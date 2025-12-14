@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Biweekly Paycheck Calculator – Paycheck Tools</title>
+<meta name="description" content="Calculate your biweekly paycheck amount.">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+body{font-family:Arial;max-width:800px;margin:auto;padding:30px;}
+h1{color:#0a66c2;}label,input,button{display:block;margin:10px 0;}
+#result{font-weight:bold;margin-top:15px;}
+</style>
+</head>
+<body>
+
+<h1>Biweekly Paycheck Calculator</h1>
+<p>Estimate your biweekly paycheck.</p>
+
+<label>Annual Salary (USD)
+<input type="number" id="annual">
+</label>
+
+<button onclick="calc()">Calculate</button>
+<div id="result"></div>
+
+<script>
+function calc(){
+  const a=parseFloat(document.getElementById('annual').value);
+  if(isNaN(a)){result.innerText='Please enter a number.';return;}
+  result.innerText='Biweekly Paycheck: $'+(a/26).toFixed(2);
+}
+</script>
+
+<p><a href="/">← Back to Home</a></p>
+</body>
+</html>

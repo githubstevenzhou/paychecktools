@@ -1,31 +1,213 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Paycheck Tools – Salary & Income Calculators</title>
-  <meta name="description" content="Free online calculators to estimate your salary, hourly wage, overtime pay, and take-home income.">
+<meta charset="UTF-8">
+<title>Paycheck Tools – Free Salary & Income Calculators</title>
+<meta name="description" content="Free paycheck, salary, tax and income calculators. Calculate your take-home pay instantly.">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+body{
+  font-family: Arial, Helvetica, sans-serif;
+  margin:0;
+  background:#f5f7fa;
+  color:#333;
+}
+header{
+  background:#0a66c2;
+  color:#fff;
+  padding:48px 20px;
+  text-align:center;
+}
+header h1{
+  margin:0;
+  font-size:38px;
+}
+header p{
+  margin-top:12px;
+  font-size:18px;
+  opacity:0.95;
+}
+
+.container{
+  max-width:1100px;
+  margin:auto;
+  padding:40px 20px;
+}
+
+.section-title{
+  font-size:26px;
+  margin-bottom:20px;
+  color:#0a66c2;
+}
+
+/* tools */
+.tools-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+  gap:22px;
+}
+
+.tool-card{
+  background:#fff;
+  padding:22px;
+  border-radius:8px;
+  box-shadow:0 2px 8px rgba(0,0,0,0.08);
+}
+.tool-card h3{
+  margin-top:0;
+  font-size:20px;
+}
+.tool-card p{
+  font-size:14px;
+  line-height:1.5;
+}
+.tool-card a{
+  display:inline-block;
+  margin-top:12px;
+  color:#0a66c2;
+  font-weight:bold;
+  text-decoration:none;
+}
+.tool-card a:hover{
+  text-decoration:underline;
+}
+
+/* guides */
+.guides-list{
+  background:#fff;
+  padding:28px;
+  border-radius:8px;
+  box-shadow:0 2px 8px rgba(0,0,0,0.08);
+}
+.guides-list ul{
+  padding-left:18px;
+}
+.guides-list li{
+  margin:12px 0;
+  line-height:1.6;
+}
+
+/* footer */
+footer{
+  background:#fff;
+  padding:30px 20px;
+  text-align:center;
+  font-size:14px;
+  border-top:1px solid #ddd;
+}
+footer a{
+  color:#0a66c2;
+  text-decoration:none;
+  margin:0 10px;
+}
+</style>
 </head>
+
 <body>
+
+<header>
   <h1>Paycheck Tools</h1>
-  <p>Welcome to Paycheck Tools! Use our free calculators to estimate your salary, hourly wage, overtime pay, and take-home income.</p>
+  <p>Free Salary, Paycheck & Income Calculators</p>
+</header>
 
-  <h2>Our Calculators</h2>
-  <ul>
-    <li><a href="tools/salary-calculator/index.html">Salary Calculator</a></li>
-    <li><a href="tools/hourly-to-salary/index.html">Hourly to Salary Calculator</a></li>
-    <li><a href="tools/salary-to-hourly/index.html">Salary to Hourly Calculator</a></li>
-    <li><a href="tools/overtime-pay-calculator/index.html">Overtime Pay Calculator</a></li>
-    <li><a href="tools/take-home-pay-calculator/index.html">Take Home Pay Calculator</a></li>
-  </ul>
+<div class="container">
 
-  <h2>Guides</h2>
-  <ul>
-    <li><a href="guides/how-salary-is-calculated.html">How Salary Is Calculated</a></li>
-    <li><a href="guides/gross-vs-net-income.html">Gross vs Net Income</a></li>
-  </ul>
+  <!-- TOOLS -->
+  <h2 class="section-title">Popular Paycheck Calculators</h2>
 
-  <footer>
-    <p><a href="about.html">About</a> | <a href="privacy-policy.html">Privacy Policy</a> | <a href="terms.html">Terms & Disclaimer</a></p>
-  </footer>
+  <div class="tools-grid">
+
+    <div class="tool-card">
+      <h3>After Tax Salary Calculator</h3>
+      <p>Calculate your take-home salary after tax deductions.</p>
+      <a href="/tools/after-tax-salary-calculator/">Use Calculator →</a>
+    </div>
+
+    <div class="tool-card">
+      <h3>Biweekly Paycheck Calculator</h3>
+      <p>Estimate your biweekly paycheck amount.</p>
+      <a href="/tools/biweekly-paycheck-calculator/">Use Calculator →</a>
+    </div>
+
+    <div class="tool-card">
+      <h3>Weekly Paycheck Calculator</h3>
+      <p>Calculate your weekly income based on salary.</p>
+      <a href="/tools/weekly-paycheck-calculator/">Use Calculator →</a>
+    </div>
+
+    <div class="tool-card">
+      <h3>Monthly Paycheck Calculator</h3>
+      <p>Find out how much you earn per month.</p>
+      <a href="/tools/monthly-paycheck-calculator/">Use Calculator →</a>
+    </div>
+
+    <div class="tool-card">
+      <h3>Net Income Calculator</h3>
+      <p>Calculate net income after taxes.</p>
+      <a href="/tools/net-income-calculator/">Use Calculator →</a>
+    </div>
+
+    <div class="tool-card">
+      <h3>Bonus Tax Calculator</h3>
+      <p>Estimate taxes on bonuses and net bonus pay.</p>
+      <a href="/tools/bonus-tax-calculator/">Use Calculator →</a>
+    </div>
+
+    <div class="tool-card">
+      <h3>Freelance Income Calculator</h3>
+      <p>Calculate freelance income after expenses and tax.</p>
+      <a href="/tools/freelance-income-calculator/">Use Calculator →</a>
+    </div>
+
+    <div class="tool-card">
+      <h3>Part Time Salary Calculator</h3>
+      <p>Estimate part time annual income.</p>
+      <a href="/tools/part-time-salary-calculator/">Use Calculator →</a>
+    </div>
+
+    <div class="tool-card">
+      <h3>Contractor Take Home Pay</h3>
+      <p>Calculate contractor take home pay after tax.</p>
+      <a href="/tools/contractor-take-home-pay-calculator/">Use Calculator →</a>
+    </div>
+
+    <div class="tool-card">
+      <h3>Self Employed Tax Calculator</h3>
+      <p>Estimate self employed taxes and net income.</p>
+      <a href="/tools/self-employed-tax-calculator/">Use Calculator →</a>
+    </div>
+
+  </div>
+
+  <!-- GUIDES -->
+  <h2 class="section-title" style="margin-top:60px;">Guides & Resources</h2>
+
+  <div class="guides-list">
+    <ul>
+      <li>
+        <a href="/guides/gross-vs-net-income.html">
+          Gross vs Net Income: What’s the Difference?
+        </a>
+      </li>
+      <li>
+        <a href="/guides/how-salary-is-calculated.html">
+          How Is Salary Calculated?
+        </a>
+      </li>
+    </ul>
+  </div>
+
+</div>
+
+<footer>
+  <p>
+    © 2025 PaycheckTools.com |
+    <a href="/about.html">About</a> |
+    <a href="/privacy-policy.html">Privacy Policy</a> |
+    <a href="/terms.html">Terms</a>
+  </p>
+</footer>
+
 </body>
 </html>

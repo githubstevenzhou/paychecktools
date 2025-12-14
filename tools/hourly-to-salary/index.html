@@ -1,33 +1,55 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Hourly To Salary – PaycheckTools</title>
-  <meta name="description" content="Estimate your Hourly To Salary.">
+<meta charset="UTF-8">
+<title>Hourly to Salary Calculator – Paycheck Tools</title>
+<meta name="description" content="Convert your hourly wage to annual salary. Free hourly to salary calculator.">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+body { font-family:Arial; max-width:800px; margin:auto; padding:30px; }
+h1 { color:#0a66c2; }
+label,input,button { display:block; margin:10px 0; }
+#result { font-weight:bold; margin-top:15px; }
+</style>
 </head>
 <body>
-  <h1>Hourly To Salary</h1>
-  <p>Estimate your Hourly To Salary.</p>
 
-  <label>Input: <input id="input" type="number"></label>
-  <button onclick="calculate()">Calculate</button>
-  <div id="result"></div>
+<h1>Hourly to Salary Calculator</h1>
+<p>Convert your hourly wage into an estimated annual salary.</p>
 
-  <h2>How It Works</h2>
-  <p>Example formula for Hourly To Salary calculation.</p>
+<label>Hourly Wage (USD)
+  <input type="number" id="hourly">
+</label>
 
-  <h2>FAQ</h2>
-  <p>Q: Does this calculator include taxes?<br>A: No, it is an estimate only.</p>
+<label>Hours per Week
+  <input type="number" id="hours" value="40">
+</label>
 
-  <h2>Disclaimer</h2>
-  <p>This calculator provides estimates only and does not constitute financial advice.</p>
+<button onclick="calc()">Calculate</button>
 
-  <script>
-    function calculate() {
-      let value = parseFloat(document.getElementById('input').value);
-      let result = value;  // Replace with actual formula
-      document.getElementById('result').innerText = "Result: " + result.toFixed(2);
-    }
-  </script>
+<div id="result"></div>
+
+<h2>How it works</h2>
+<p>Annual Salary = Hourly Wage × Hours per Week × 52</p>
+
+<h2>Disclaimer</h2>
+<p>This calculator provides estimates only.</p>
+
+<p><a href="/">← Back to Home</a></p>
+
+<script>
+function calc(){
+  const h = parseFloat(document.getElementById('hourly').value);
+  const w = parseFloat(document.getElementById('hours').value);
+  if(isNaN(h) || isNaN(w)){
+    document.getElementById('result').innerText = 'Please enter valid numbers.';
+    return;
+  }
+  const annual = h * w * 52;
+  document.getElementById('result').innerText =
+    'Estimated Annual Salary: $' + annual.toFixed(2);
+}
+</script>
+
 </body>
 </html>
