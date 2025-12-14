@@ -16,8 +16,6 @@ main { max-width:600px; margin:0 auto; padding:32px 16px; }
 .calculator { background:#fff; padding:24px; border-radius:10px; box-shadow:0 4px 12px rgba(0,0,0,.05); }
 .calculator label { display:block; margin:16px 0 8px; font-weight:500; }
 .calculator input[type="number"] { width:100%; padding:6px; border-radius:5px; border:1px solid #d1d5db; margin-top:4px; }
-.calculator button { padding:10px 20px; margin-top:16px; background:#2563eb; color:#fff; border:none; cursor:pointer; border-radius:5px; font-size:16px; }
-.calculator button:hover { background:#1e40af; }
 #output { margin-top:20px; padding:12px; background:#e3f2fd; border:1px solid #90caf9; border-radius:5px; text-align:center; font-size:18px; font-weight:500; }
 footer { background:#fff; border-top:1px solid #e5e7eb; padding:24px 16px; text-align:center; font-size:14px; color:#6b7280; }
 footer a { color:#2563eb; text-decoration:none; margin:0 8px; }
@@ -38,10 +36,8 @@ a.back-home { display:inline-block; margin-bottom:20px; color:#2563eb; text-deco
     </label>
 
     <label>Deduction Rate (%):
-      <input id="rate" type="number" value="10" min="0" max="100">
+      <input id="rate" type="number" value="10" min="0" max="100" step="0.01">
     </label>
-
-    <button id="calculateBtn">Calculate</button>
 
     <div id="output">
       Deduction Amount: $<span id="deduction"></span>
@@ -57,19 +53,32 @@ a.back-home { display:inline-block; margin-bottom:20px; color:#2563eb; text-deco
 
 <script src="/js/employer-tax.js"></script>
 <script>
-document.getElementById('calculateBtn').addEventListener('click', function() {
-  const gross = Number(document.getElementById('gross').value);
-  const rate = Number(document.getElementById('rate').value);
+const grossInput = document.getElementById('gross');
+const rateInput = document.getElementById('rate');
+const deductionOutput = document.getElementById('deduction');
+const outputDiv = document.getElementById('output');
 
-  // 调用 calculateEmployerCosts，传入其他扣除
-  const result = calculateEmployerCosts({
-    grossPay: gross,
-    otherDeductions: gross * (rate / 100)
-  });
+grossInput.addEventListener('input', updateDeduction);
+rateInput.addEventListener('input', updateDeduction);
 
-  document.getElementById('deduction').innerText = result.breakdown.otherDeductions.toFixed(2);
-  document.getElementById('output').style.display = 'block';
-});
+function updateDeduction() {
+  const gross = Number(grossInput.value);
+  const rate = Number(rateInput.value);
+
+  if (gross >= 0 && rate >= 0) {
+    const result = calculateEmployerCosts({
+      grossPay: gross,
+      otherDeductions: gross * (rate / 100)
+    });
+    deductionOutput.innerText = result.breakdown.otherDeductions.toFixed(2);
+    outputDiv.style.display = 'block';
+  } else {
+    outputDiv.style.display = 'none';
+  }
+}
+
+// 默认计算一次
+updateDeduction();
 </script>
 </body>
 </html>

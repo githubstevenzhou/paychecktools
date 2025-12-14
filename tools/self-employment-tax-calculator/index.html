@@ -16,12 +16,10 @@ main { max-width:600px; margin:0 auto; padding:32px 16px; }
 .calculator { background:#fff; padding:24px; border-radius:10px; box-shadow:0 4px 12px rgba(0,0,0,.05); }
 .calculator label { display:block; margin:16px 0 8px; font-weight:500; }
 .calculator input[type="number"] { width:100%; padding:6px; border-radius:5px; border:1px solid #d1d5db; margin-top:4px; }
-.calculator input[type="range"] { width:100%; }
 #output { margin-top:20px; padding:12px; background:#e3f2fd; border:1px solid #90caf9; border-radius:5px; text-align:center; font-size:18px; font-weight:500; }
 footer { background:#fff; border-top:1px solid #e5e7eb; padding:24px 16px; text-align:center; font-size:14px; color:#6b7280; }
 footer a { color:#2563eb; text-decoration:none; margin:0 8px; }
 a.back-home { display:inline-block; margin-bottom:20px; color:#2563eb; text-decoration:none; font-weight:600; }
-.tax-label { display:flex; justify-content:space-between; font-size:14px; margin-top:4px; }
 </style>
 </head>
 <body>
@@ -38,8 +36,7 @@ a.back-home { display:inline-block; margin-bottom:20px; color:#2563eb; text-deco
     </label>
 
     <label>Tax Rate (%):
-      <input id="taxRate" type="range" min="0" max="30" step="0.1" value="15.3">
-      <div class="tax-label"><span>0%</span><span id="taxValue">15.3%</span><span>30%</span></div>
+      <input id="taxRate" type="number" value="15.3" min="0" max="100" step="0.01">
     </label>
 
     <div id="output">
@@ -57,26 +54,18 @@ a.back-home { display:inline-block; margin-bottom:20px; color:#2563eb; text-deco
 <script src="/js/employer-tax.js"></script>
 <script>
 const profitInput = document.getElementById('profit');
-const taxRange = document.getElementById('taxRate');
-const taxValueLabel = document.getElementById('taxValue');
+const seRateInput = document.getElementById('taxRate');
 const taxOutput = document.getElementById('tax');
 const outputDiv = document.getElementById('output');
 
-// 更新滑块标签显示
-taxRange.addEventListener('input', () => {
-  taxValueLabel.textContent = taxRange.value + '%';
-  updateTax();
-});
-
-// 输入净利润时更新
 profitInput.addEventListener('input', updateTax);
+seRateInput.addEventListener('input', updateTax);
 
-// 核心计算函数
 function updateTax() {
   const profit = Number(profitInput.value);
-  const rate = Number(taxRange.value);
+  const rate = Number(seRateInput.value);
 
-  if (profit >= 0) {
+  if (profit >= 0 && rate >= 0) {
     const result = calculateEmployerCosts({
       grossPay: profit,
       selfEmploymentTaxRate: rate
@@ -88,7 +77,7 @@ function updateTax() {
   }
 }
 
-// 页面加载时默认计算一次
+// 默认计算一次
 updateTax();
 </script>
 </body>
