@@ -15,7 +15,7 @@ header p { margin-top:8px; font-size:16px; opacity:.95; }
 main { max-width:1100px; margin:0 auto; padding:32px 16px; }
 .calculator { background:#fff; padding:24px; border-radius:10px; box-shadow:0 4px 12px rgba(0,0,0,.05); max-width:600px; margin:0 auto 48px; }
 .calculator label { display:block; margin:12px 0; }
-.calculator input { padding:6px; width:100%; max-width:200px; margin-left:10px; }
+.calculator input, .calculator select { padding:6px; width:100%; max-width:200px; margin-left:10px; }
 .calculator button { padding:10px 20px; margin-top:12px; background:#2563eb; color:#fff; border:none; cursor:pointer; border-radius:5px; }
 .calculator button:hover { background:#1e40af; }
 #output { margin-top:20px; padding:10px; background:#e3f2fd; border:1px solid #90caf9; display:none; border-radius:5px; }
@@ -33,10 +33,22 @@ a.back-home { display:inline-block; margin-bottom:20px; color:#2563eb; text-deco
   <div class="calculator">
     <a class="back-home" href="/index.html">← Return to Homepage</a>
     <h2>Net Pay Calculator</h2>
-    <label>Gross Income: <input id="gross" type="number" value="1000"></label>
+
+    <label>Income Amount: <input id="gross" type="number" value="1000"></label>
+
+    <label>Income Unit:
+      <select id="incomeUnit">
+        <option value="hourly">Hourly</option>
+        <option value="weekly">Weekly</option>
+        <option value="monthly" selected>Monthly</option>
+        <option value="yearly">Yearly</option>
+      </select>
+    </label>
+
     <label>Federal Tax (%): <input id="taxFederal" type="number" value="12"></label>
     <label>State Tax (%): <input id="taxState" type="number" value="5"></label>
     <button id="calculateBtn">Calculate</button>
+
     <div id="output">
       <p>Net Pay: $<span id="net"></span></p>
     </div>
@@ -48,15 +60,29 @@ a.back-home { display:inline-block; margin-bottom:20px; color:#2563eb; text-deco
   <a href="/privacy-policy.html">Privacy</a> |
   <a href="/terms.html">Terms</a>
 </footer>
+
 <script src="/js/salary-conversion.js"></script>
+
 <script>
 document.getElementById('calculateBtn').addEventListener('click', function() {
   const gross = Number(document.getElementById('gross').value);
+  const fromUnit = document.getElementById('incomeUnit').value;
   const federal = Number(document.getElementById('taxFederal').value);
   const state = Number(document.getElementById('taxState').value);
-  const net = convertSalary({gross, federal, state});
-  document.getElementById('net').innerText = net.toFixed(2);
-  document.getElementById('output').style.display = 'block';
+
+  try {
+    const result = convertSalary({
+      amount: gross,
+      from: fromUnit,  // 用户选择的单位
+      to: fromUnit,    // 输出同单位
+      taxes: { federal, state }
+    });
+
+    document.getElementById('net').innerText = result.net.toFixed(2);
+    document.getElementById('output').style.display = 'block';
+  } catch (err) {
+    alert('Error: ' + err.message);
+  }
 });
 </script>
 </body>

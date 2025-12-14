@@ -12,14 +12,13 @@ header { background:#2563eb; padding:28px 16px; text-align:center; }
 header a { color:#fff; text-decoration:none; }
 header h1 { margin:0; font-size:28px; }
 header p { margin-top:8px; font-size:16px; opacity:.95; }
-main { max-width:1100px; margin:0 auto; padding:32px 16px; }
-.calculator { background:#fff; padding:24px; border-radius:10px; box-shadow:0 4px 12px rgba(0,0,0,.05); max-width:600px; margin:0 auto 48px; }
-.calculator label { display:block; margin:12px 0; }
-.calculator input { padding:6px; width:100%; max-width:200px; margin-left:10px; }
-.calculator button { padding:10px 20px; margin-top:12px; background:#2563eb; color:#fff; border:none; cursor:pointer; border-radius:5px; }
+main { max-width:600px; margin:0 auto; padding:32px 16px; }
+.calculator { background:#fff; padding:24px; border-radius:10px; box-shadow:0 4px 12px rgba(0,0,0,.05); }
+.calculator label { display:block; margin:16px 0 8px; font-weight:500; }
+.calculator input[type="number"] { width:100%; padding:6px; border-radius:5px; border:1px solid #d1d5db; margin-top:4px; }
+.calculator button { padding:10px 20px; margin-top:16px; background:#2563eb; color:#fff; border:none; cursor:pointer; border-radius:5px; font-size:16px; }
 .calculator button:hover { background:#1e40af; }
-#output { margin-top:20px; padding:10px; background:#e3f2fd; border:1px solid #90caf9; display:none; border-radius:5px; }
-#output p { margin:6px 0; font-weight:500; }
+#output { margin-top:20px; padding:12px; background:#e3f2fd; border:1px solid #90caf9; border-radius:5px; text-align:center; font-size:18px; font-weight:500; }
 footer { background:#fff; border-top:1px solid #e5e7eb; padding:24px 16px; text-align:center; font-size:14px; color:#6b7280; }
 footer a { color:#2563eb; text-decoration:none; margin:0 8px; }
 a.back-home { display:inline-block; margin-bottom:20px; color:#2563eb; text-decoration:none; font-weight:600; }
@@ -33,11 +32,19 @@ a.back-home { display:inline-block; margin-bottom:20px; color:#2563eb; text-deco
   <div class="calculator">
     <a class="back-home" href="/index.html">← Return to Homepage</a>
     <h2>Payroll Deduction Calculator</h2>
-    <label>Gross Pay: <input id="gross" type="number" value="5000"></label>
-    <label>Deduction Rate (%): <input id="rate" type="number" value="10"></label>
+
+    <label>Gross Pay ($):
+      <input id="gross" type="number" value="5000" min="0">
+    </label>
+
+    <label>Deduction Rate (%):
+      <input id="rate" type="number" value="10" min="0" max="100">
+    </label>
+
     <button id="calculateBtn">Calculate</button>
+
     <div id="output">
-      <p>Deduction Amount: $<span id="deduction"></span></p>
+      Deduction Amount: $<span id="deduction"></span>
     </div>
   </div>
 </main>
@@ -47,13 +54,20 @@ a.back-home { display:inline-block; margin-bottom:20px; color:#2563eb; text-deco
   <a href="/privacy-policy.html">Privacy</a> |
   <a href="/terms.html">Terms</a>
 </footer>
+
 <script src="/js/employer-tax.js"></script>
 <script>
 document.getElementById('calculateBtn').addEventListener('click', function() {
   const gross = Number(document.getElementById('gross').value);
   const rate = Number(document.getElementById('rate').value);
-  const deduction = calculatePayrollDeduction(gross, rate);
-  document.getElementById('deduction').innerText = deduction.toFixed(2);
+
+  // 调用 calculateEmployerCosts，传入其他扣除
+  const result = calculateEmployerCosts({
+    grossPay: gross,
+    otherDeductions: gross * (rate / 100)
+  });
+
+  document.getElementById('deduction').innerText = result.breakdown.otherDeductions.toFixed(2);
   document.getElementById('output').style.display = 'block';
 });
 </script>

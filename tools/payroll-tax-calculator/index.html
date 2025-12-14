@@ -12,17 +12,16 @@ header { background:#2563eb; padding:28px 16px; text-align:center; }
 header a { color:#fff; text-decoration:none; }
 header h1 { margin:0; font-size:28px; }
 header p { margin-top:8px; font-size:16px; opacity:.95; }
-main { max-width:1100px; margin:0 auto; padding:32px 16px; }
-.calculator { background:#fff; padding:24px; border-radius:10px; box-shadow:0 4px 12px rgba(0,0,0,.05); max-width:600px; margin:0 auto 48px; }
-.calculator label { display:block; margin:12px 0; }
-.calculator input { padding:6px; width:100%; max-width:200px; margin-left:10px; }
-.calculator button { padding:10px 20px; margin-top:12px; background:#2563eb; color:#fff; border:none; cursor:pointer; border-radius:5px; }
-.calculator button:hover { background:#1e40af; }
-#output { margin-top:20px; padding:10px; background:#e3f2fd; border:1px solid #90caf9; display:none; border-radius:5px; }
-#output p { margin:6px 0; font-weight:500; }
+main { max-width:600px; margin:0 auto; padding:32px 16px; }
+.calculator { background:#fff; padding:24px; border-radius:10px; box-shadow:0 4px 12px rgba(0,0,0,.05); }
+.calculator label { display:block; margin:16px 0 8px; font-weight:500; }
+.calculator input[type="number"] { width:100%; padding:6px; border-radius:5px; border:1px solid #d1d5db; margin-top:4px; }
+.calculator input[type="range"] { width:100%; }
+#output { margin-top:20px; padding:12px; background:#e3f2fd; border:1px solid #90caf9; border-radius:5px; text-align:center; font-size:18px; font-weight:500; }
 footer { background:#fff; border-top:1px solid #e5e7eb; padding:24px 16px; text-align:center; font-size:14px; color:#6b7280; }
 footer a { color:#2563eb; text-decoration:none; margin:0 8px; }
 a.back-home { display:inline-block; margin-bottom:20px; color:#2563eb; text-decoration:none; font-weight:600; }
+.tax-label { display:flex; justify-content:space-between; font-size:14px; margin-top:4px; }
 </style>
 </head>
 <body>
@@ -33,11 +32,23 @@ a.back-home { display:inline-block; margin-bottom:20px; color:#2563eb; text-deco
   <div class="calculator">
     <a class="back-home" href="/index.html">← Return to Homepage</a>
     <h2>Payroll Tax Calculator</h2>
-    <label>Gross Payroll: <input id="gross" type="number" value="10000"></label>
-    <label>Tax Rate (%): <input id="taxRate" type="number" value="10"></label>
-    <button id="calculateBtn">Calculate</button>
+
+    <label>Gross Payroll ($):
+      <input id="gross" type="number" value="10000" min="0">
+    </label>
+
+    <label>Social Security Rate (%):
+      <input id="ssRate" type="range" min="0" max="12" step="0.1" value="6.2">
+      <div class="tax-label"><span>0%</span><span id="ssValue">6.2%</span><span>12%</span></div>
+    </label>
+
+    <label>Medicare Rate (%):
+      <input id="medicareRate" type="range" min="0" max="5" step="0.1" value="1.45">
+      <div class="tax-label"><span>0%</span><span id="medicareValue">1.45%</span><span>5%</span></div>
+    </label>
+
     <div id="output">
-      <p>Payroll Tax: $<span id="tax"></span></p>
+      Payroll Tax: $<span id="tax"></span>
     </div>
   </div>
 </main>
@@ -47,15 +58,42 @@ a.back-home { display:inline-block; margin-bottom:20px; color:#2563eb; text-deco
   <a href="/privacy-policy.html">Privacy</a> |
   <a href="/terms.html">Terms</a>
 </footer>
+
 <script src="/js/employer-tax.js"></script>
 <script>
-document.getElementById('calculateBtn').addEventListener('click', function() {
-  const gross = Number(document.getElementById('gross').value);
-  const rate = Number(document.getElementById('taxRate').value);
-  const tax = calculatePayrollTax(gross, rate);
-  document.getElementById('tax').innerText = tax.toFixed(2);
-  document.getElementById('output').style.display = 'block';
-});
+const grossInput = document.getElementById('gross');
+const ssRange = document.getElementById('ssRate');
+const ssValue = document.getElementById('ssValue');
+const medRange = document.getElementById('medicareRate');
+const medValue = document.getElementById('medicareValue');
+const taxOutput = document.getElementById('tax');
+const outputDiv = document.getElementById('output');
+
+// Update label for range sliders
+ssRange.addEventListener('input', () => { ssValue.textContent = ssRange.value + '%'; updateTax(); });
+medRange.addEventListener('input', () => { medValue.textContent = medRange.value + '%'; updateTax(); });
+grossInput.addEventListener('input', updateTax);
+
+// Main calculation function
+function updateTax() {
+  const gross = Number(grossInput.value);
+  const ss = Number(ssRange.value);
+  const medicare = Number(medRange.value);
+
+  if (gross >= 0) {
+    const result = calculateEmployerCosts({
+      grossPay: gross,
+      payrollTaxRates: { socialSecurity: ss, medicare: medicare }
+    });
+    taxOutput.innerText = result.payrollTaxAmount.toFixed(2);
+    outputDiv.style.display = 'block';
+  } else {
+    outputDiv.style.display = 'none';
+  }
+}
+
+// Initial calculation
+updateTax();
 </script>
 </body>
 </html>

@@ -12,14 +12,11 @@ header { background:#2563eb; padding:28px 16px; text-align:center; }
 header a { color:#fff; text-decoration:none; }
 header h1 { margin:0; font-size:28px; }
 header p { margin-top:8px; font-size:16px; opacity:.95; }
-main { max-width:1100px; margin:0 auto; padding:32px 16px; }
-.calculator { background:#fff; padding:24px; border-radius:10px; box-shadow:0 4px 12px rgba(0,0,0,.05); max-width:600px; margin:0 auto 48px; }
-.calculator label { display:block; margin:12px 0; }
-.calculator input { padding:6px; width:100%; max-width:200px; margin-left:10px; }
-.calculator button { padding:10px 20px; margin-top:12px; background:#2563eb; color:#fff; border:none; cursor:pointer; border-radius:5px; }
-.calculator button:hover { background:#1e40af; }
-#output { margin-top:20px; padding:10px; background:#e3f2fd; border:1px solid #90caf9; display:none; border-radius:5px; }
-#output p { margin:6px 0; font-weight:500; }
+main { max-width:600px; margin:0 auto; padding:32px 16px; }
+.calculator { background:#fff; padding:24px; border-radius:10px; box-shadow:0 4px 12px rgba(0,0,0,.05); }
+.calculator label { display:block; margin:16px 0 8px; font-weight:500; }
+.calculator input[type="number"] { width:100%; padding:6px; border-radius:5px; border:1px solid #d1d5db; margin-top:4px; }
+#output { margin-top:20px; padding:12px; background:#e3f2fd; border:1px solid #90caf9; border-radius:5px; text-align:center; font-size:18px; font-weight:500; }
 footer { background:#fff; border-top:1px solid #e5e7eb; padding:24px 16px; text-align:center; font-size:14px; color:#6b7280; }
 footer a { color:#2563eb; text-decoration:none; margin:0 8px; }
 a.back-home { display:inline-block; margin-bottom:20px; color:#2563eb; text-decoration:none; font-weight:600; }
@@ -33,11 +30,20 @@ a.back-home { display:inline-block; margin-bottom:20px; color:#2563eb; text-deco
   <div class="calculator">
     <a class="back-home" href="/index.html">← Return to Homepage</a>
     <h2>Employer Cost Calculator</h2>
-    <label>Employee Salary: <input id="salary" type="number" value="50000"></label>
-    <label>Employer Tax & Benefits (%): <input id="taxRate" type="number" value="20"></label>
-    <button id="calculateBtn">Calculate</button>
+
+    <label>Employee Salary ($):
+      <input id="salary" type="number" value="50000" min="0">
+    </label>
+
+    <label>Employer Tax & Benefits Rate (%):
+      <input id="taxRate" type="range" min="0" max="50" step="0.1" value="20">
+      <div style="display:flex; justify-content:space-between; font-size:14px; margin-top:4px;">
+        <span>0%</span><span id="rateLabel">20%</span><span>50%</span>
+      </div>
+    </label>
+
     <div id="output">
-      <p>Total Employer Cost: $<span id="total"></span></p>
+      Total Employer Cost: $<span id="total"></span>
     </div>
   </div>
 </main>
@@ -47,15 +53,45 @@ a.back-home { display:inline-block; margin-bottom:20px; color:#2563eb; text-deco
   <a href="/privacy-policy.html">Privacy</a> |
   <a href="/terms.html">Terms</a>
 </footer>
+
 <script src="/js/employer-tax.js"></script>
 <script>
-document.getElementById('calculateBtn').addEventListener('click', function() {
-  const salary = Number(document.getElementById('salary').value);
-  const rate = Number(document.getElementById('taxRate').value);
-  const total = calculateEmployerCost(salary, rate);
-  document.getElementById('total').innerText = total.toFixed(2);
-  document.getElementById('output').style.display = 'block';
+const salaryInput = document.getElementById('salary');
+const taxRange = document.getElementById('taxRate');
+const rateLabel = document.getElementById('rateLabel');
+const totalOutput = document.getElementById('total');
+const outputDiv = document.getElementById('output');
+
+// 更新滑块标签显示
+taxRange.addEventListener('input', () => {
+  rateLabel.textContent = taxRange.value + '%';
+  updateTotal();
 });
+
+// 输入工资时更新
+salaryInput.addEventListener('input', updateTotal);
+
+// 核心计算函数
+function updateTotal() {
+  const salary = Number(salaryInput.value);
+  const rate = Number(taxRange.value);
+
+  if (salary >= 0) {
+    // 调用 calculateEmployerCosts
+    const result = calculateEmployerCosts({
+      grossPay: salary,
+      payrollTaxRates: { total: rate } // 使用 total 表示整体税率
+    });
+    const total = salary + result.payrollTaxAmount;
+    totalOutput.innerText = total.toFixed(2);
+    outputDiv.style.display = 'block';
+  } else {
+    outputDiv.style.display = 'none';
+  }
+}
+
+// 页面加载时默认计算一次
+updateTotal();
 </script>
 </body>
 </html>
