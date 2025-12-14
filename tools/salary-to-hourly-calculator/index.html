@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Salary to Hourly Calculator – Paycheck Tools</title>
+<meta name="description" content="Convert annual salary to hourly wage. Free salary to hourly calculator.">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+body { font-family:Arial; max-width:800px; margin:auto; padding:30px; }
+h1 { color:#0a66c2; }
+label,input,button { display:block; margin:10px 0; }
+#result { font-weight:bold; margin-top:15px; }
+</style>
+</head>
+<body>
+
+<h1>Salary to Hourly Calculator</h1>
+<p>Estimate your hourly wage based on annual salary.</p>
+
+<label>Annual Salary (USD)
+  <input type="number" id="annual">
+</label>
+
+<label>Hours per Week
+  <input type="number" id="hours" value="40">
+</label>
+
+<button onclick="calc()">Calculate</button>
+
+<div id="result"></div>
+
+<h2>How it works</h2>
+<p>Hourly Rate = Annual Salary ÷ (Hours per Week × 52)</p>
+
+<h2>Disclaimer</h2>
+<p>This calculator provides estimates only.</p>
+
+<p><a href="/">← Back to Home</a></p>
+
+<script>
+function calc(){
+  const a = parseFloat(document.getElementById('annual').value);
+  const h = parseFloat(document.getElementById('hours').value);
+  if(isNaN(a) || isNaN(h)){
+    document.getElementById('result').innerText = 'Please enter valid numbers.';
+    return;
+  }
+  const hourly = a / (h * 52);
+  document.getElementById('result').innerText =
+    'Estimated Hourly Rate: $' + hourly.toFixed(2);
+}
+</script>
+
+</body>
+</html>

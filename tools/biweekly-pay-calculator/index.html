@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>Biweekly Paycheck Calculator – Free Paycheck & Salary Calculator</title>
+<meta name="description" content="Calculate your biweekly paycheck amounts. Supports gross, taxes, and net pay." />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link rel="canonical" href="https://paychecktools.com/tools/biweekly-pay-calculator/" />
+<style>/* same as above */</style>
+</head>
+<body>
+<header>...same as homepage...</header>
+<main>
+  <div class="calculator">
+    <a class="back-home" href="/">← Return to Homepage</a>
+    <h2>Biweekly Paycheck Calculator</h2>
+
+    <label>Hourly Wage: <input id="wage" type="number" value="25"></label>
+    <label>Hours Worked: <input id="hours" type="number" value="40"></label>
+    <label>Overtime Hours: <input id="otHours" type="number" value="0"></label>
+    <label>Federal Tax (%): <input id="taxFederal" type="number" value="12"></label>
+    <label>State Tax (%): <input id="taxState" type="number" value="5"></label>
+    <label>Frequency:
+      <select id="frequency">
+        <option value="weekly">Weekly</option>
+        <option value="biweekly" selected>Biweekly</option>
+        <option value="monthly">Monthly</option>
+        <option value="semimonthly">Semimonthly</option>
+      </select>
+    </label>
+
+    <button id="calculateBtn">Calculate</button>
+    <div id="output">...</div>
+  </div>
+</main>
+<footer>...same as homepage...</footer>
+<script src="/js/calculator-core.js"></script>
+<script>/* same calculatePaycheck JS as above */</script>
+</body>
+</html>

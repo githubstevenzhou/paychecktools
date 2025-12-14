@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Self Employed Tax Calculator – Paycheck Tools</title>
+<meta name="description" content="Estimate self employed tax and net income.">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+body{font-family:Arial;max-width:800px;margin:auto;padding:30px;}
+h1{color:#0a66c2;}
+label,input,button{display:block;margin:10px 0;}
+#result{font-weight:bold;margin-top:15px;}
+</style>
+</head>
+<body>
+
+<h1>Self Employed Tax Calculator</h1>
+
+<label>Annual Income (USD)
+<input type="number" id="income">
+</label>
+
+<label>Total Tax Rate (%)
+<input type="number" id="tax" value="35">
+</label>
+
+<button onclick="calc()">Calculate</button>
+<div id="result"></div>
+
+<script>
+function calc(){
+  const i=parseFloat(income.value);
+  const t=parseFloat(tax.value);
+  if(isNaN(i)||isNaN(t)){result.innerText='Invalid input';return;}
+  const net=i*(1-t/100);
+  result.innerText=`Estimated Tax: $${(i-net).toFixed(2)} | Net Income: $${net.toFixed(2)}`;
+}
+</script>
+
+<p><a href="/">← Back to Home</a></p>
+</body>
+</html>

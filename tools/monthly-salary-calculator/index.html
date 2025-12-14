@@ -2,32 +2,33 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8" />
-<title>Weekly Paycheck Calculator – Free Paycheck & Salary Calculator</title>
-<meta name="description" content="Calculate your weekly paycheck amounts. Supports gross, taxes, and net pay." />
+<title>Monthly Paycheck Calculator – Free Paycheck & Salary Calculator</title>
+<meta name="description" content="Calculate your monthly paycheck amounts. Supports gross, taxes, and net pay." />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<link rel="canonical" href="https://paychecktools.com/tools/paycheck-calculator/" />
+<link rel="canonical" href="https://paychecktools.com/tools/monthly-paycheck-calculator/" />
 
 <style>
-body { margin:0; font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto; background:#f5f7fa; color:#1f2937; }
-header { background:#2563eb; padding:28px 16px; text-align:center; }
-header a { color:#fff; text-decoration:none; }
-header h1 { margin:0; font-size:28px; }
-header p { margin-top:8px; font-size:16px; opacity:.95; }
-main { max-width:1100px; margin:0 auto; padding:32px 16px; }
-.calculator { background:#fff; padding:24px; border-radius:10px; box-shadow:0 4px 12px rgba(0,0,0,.05); max-width:600px; margin:0 auto 48px; }
-.calculator label { display:block; margin:12px 0; }
-.calculator input, .calculator select { padding:6px; width:100%; max-width:200px; margin-left:10px; }
-.calculator button { padding:10px 20px; margin-top:12px; background:#2563eb; color:#fff; border:none; cursor:pointer; border-radius:5px; }
-.calculator button:hover { background:#1e40af; }
-#output { margin-top:20px; padding:10px; background:#e3f2fd; border:1px solid #90caf9; display:none; border-radius:5px; }
-#output p { margin:6px 0; font-weight:500; }
-footer { background:#fff; border-top:1px solid #e5e7eb; padding:24px 16px; text-align:center; font-size:14px; color:#6b7280; }
-footer a { color:#2563eb; text-decoration:none; margin:0 8px; }
-a.back-home { display:inline-block; margin-bottom:20px; color:#2563eb; text-decoration:none; font-weight:600; }
+  body { margin:0; font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto; background:#f5f7fa; color:#1f2937; }
+  header { background:#2563eb; padding:28px 16px; text-align:center; }
+  header a { color:#fff; text-decoration:none; }
+  header h1 { margin:0; font-size:28px; }
+  header p { margin-top:8px; font-size:16px; opacity:.95; }
+  main { max-width:1100px; margin:0 auto; padding:32px 16px; }
+  .calculator { background:#fff; padding:24px; border-radius:10px; box-shadow:0 4px 12px rgba(0,0,0,.05); max-width:600px; margin:0 auto 48px; }
+  .calculator label { display:block; margin:12px 0; }
+  .calculator input, .calculator select { padding:6px; width:100%; max-width:200px; margin-left:10px; }
+  .calculator button { padding:10px 20px; margin-top:12px; background:#2563eb; color:#fff; border:none; cursor:pointer; border-radius:5px; }
+  .calculator button:hover { background:#1e40af; }
+  #output { margin-top:20px; padding:10px; background:#e3f2fd; border:1px solid #90caf9; display:none; border-radius:5px; }
+  #output p { margin:6px 0; font-weight:500; }
+  footer { background:#fff; border-top:1px solid #e5e7eb; padding:24px 16px; text-align:center; font-size:14px; color:#6b7280; }
+  footer a { color:#2563eb; text-decoration:none; margin:0 8px; }
+  a.back-home { display:inline-block; margin-bottom:20px; color:#2563eb; text-decoration:none; font-weight:600; }
 </style>
 </head>
 
 <body>
+
 <header>
   <a href="/">
     <h1>PaycheckTools</h1>
@@ -36,9 +37,11 @@ a.back-home { display:inline-block; margin-bottom:20px; color:#2563eb; text-deco
 </header>
 
 <main>
+
   <div class="calculator">
     <a class="back-home" href="/">← Return to Homepage</a>
-    <h2>Weekly Paycheck Calculator</h2>
+
+    <h2>Monthly Paycheck Calculator</h2>
 
     <label>Hourly Wage: <input id="wage" type="number" value="25"></label>
     <label>Hours Worked: <input id="hours" type="number" value="40"></label>
@@ -47,9 +50,9 @@ a.back-home { display:inline-block; margin-bottom:20px; color:#2563eb; text-deco
     <label>State Tax (%): <input id="taxState" type="number" value="5"></label>
     <label>Frequency:
       <select id="frequency">
-        <option value="weekly" selected>Weekly</option>
+        <option value="weekly">Weekly</option>
         <option value="biweekly">Biweekly</option>
-        <option value="monthly">Monthly</option>
+        <option value="monthly" selected>Monthly</option>
         <option value="semimonthly">Semimonthly</option>
       </select>
     </label>
@@ -62,6 +65,7 @@ a.back-home { display:inline-block; margin-bottom:20px; color:#2563eb; text-deco
       <p>Net: $<span id="net"></span></p>
     </div>
   </div>
+
 </main>
 
 <footer>
@@ -87,6 +91,7 @@ document.addEventListener('DOMContentLoaded', function() {
           state: Number(document.getElementById('taxState').value)
         }
       });
+
       document.getElementById('gross').innerText = result.grossPay.toFixed(2);
       document.getElementById('tax').innerText = result.breakdown.taxAmount.toFixed(2);
       document.getElementById('net').innerText = result.netPay.toFixed(2);

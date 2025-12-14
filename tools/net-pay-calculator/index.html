@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Net Income Calculator – Paycheck Tools</title>
+<meta name="description" content="Calculate your net income after tax.">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+body{font-family:Arial;max-width:800px;margin:auto;padding:30px;}
+h1{color:#0a66c2;}
+label,input,button{display:block;margin:10px 0;}
+#result{font-weight:bold;margin-top:15px;}
+</style>
+</head>
+<body>
+
+<h1>Net Income Calculator</h1>
+
+<label>Gross Income (USD)
+<input type="number" id="gross">
+</label>
+
+<label>Tax Rate (%)
+<input type="number" id="tax" value="20">
+</label>
+
+<button onclick="calc()">Calculate</button>
+<div id="result"></div>
+
+<script>
+function calc(){
+  const g=parseFloat(gross.value);
+  const t=parseFloat(tax.value);
+  if(isNaN(g)||isNaN(t)){result.innerText='Invalid input';return;}
+  result.innerText='Net Income: $'+(g*(1-t/100)).toFixed(2);
+}
+</script>
+
+<p><a href="/">← Back to Home</a></p>
+</body>
+</html>

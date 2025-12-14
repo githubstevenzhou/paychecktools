@@ -2,254 +2,84 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Paycheck Tools | Salary, Paycheck & Tax Calculators</title>
-
-  <meta name="description" content="Free paycheck and salary calculators to estimate take-home pay, income after tax, payroll costs, and more. Accurate tools for employees, freelancers, and employers." />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-
-  <!-- SEO -->
+  <title>PaycheckTools – Free Paycheck & Salary Calculators</title>
+  <meta name="description" content="Free paycheck, salary, and tax calculators. Estimate net pay, gross income, payroll taxes, and take-home salary instantly." />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link rel="canonical" href="https://paychecktools.com/" />
 
-  <!-- Basic Styling -->
   <style>
-    body {
-      margin: 0;
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
-      background: #f8fafc;
-      color: #1f2937;
-      line-height: 1.6;
-    }
-
-    header {
-      background: linear-gradient(135deg, #2563eb, #1e40af);
-      color: white;
-      padding: 60px 20px;
-      text-align: center;
-    }
-
-    header h1 {
-      margin: 0 0 12px;
-      font-size: 2.4rem;
-    }
-
-    header p {
-      font-size: 1.1rem;
-      max-width: 720px;
-      margin: 0 auto;
-      opacity: 0.95;
-    }
-
-    main {
-      max-width: 1100px;
-      margin: 0 auto;
-      padding: 40px 20px;
-    }
-
-    section {
-      margin-bottom: 60px;
-    }
-
-    section h2 {
-      font-size: 1.6rem;
-      margin-bottom: 8px;
-    }
-
-    section p.section-desc {
-      margin-top: 0;
-      margin-bottom: 24px;
-      color: #4b5563;
-    }
-
-    .tool-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-      gap: 20px;
-    }
-
-    .tool-card {
-      background: white;
-      border-radius: 10px;
-      padding: 20px;
-      text-decoration: none;
-      color: inherit;
-      box-shadow: 0 6px 20px rgba(0,0,0,0.06);
-      transition: transform 0.15s ease, box-shadow 0.15s ease;
-    }
-
-    .tool-card:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 10px 28px rgba(0,0,0,0.1);
-    }
-
-    .tool-card h3 {
-      margin-top: 0;
-      font-size: 1.1rem;
-      margin-bottom: 8px;
-    }
-
-    .tool-card p {
-      margin: 0;
-      font-size: 0.95rem;
-      color: #374151;
-    }
-
-    .view-all {
-      text-align: center;
-      margin-top: 40px;
-    }
-
-    .view-all a {
-      display: inline-block;
-      padding: 12px 26px;
-      background: #2563eb;
-      color: white;
-      text-decoration: none;
-      border-radius: 8px;
-      font-weight: 500;
-    }
-
-    footer {
-      background: #111827;
-      color: #d1d5db;
-      padding: 30px 20px;
-      text-align: center;
-      font-size: 0.9rem;
-    }
-
-    footer a {
-      color: #93c5fd;
-      text-decoration: none;
-      margin: 0 10px;
-    }
+    body { margin:0; font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto; background:#f5f7fa; color:#1f2937; }
+    header { background:#2563eb; padding:28px 16px; text-align:center; }
+    header a { color:#fff; text-decoration:none; }
+    header h1 { margin:0; font-size:28px; }
+    header p { margin-top:8px; font-size:16px; opacity:.95; }
+    main { max-width:1100px; margin:0 auto; padding:32px 16px; }
+    section { margin-bottom:48px; }
+    h2 { margin-bottom:16px; }
+    .tool-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:16px; }
+    .tool-card { background:#fff; padding:18px; border-radius:10px; text-decoration:none; color:#111827; box-shadow:0 4px 12px rgba(0,0,0,.05); }
+    .tool-card h3 { margin:0 0 6px; font-size:17px; }
+    .tool-card p { margin:0; font-size:14px; color:#4b5563; }
+    .view-all { display:inline-block; margin-top:16px; font-size:14px; color:#2563eb; text-decoration:none; font-weight:600; }
+    footer { background:#fff; border-top:1px solid #e5e7eb; padding:24px 16px; text-align:center; font-size:14px; color:#6b7280; }
+    footer a { color:#2563eb; text-decoration:none; margin:0 8px; }
   </style>
 </head>
 
 <body>
 
 <header>
-  <h1>Paycheck & Salary Calculator Tools</h1>
-  <p>
-    Free, easy-to-use paycheck, salary, and tax calculators to estimate your
-    take-home pay, payroll costs, and income breakdown — built for employees,
-    freelancers, and employers.
-  </p>
+  <a href="/">
+    <h1>PaycheckTools</h1>
+    <p>Free Paycheck, Salary & Tax Calculator Tools</p>
+  </a>
 </header>
 
 <main>
 
-  <!-- Section 1 -->
+  <!-- Popular -->
   <section>
     <h2>Most Popular Paycheck Tools</h2>
-    <p class="section-desc">The most commonly used paycheck calculators for everyday income estimation.</p>
-
     <div class="tool-grid">
-      <a class="tool-card" href="/tools/net-pay-calculator.html">
-        <h3>Net Pay Calculator</h3>
-        <p>Estimate your take-home pay after taxes and deductions.</p>
-      </a>
-
-      <a class="tool-card" href="/tools/gross-to-net-calculator.html">
-        <h3>Gross to Net Pay Calculator</h3>
-        <p>Convert gross salary into net income.</p>
-      </a>
-
-      <a class="tool-card" href="/tools/take-home-pay-calculator.html">
-        <h3>Take Home Pay Calculator</h3>
-        <p>Calculate how much money you actually receive.</p>
-      </a>
-
-      <a class="tool-card" href="/tools/hourly-to-salary-calculator.html">
-        <h3>Hourly to Salary Converter</h3>
-        <p>Convert hourly wages into annual salary.</p>
-      </a>
-
-      <a class="tool-card" href="/tools/biweekly-paycheck-calculator.html">
-        <h3>Biweekly Paycheck Calculator</h3>
-        <p>Estimate your biweekly paycheck amount.</p>
-      </a>
+      <a class="tool-card" href="/tools/net-pay-calculator/"><h3>Net Pay Calculator</h3><p>Estimate your take-home pay after taxes.</p></a>
+      <a class="tool-card" href="/tools/gross-to-net-calculator/"><h3>Gross to Net Calculator</h3><p>Convert gross salary to net income.</p></a>
+      <a class="tool-card" href="/tools/paycheck-calculator/"><h3>Paycheck Calculator</h3><p>Calculate paycheck amounts by pay period.</p></a>
+      <a class="tool-card" href="/tools/take-home-pay-calculator/"><h3>Take Home Pay Calculator</h3><p>See what you actually receive.</p></a>
     </div>
+    <a class="view-all" href="/tools/">View all tools →</a>
   </section>
 
-  <!-- Section 2 -->
+  <!-- Salary -->
   <section>
     <h2>Salary & Income Calculators</h2>
-    <p class="section-desc">Income tools designed for consistent salary and wage calculations.</p>
-
     <div class="tool-grid">
-      <a class="tool-card" href="/tools/annual-salary-calculator.html">
-        <h3>Annual Salary Calculator</h3>
-        <p>Calculate your yearly income.</p>
-      </a>
-
-      <a class="tool-card" href="/tools/monthly-salary-calculator.html">
-        <h3>Monthly Salary Calculator</h3>
-        <p>Break down income into monthly pay.</p>
-      </a>
-
-      <a class="tool-card" href="/tools/weekly-pay-calculator.html">
-        <h3>Weekly Pay Calculator</h3>
-        <p>Estimate your weekly earnings.</p>
-      </a>
-
-      <a class="tool-card" href="/tools/overtime-pay-calculator.html">
-        <h3>Overtime Pay Calculator</h3>
-        <p>Calculate extra earnings from overtime hours.</p>
-      </a>
-
-      <a class="tool-card" href="/tools/income-after-tax-calculator.html">
-        <h3>Income After Tax Calculator</h3>
-        <p>Find out how much income remains after taxes.</p>
-      </a>
+      <a class="tool-card" href="/tools/hourly-to-salary-calculator/"><h3>Hourly to Salary</h3><p>Convert hourly wages to annual salary.</p></a>
+      <a class="tool-card" href="/tools/salary-to-hourly-calculator/"><h3>Salary to Hourly</h3><p>Convert annual salary to hourly rate.</p></a>
+      <a class="tool-card" href="/tools/annual-income-calculator/"><h3>Annual Income</h3><p>Calculate total yearly income.</p></a>
+      <a class="tool-card" href="/tools/monthly-salary-calculator/"><h3>Monthly Salary</h3><p>Estimate monthly pay.</p></a>
     </div>
+    <a class="view-all" href="/tools/">View all salary tools →</a>
   </section>
 
-  <!-- Section 3 -->
+  <!-- Tax -->
   <section>
     <h2>Tax & Employer Tools</h2>
-    <p class="section-desc">Advanced calculators for employers, contractors, and tax planning.</p>
-
     <div class="tool-grid">
-      <a class="tool-card" href="/tools/payroll-tax-calculator.html">
-        <h3>Payroll Tax Calculator</h3>
-        <p>Estimate payroll tax obligations.</p>
-      </a>
-
-      <a class="tool-card" href="/tools/employer-payroll-cost-calculator.html">
-        <h3>Employer Payroll Cost Calculator</h3>
-        <p>Calculate the total cost of hiring an employee.</p>
-      </a>
-
-      <a class="tool-card" href="/tools/1099-vs-w2-calculator.html">
-        <h3>1099 vs W2 Income Calculator</h3>
-        <p>Compare contractor and employee income.</p>
-      </a>
-
-      <a class="tool-card" href="/tools/self-employed-tax-calculator.html">
-        <h3>Self-Employed Tax Calculator</h3>
-        <p>Estimate taxes for freelancers and self-employed workers.</p>
-      </a>
-
-      <a class="tool-card" href="/tools/salary-breakdown-calculator.html">
-        <h3>Salary Breakdown Calculator</h3>
-        <p>View detailed salary and deduction breakdowns.</p>
-      </a>
+      <a class="tool-card" href="/tools/payroll-tax-calculator/"><h3>Payroll Tax</h3><p>Estimate payroll tax deductions.</p></a>
+      <a class="tool-card" href="/tools/self-employment-tax-calculator/"><h3>Self-Employment Tax</h3><p>Calculate self-employment tax.</p></a>
+      <a class="tool-card" href="/tools/payroll-deduction-calculator/"><h3>Payroll Deduction</h3><p>Estimate paycheck deductions.</p></a>
+      <a class="tool-card" href="/tools/employer-cost-calculator/"><h3>Employer Cost</h3><p>Calculate total employer payroll cost.</p></a>
     </div>
+    <a class="view-all" href="/tools/">View all tax tools →</a>
   </section>
-
-  <div class="view-all">
-    <a href="/tools/index.html">View All Paycheck Tools</a>
-  </div>
 
 </main>
 
 <footer>
-  <p>
-    © 2025 PaycheckTools.com ·
-    <a href="/about.html">About</a> |
-    <a href="/privacy-policy.html">Privacy Policy</a> |
-    <a href="/terms.html">Terms of Service</a> |
-    <a href="/guides/gross-vs-net-income.html">Guides</a>
-  </p>
+  © 2025 PaycheckTools.com |
+  <a href="/about.html">About</a> |
+  <a href="/privacy-policy.html">Privacy</a> |
+  <a href="/terms.html">Terms</a>
 </footer>
 
 </body>
