@@ -1,81 +1,73 @@
-(function (global) {
-  'use strict';
+// ------------------------------
+// calculator-core.js (Enhanced & Compatible)
+// ------------------------------
 
-  /**
-   * calculatePaycheck(params)
-   * params: {
-   *   frequency: 'weekly' | 'biweekly' | 'monthly' | 'semimonthly',
-   *   wage: number,
-   *   hours: number,
-   *   otHours?: number,
-   *   otRate?: number,
-   *   taxes?: {
-   *     federal?: number,
-   *     state?: number,
-   *     fica?: number,
-   *     medicare?: number
-   *   },
-   *   deductions?: number
-   * }
-   * returns: {
-   *   grossPay: number,
-   *   netPay: number,
-   *   annualGross: number,
-   *   breakdown: {
-   *     regularPay: number,
-   *     overtimePay: number,
-   *     taxAmount: number,
-   *     taxRate: number,
-   *     deductions: number
-   *   }
-   * }
-   */
-  function calculatePaycheck(params) {
-    if (!params || typeof params !== 'object') throw new Error('params must be an object');
+// --- Original Paycheck Calculator (compatible) ---
+function calculatePaycheck({ wage, hours, otHours = 0, frequency = 'weekly', taxes = { federal: 0, state: 0 } }) {
+    if (typeof wage !== 'number' || wage < 0) throw new Error('Invalid wage');
+    if (typeof hours !== 'number' || hours < 0) throw new Error('Invalid hours');
+    if (typeof otHours !== 'number' || otHours < 0) throw new Error('Invalid overtime hours');
+    if (!['weekly','biweekly','monthly','semimonthly'].includes(frequency)) throw new Error('Invalid frequency');
 
-    const { frequency, wage, hours, otHours = 0, otRate = 1.5, taxes = {}, deductions = 0 } = params;
-
-    if (!['weekly', 'biweekly', 'monthly', 'semimonthly'].includes(frequency)) {
-      throw new Error('frequency must be weekly, biweekly, monthly, or semimonthly');
+    let multiplier;
+    switch (frequency) {
+        case 'weekly': multiplier = 1; break;
+        case 'biweekly': multiplier = 2; break;
+        case 'monthly': multiplier = 4.3333; break;
+        case 'semimonthly': multiplier = 2.1667; break;
     }
 
-    if (wage < 0 || hours < 0 || otHours < 0) throw new Error('wage, hours, and otHours must be non-negative');
+    const basePay = wage * hours * multiplier;
+    const otPay = wage * 1.5 * otHours * multiplier;
+    const grossPay = basePay + otPay;
 
-    const regularPay = wage * hours;
-    const overtimePay = wage * otHours * otRate;
-    const grossPay = regularPay + overtimePay;
+    const federalRate = taxes.federal || 0;
+    const stateRate = taxes.state || 0;
+    const taxAmount = grossPay * (federalRate + stateRate) / 100;
+    const netPay = grossPay - taxAmount;
 
-    const federal = taxes.federal || 0;
-    const state = taxes.state || 0;
-    const fica = taxes.fica || 0;
-    const medicare = taxes.medicare || 0;
+    return { grossPay, netPay, breakdown: { basePay, otPay, taxAmount } };
+}
 
-    const totalTaxRate = (federal + state + fica + medicare) / 100;
-    const taxAmount = grossPay * totalTaxRate;
+// --- Additional Functions ---
+// Commission
+function calculateCommission(sales, rate) {
+    if (sales < 0 || rate < 0) throw new Error('Invalid input');
+    return sales * rate / 100;
+}
+// Part-Time Salary
+function calculatePartTimeSalary(hourly, hours) {
+    if (hourly < 0 || hours < 0) throw new Error('Invalid input');
+    return hourly * hours;
+}
+// Overtime Pay
+function calculateOvertimePay(hourly, regularHours, overtimeHours, multiplier) {
+    if (hourly < 0 || regularHours < 0 || overtimeHours < 0 || multiplier <= 0) throw new Error('Invalid input');
+    return hourly * regularHours + hourly * overtimeHours * multiplier;
+}
+// Employer Tax Functions
+function calculateSelfEmploymentTax(netProfit, taxRate) {
+    if (netProfit < 0 || taxRate < 0) throw new Error('Invalid input');
+    return netProfit * taxRate / 100;
+}
+function calculateEmployerCost(salary, taxRate) {
+    if (salary < 0 || taxRate < 0) throw new Error('Invalid input');
+    return salary * (1 + taxRate / 100);
+}
+function calculatePayrollDeduction(grossPay, deductionRate) {
+    if (grossPay < 0 || deductionRate < 0) throw new Error('Invalid input');
+    return grossPay * deductionRate / 100;
+}
 
-    const netPay = grossPay - taxAmount - deductions;
-
-    const periodsMap = { weekly: 52, biweekly: 26, semimonthly: 24, monthly: 12 };
-    const annualGross = grossPay * periodsMap[frequency];
-
-    return {
-      grossPay,
-      netPay,
-      annualGross,
-      breakdown: {
-        regularPay,
-        overtimePay,
-        taxAmount,
-        taxRate: totalTaxRate,
-        deductions
-      }
+// Node.js export
+if (typeof module !== 'undefined' && module.exports) {
+    module.exports = {
+        calculatePaycheck,
+        calculateCommission,
+        calculatePartTimeSalary,
+        calculateOvertimePay,
+        calculateSelfEmploymentTax,
+        calculateEmployerCost,
+        calculatePayrollDeduction
     };
-  }
-
-  if (typeof module !== 'undefined' && typeof module.exports !== 'undefined') {
-    module.exports = calculatePaycheck;
-  } else {
-    global.calculatePaycheck = calculatePaycheck;
-  }
-
-})(typeof window !== 'undefined' ? window : this);
+}

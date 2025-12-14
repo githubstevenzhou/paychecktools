@@ -2,10 +2,10 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Paycheck Calculator – PaycheckTools</title>
-<meta name="description" content="Calculate your paycheck including gross pay, taxes, and net pay.">
+<title>Payroll Deduction Calculator – PaycheckTools</title>
+<meta name="description" content="Estimate paycheck deductions.">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="canonical" href="https://paychecktools.com/tools/paycheck-calculator/">
+<link rel="canonical" href="https://paychecktools.com/tools/payroll-deduction-calculator/">
 <style>
 body { margin:0; font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto; background:#f5f7fa; color:#1f2937; }
 header { background:#2563eb; padding:28px 16px; text-align:center; }
@@ -15,7 +15,7 @@ header p { margin-top:8px; font-size:16px; opacity:.95; }
 main { max-width:1100px; margin:0 auto; padding:32px 16px; }
 .calculator { background:#fff; padding:24px; border-radius:10px; box-shadow:0 4px 12px rgba(0,0,0,.05); max-width:600px; margin:0 auto 48px; }
 .calculator label { display:block; margin:12px 0; }
-.calculator input, .calculator select { padding:6px; width:100%; max-width:200px; margin-left:10px; }
+.calculator input { padding:6px; width:100%; max-width:200px; margin-left:10px; }
 .calculator button { padding:10px 20px; margin-top:12px; background:#2563eb; color:#fff; border:none; cursor:pointer; border-radius:5px; }
 .calculator button:hover { background:#1e40af; }
 #output { margin-top:20px; padding:10px; background:#e3f2fd; border:1px solid #90caf9; display:none; border-radius:5px; }
@@ -32,25 +32,12 @@ a.back-home { display:inline-block; margin-bottom:20px; color:#2563eb; text-deco
 <main>
   <div class="calculator">
     <a class="back-home" href="/index.html">← Return to Homepage</a>
-    <h2>Paycheck Calculator</h2>
-    <label>Hourly Wage: <input id="wage" type="number" value="25"></label>
-    <label>Hours Worked: <input id="hours" type="number" value="40"></label>
-    <label>Overtime Hours: <input id="otHours" type="number" value="0"></label>
-    <label>Federal Tax (%): <input id="taxFederal" type="number" value="12"></label>
-    <label>State Tax (%): <input id="taxState" type="number" value="5"></label>
-    <label>Frequency:
-      <select id="frequency">
-        <option value="weekly" selected>Weekly</option>
-        <option value="biweekly">Biweekly</option>
-        <option value="monthly">Monthly</option>
-        <option value="semimonthly">Semimonthly</option>
-      </select>
-    </label>
+    <h2>Payroll Deduction Calculator</h2>
+    <label>Gross Pay: <input id="gross" type="number" value="5000"></label>
+    <label>Deduction Rate (%): <input id="rate" type="number" value="10"></label>
     <button id="calculateBtn">Calculate</button>
     <div id="output">
-      <p>Gross: $<span id="gross"></span></p>
-      <p>Taxes: $<span id="tax"></span></p>
-      <p>Net: $<span id="net"></span></p>
+      <p>Deduction Amount: $<span id="deduction"></span></p>
     </div>
   </div>
 </main>
@@ -60,22 +47,13 @@ a.back-home { display:inline-block; margin-bottom:20px; color:#2563eb; text-deco
   <a href="/privacy-policy.html">Privacy</a> |
   <a href="/terms.html">Terms</a>
 </footer>
-<script src="/js/calculator-core.js"></script>
+<script src="/js/employer-tax.js"></script>
 <script>
 document.getElementById('calculateBtn').addEventListener('click', function() {
-  const result = calculatePaycheck({
-    wage: Number(document.getElementById('wage').value),
-    hours: Number(document.getElementById('hours').value),
-    otHours: Number(document.getElementById('otHours').value),
-    frequency: document.getElementById('frequency').value,
-    taxes: {
-      federal: Number(document.getElementById('taxFederal').value),
-      state: Number(document.getElementById('taxState').value)
-    }
-  });
-  document.getElementById('gross').innerText = result.grossPay.toFixed(2);
-  document.getElementById('tax').innerText = result.breakdown.taxAmount.toFixed(2);
-  document.getElementById('net').innerText = result.netPay.toFixed(2);
+  const gross = Number(document.getElementById('gross').value);
+  const rate = Number(document.getElementById('rate').value);
+  const deduction = calculatePayrollDeduction(gross, rate);
+  document.getElementById('deduction').innerText = deduction.toFixed(2);
   document.getElementById('output').style.display = 'block';
 });
 </script>

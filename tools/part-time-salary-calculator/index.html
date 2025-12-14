@@ -2,41 +2,60 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Part Time Salary Calculator – Paycheck Tools</title>
-<meta http-equiv="refresh" content="0;url=https:/paychecktools.com/paycheck-calculator/" />
-<meta name="description" content="Estimate part time salary based on hourly rate and hours worked.">
+<title>Part-Time Salary Calculator – PaycheckTools</title>
+<meta name="description" content="Calculate part-time salary based on hourly wage and hours worked.">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="canonical" href="https://paychecktools.com/tools/part-time-salary-calculator/">
 <style>
-body{font-family:Arial;max-width:800px;margin:auto;padding:30px;}
-h1{color:#0a66c2;}
-label,input,button{display:block;margin:10px 0;}
-#result{font-weight:bold;margin-top:15px;}
+body { margin:0; font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto; background:#f5f7fa; color:#1f2937; }
+header { background:#2563eb; padding:28px 16px; text-align:center; }
+header a { color:#fff; text-decoration:none; }
+header h1 { margin:0; font-size:28px; }
+header p { margin-top:8px; font-size:16px; opacity:.95; }
+main { max-width:1100px; margin:0 auto; padding:32px 16px; }
+.calculator { background:#fff; padding:24px; border-radius:10px; box-shadow:0 4px 12px rgba(0,0,0,.05); max-width:600px; margin:0 auto 48px; }
+.calculator label { display:block; margin:12px 0; }
+.calculator input { padding:6px; width:100%; max-width:200px; margin-left:10px; }
+.calculator button { padding:10px 20px; margin-top:12px; background:#2563eb; color:#fff; border:none; cursor:pointer; border-radius:5px; }
+.calculator button:hover { background:#1e40af; }
+#output { margin-top:20px; padding:10px; background:#e3f2fd; border:1px solid #90caf9; display:none; border-radius:5px; }
+#output p { margin:6px 0; font-weight:500; }
+footer { background:#fff; border-top:1px solid #e5e7eb; padding:24px 16px; text-align:center; font-size:14px; color:#6b7280; }
+footer a { color:#2563eb; text-decoration:none; margin:0 8px; }
+a.back-home { display:inline-block; margin-bottom:20px; color:#2563eb; text-decoration:none; font-weight:600; }
 </style>
 </head>
 <body>
-
-<h1>Part Time Salary Calculator</h1>
-
-<label>Hourly Rate (USD)
-<input type="number" id="rate">
-</label>
-
-<label>Hours per Week
-<input type="number" id="hours">
-</label>
-
-<button onclick="calc()">Calculate</button>
-<div id="result"></div>
-
+<header>
+  <a href="/index.html"><h1>PaycheckTools</h1><p>Free Paycheck, Salary & Tax Calculator Tools</p></a>
+</header>
+<main>
+  <div class="calculator">
+    <a class="back-home" href="/index.html">← Return to Homepage</a>
+    <h2>Part-Time Salary Calculator</h2>
+    <label>Hourly Wage: <input id="hourly" type="number" value="20"></label>
+    <label>Hours Worked: <input id="hours" type="number" value="25"></label>
+    <button id="calculateBtn">Calculate</button>
+    <div id="output">
+      <p>Part-Time Salary: $<span id="salary"></span></p>
+    </div>
+  </div>
+</main>
+<footer>
+  © 2025 PaycheckTools.com |
+  <a href="/about.html">About</a> |
+  <a href="/privacy-policy.html">Privacy</a> |
+  <a href="/terms.html">Terms</a>
+</footer>
+<script src="/js/calculator-core.js"></script>
 <script>
-function calc(){
-  const r=parseFloat(rate.value);
-  const h=parseFloat(hours.value);
-  if(isNaN(r)||isNaN(h)){result.innerText='Invalid input';return;}
-  result.innerText='Estimated Annual Income: $'+(r*h*52).toFixed(2);
-}
+document.getElementById('calculateBtn').addEventListener('click', function() {
+  const hourly = Number(document.getElementById('hourly').value);
+  const hours = Number(document.getElementById('hours').value);
+  const salary = calculatePartTimeSalary(hourly, hours);
+  document.getElementById('salary').innerText = salary.toFixed(2);
+  document.getElementById('output').style.display = 'block';
+});
 </script>
-
-<p><a href="/">← Back to Home</a></p>
 </body>
 </html>

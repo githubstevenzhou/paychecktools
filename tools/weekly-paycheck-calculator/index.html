@@ -1,12 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<title>Weekly Paycheck Calculator – Free Paycheck & Salary Calculator</title>
-<meta name="description" content="Calculate your weekly paycheck amounts. Supports gross, taxes, and net pay." />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<link rel="canonical" href="https://paychecktools.com/tools/paycheck-calculator/" />
-
+<meta charset="UTF-8">
+<title>Weekly Paycheck Calculator – PaycheckTools</title>
+<meta name="description" content="Calculate your weekly paycheck including gross pay, taxes, and net pay.">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="canonical" href="https://paychecktools.com/tools/weekly-paycheck-calculator/">
 <style>
 body { margin:0; font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto; background:#f5f7fa; color:#1f2937; }
 header { background:#2563eb; padding:28px 16px; text-align:center; }
@@ -26,36 +25,20 @@ footer a { color:#2563eb; text-decoration:none; margin:0 8px; }
 a.back-home { display:inline-block; margin-bottom:20px; color:#2563eb; text-decoration:none; font-weight:600; }
 </style>
 </head>
-
 <body>
 <header>
-  <a href="/">
-    <h1>PaycheckTools</h1>
-    <p>Free Paycheck, Salary & Tax Calculator Tools</p>
-  </a>
+  <a href="/index.html"><h1>PaycheckTools</h1><p>Free Paycheck, Salary & Tax Calculator Tools</p></a>
 </header>
-
 <main>
   <div class="calculator">
-    <a class="back-home" href="/">← Return to Homepage</a>
+    <a class="back-home" href="/index.html">← Return to Homepage</a>
     <h2>Weekly Paycheck Calculator</h2>
-
     <label>Hourly Wage: <input id="wage" type="number" value="25"></label>
     <label>Hours Worked: <input id="hours" type="number" value="40"></label>
     <label>Overtime Hours: <input id="otHours" type="number" value="0"></label>
     <label>Federal Tax (%): <input id="taxFederal" type="number" value="12"></label>
     <label>State Tax (%): <input id="taxState" type="number" value="5"></label>
-    <label>Frequency:
-      <select id="frequency">
-        <option value="weekly" selected>Weekly</option>
-        <option value="biweekly">Biweekly</option>
-        <option value="monthly">Monthly</option>
-        <option value="semimonthly">Semimonthly</option>
-      </select>
-    </label>
-
     <button id="calculateBtn">Calculate</button>
-
     <div id="output">
       <p>Gross: $<span id="gross"></span></p>
       <p>Taxes: $<span id="tax"></span></p>
@@ -63,40 +46,30 @@ a.back-home { display:inline-block; margin-bottom:20px; color:#2563eb; text-deco
     </div>
   </div>
 </main>
-
 <footer>
   © 2025 PaycheckTools.com |
   <a href="/about.html">About</a> |
   <a href="/privacy-policy.html">Privacy</a> |
   <a href="/terms.html">Terms</a>
 </footer>
-
 <script src="/js/calculator-core.js"></script>
 <script>
-document.addEventListener('DOMContentLoaded', function() {
-  const btn = document.getElementById('calculateBtn');
-  btn.addEventListener('click', function() {
-    try {
-      const result = calculatePaycheck({
-        frequency: document.getElementById('frequency').value,
-        wage: Number(document.getElementById('wage').value),
-        hours: Number(document.getElementById('hours').value),
-        otHours: Number(document.getElementById('otHours').value),
-        taxes: {
-          federal: Number(document.getElementById('taxFederal').value),
-          state: Number(document.getElementById('taxState').value)
-        }
-      });
-      document.getElementById('gross').innerText = result.grossPay.toFixed(2);
-      document.getElementById('tax').innerText = result.breakdown.taxAmount.toFixed(2);
-      document.getElementById('net').innerText = result.netPay.toFixed(2);
-      document.getElementById('output').style.display = 'block';
-    } catch(e) {
-      alert(e.message);
+document.getElementById('calculateBtn').addEventListener('click', function() {
+  const result = calculatePaycheck({
+    wage: Number(document.getElementById('wage').value),
+    hours: Number(document.getElementById('hours').value),
+    otHours: Number(document.getElementById('otHours').value),
+    frequency: 'weekly',
+    taxes: {
+      federal: Number(document.getElementById('taxFederal').value),
+      state: Number(document.getElementById('taxState').value)
     }
   });
+  document.getElementById('gross').innerText = result.grossPay.toFixed(2);
+  document.getElementById('tax').innerText = result.breakdown.taxAmount.toFixed(2);
+  document.getElementById('net').innerText = result.netPay.toFixed(2);
+  document.getElementById('output').style.display = 'block';
 });
 </script>
-
 </body>
 </html>
