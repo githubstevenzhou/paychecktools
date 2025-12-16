@@ -1,31 +1,83 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>Privacy Policy – Paycheck Tools</title>
-<meta name="description" content="Privacy policy for PaycheckTools.com.">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<style>
-body{font-family:Arial;max-width:900px;margin:auto;padding:30px;line-height:1.7;}
-h1,h2{color:#0a66c2;}
-</style>
-</head>
-<body>
+  <script>
+    fetch('/templates/head.html')
+      .then(r => r.text())
+      .then(html => document.head.insertAdjacentHTML('beforeend', html));
+  </script>
 
+  <meta name="description" content="Learn more about PaycheckTools.">
+  <title>Privacy Policy – PaycheckTools</title>
+    <link rel="canonical" href="https://paychecktools.com/privacy-policy.html">
+</head>
+
+<body>
+<div id="site-header"></div>
+  <script>
+    fetch('/templates/header.html')
+      .then(r => r.text())
+      .then(html => {
+        document.getElementById('site-header').innerHTML = html;
+      });
+  </script>
+
+<main>
 <h1>Privacy Policy</h1>
 
-<p>PaycheckTools.com respects your privacy. We do not collect personal information unless voluntarily provided.</p>
+<p>
+At PaycheckTools, we respect your privacy.
+This Privacy Policy explains how information is collected and used when you visit our website.
+</p>
 
-<h2>Cookies</h2>
-<p>We may use cookies and third-party advertising services such as Google AdSense.</p>
+<h2>Information We Collect</h2>
 
-<h2>Third-Party Ads</h2>
-<p>Google may use cookies to serve ads based on users’ visits to this and other websites.</p>
+<p>
+PaycheckTools does not require users to create accounts or submit personal information to use our calculators.
+Any data entered into calculators is processed locally in your browser and is not stored on our servers.
+</p>
+
+<h2>Cookies and Advertising</h2>
+
+<p>
+We may use third-party advertising services such as Google AdSense.
+These services may use cookies or similar technologies to display relevant advertisements.
+</p>
+
+<p>
+Google may use cookies to serve ads based on your visits to this and other websites.
+You can learn more about how Google uses data from sites that use its services by visiting Google's advertising policies.
+</p>
+
+<h2>Third-Party Links</h2>
+
+<p>
+Our website may contain links to external websites.
+We are not responsible for the content or privacy practices of those sites.
+</p>
 
 <h2>Consent</h2>
-<p>By using this site, you consent to this privacy policy.</p>
 
-<p><a href="/">← Back to Home</a></p>
+<p>
+By using PaycheckTools, you consent to this Privacy Policy.
+</p>
+
+<h2>Updates</h2>
+
+<p>
+This Privacy Policy may be updated from time to time.
+Any changes will be posted on this page.
+</p>
+</main>
+<!-- Footer -->
+  <div id="site-footer"></div>
+  <script>
+    fetch('/templates/footer.html')
+      .then(r => r.text())
+      .then(html => {
+        document.getElementById('site-footer').innerHTML = html;
+      });
+  </script>
 
 </body>
 </html>

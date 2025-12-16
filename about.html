@@ -1,26 +1,70 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>About Us – Paycheck Tools</title>
-<meta name="description" content="Learn more about PaycheckTools.com.">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<style>
-body{font-family:Arial;max-width:900px;margin:auto;padding:30px;line-height:1.7;}
-h1{color:#0a66c2;}
-</style>
+  <script>
+    fetch('/templates/head.html')
+      .then(r => r.text())
+      .then(html => document.head.insertAdjacentHTML('beforeend', html));
+  </script>
+
+  <meta name="description" content="Learn more about PaycheckTools.">
+  <title>About Us – PaycheckTools</title>
+  <link rel="canonical" href="https://paychecktools.com/about.html">
 </head>
 <body>
+<!-- Header -->
+  <div id="site-header"></div>
+  <script>
+    fetch('/templates/header.html')
+      .then(r => r.text())
+      .then(html => {
+        document.getElementById('site-header').innerHTML = html;
+      });
+  </script>
+<main>
+<h1>About PaycheckTools</h1>
 
-<h1>About Paycheck Tools</h1>
+<p>
+PaycheckTools is a free online platform designed to help employees, freelancers, and independent contractors better understand their income.
+We provide simple and practical calculators for paycheck, salary, tax, commission, and related earnings scenarios.
+</p>
 
-<p>PaycheckTools.com provides free, easy-to-use calculators to help individuals understand their income, salary, and taxes.</p>
+<p>
+Our goal is to make income calculations easier and more transparent.
+Many people receive their paychecks without fully understanding how taxes, deductions, or commissions affect their final take-home pay.
+PaycheckTools helps bridge that gap by offering easy-to-use tools with clear results.
+</p>
 
-<p>Our mission is to make paycheck calculations simple, transparent, and accessible for everyone.</p>
+<h2>Who We Serve</h2>
 
-<p>All tools are provided for informational purposes only and should not be considered financial advice.</p>
+<ul>
+  <li>Employees who want to estimate their take-home pay</li>
+  <li>Freelancers and contractors calculating project income</li>
+  <li>Sales professionals estimating commissions</li>
+  <li>Anyone who wants a quick income calculation without complex spreadsheets</li>
+</ul>
 
-<p><a href="/">← Back to Home</a></p>
+<h2>Disclaimer</h2>
+
+<p>
+PaycheckTools provides estimates for informational purposes only.
+We do not provide financial, tax, or legal advice.
+Actual results may vary based on individual circumstances and local regulations.
+</p>
+
+<p>
+If you have questions or feedback, please feel free to contact us.
+</p>
+</main>
+<!-- Footer -->
+  <div id="site-footer"></div>
+  <script>
+    fetch('/templates/footer.html')
+      .then(r => r.text())
+      .then(html => {
+        document.getElementById('site-footer').innerHTML = html;
+      });
+  </script>
 
 </body>
 </html>

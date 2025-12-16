@@ -1,0 +1,42 @@
+section {
+  margin-bottom: 48px;
+}
+
+h2 {
+  margin-bottom: 16px;
+}
+
+.tool-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 16px;
+}
+
+.tool-card {
+  background: #ffffff;
+  padding: 18px;
+  border-radius: 10px;
+  text-decoration: none;
+  color: #111827;
+  box-shadow: 0 4px 12px rgba(0,0,0,.05);
+}
+
+.tool-card h3 {
+  margin: 0 0 6px;
+  font-size: 17px;
+}
+
+.tool-card p {
+  margin: 0;
+  font-size: 14px;
+  color: #4b5563;
+}
+
+.view-all {
+  display: inline-block;
+  margin-top: 16px;
+  font-size: 14px;
+  color: #2563eb;
+  text-decoration: none;
+  font-weight: 600;
+}

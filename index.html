@@ -1,86 +1,81 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <title>PaycheckTools – Free Paycheck & Salary Calculators</title>
-  <meta name="description" content="Free paycheck, salary, and tax calculators. Estimate net pay, gross income, payroll taxes, and take-home salary instantly." />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="canonical" href="https://paychecktools.com/" />
+  <!-- Global head -->
+  <script>
+    fetch('/templates/head.html')
+      .then(r => r.text())
+      .then(html => document.head.insertAdjacentHTML('beforeend', html));
+  </script>
 
-  <style>
-    body { margin:0; font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto; background:#f5f7fa; color:#1f2937; }
-    header { background:#2563eb; padding:28px 16px; text-align:center; }
-    header a { color:#fff; text-decoration:none; }
-    header h1 { margin:0; font-size:28px; }
-    header p { margin-top:8px; font-size:16px; opacity:.95; }
-    main { max-width:1100px; margin:0 auto; padding:32px 16px; }
-    section { margin-bottom:48px; }
-    h2 { margin-bottom:16px; }
-    .tool-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:16px; }
-    .tool-card { background:#fff; padding:18px; border-radius:10px; text-decoration:none; color:#111827; box-shadow:0 4px 12px rgba(0,0,0,.05); }
-    .tool-card h3 { margin:0 0 6px; font-size:17px; }
-    .tool-card p { margin:0; font-size:14px; color:#4b5563; }
-    .view-all { display:inline-block; margin-top:16px; font-size:14px; color:#2563eb; text-decoration:none; font-weight:600; }
-    footer { background:#fff; border-top:1px solid #e5e7eb; padding:24px 16px; text-align:center; font-size:14px; color:#6b7280; }
-    footer a { color:#2563eb; text-decoration:none; margin:0 8px; }
-  </style>
+  <title>PaycheckTools – Free Paycheck & Salary Calculators</title>
+  <meta name="description" content="Free paycheck, salary, and tax calculators. Estimate net pay, gross income, payroll taxes, and take-home salary instantly.">
+
+  <!-- Home page specific CSS -->
+  <link rel="stylesheet" href="/css/home.css">
 </head>
 
 <body>
 
-<header>
-  <a href="/">
-    <h1>PaycheckTools</h1>
-    <p>Free Paycheck, Salary & Tax Calculator Tools</p>
-  </a>
-</header>
+  <!-- Header -->
+  <div id="site-header"></div>
+  <script>
+    fetch('/templates/header.html')
+      .then(r => r.text())
+      .then(html => {
+        document.getElementById('site-header').innerHTML = html;
+      });
+  </script>
 
-<main>
+  <main>
 
-  <!-- Popular -->
-  <section>
-    <h2>Most Popular Paycheck Tools</h2>
-    <div class="tool-grid">
-      <a class="tool-card" href="/tools/net-pay-calculator/"><h3>Net Pay Calculator</h3><p>Estimate your take-home pay after taxes.</p></a>
-      <a class="tool-card" href="/tools/gross-to-net-calculator/"><h3>Gross to Net Calculator</h3><p>Convert gross salary to net income.</p></a>
-      <a class="tool-card" href="/tools/paycheck-calculator/"><h3>Paycheck Calculator</h3><p>Calculate paycheck amounts by pay period.</p></a>
-      <a class="tool-card" href="/tools/take-home-pay-calculator/"><h3>Take Home Pay Calculator</h3><p>See what you actually receive.</p></a>
-    </div>
-    <a class="view-all" href="/tools/">View all tools →</a>
-  </section>
+    <!-- Popular -->
+    <section>
+      <h2>Most Popular Paycheck Tools</h2>
+      <div class="tool-grid">
+        <a class="tool-card" href="/tools/net-pay-calculator/"><h3>Net Pay Calculator</h3><p>Estimate your take-home pay after taxes.</p></a>
+        <a class="tool-card" href="/tools/gross-to-net-calculator/"><h3>Gross to Net Calculator</h3><p>Convert gross salary to net income.</p></a>
+        <a class="tool-card" href="/tools/paycheck-calculator/"><h3>Paycheck Calculator</h3><p>Calculate paycheck amounts by pay period.</p></a>
+        <a class="tool-card" href="/tools/take-home-pay-calculator/"><h3>Take Home Pay Calculator</h3><p>See what you actually receive.</p></a>
+      </div>
+      <a class="view-all" href="/tools/">View all tools →</a>
+    </section>
 
-  <!-- Salary -->
-  <section>
-    <h2>Salary & Income Calculators</h2>
-    <div class="tool-grid">
-      <a class="tool-card" href="/tools/hourly-to-salary-calculator/"><h3>Hourly to Salary</h3><p>Convert hourly wages to annual salary.</p></a>
-      <a class="tool-card" href="/tools/salary-to-hourly-calculator/"><h3>Salary to Hourly</h3><p>Convert annual salary to hourly rate.</p></a>
-      <a class="tool-card" href="/tools/annual-income-calculator/"><h3>Annual Income</h3><p>Calculate total yearly income.</p></a>
-      <a class="tool-card" href="/tools/monthly-salary-calculator/"><h3>Monthly Salary</h3><p>Estimate monthly pay.</p></a>
-    </div>
-    <a class="view-all" href="/tools/">View all salary tools →</a>
-  </section>
+    <!-- Salary -->
+    <section>
+      <h2>Salary & Income Calculators</h2>
+      <div class="tool-grid">
+        <a class="tool-card" href="/tools/hourly-to-salary-calculator/"><h3>Hourly to Salary</h3><p>Convert hourly wages to annual salary.</p></a>
+        <a class="tool-card" href="/tools/salary-to-hourly-calculator/"><h3>Salary to Hourly</h3><p>Convert annual salary to hourly rate.</p></a>
+        <a class="tool-card" href="/tools/annual-income-calculator/"><h3>Annual Income</h3><p>Calculate total yearly income.</p></a>
+        <a class="tool-card" href="/tools/monthly-salary-calculator/"><h3>Monthly Salary</h3><p>Estimate monthly pay.</p></a>
+      </div>
+      <a class="view-all" href="/tools/">View all salary tools →</a>
+    </section>
 
-  <!-- Tax -->
-  <section>
-    <h2>Tax & Employer Tools</h2>
-    <div class="tool-grid">
-      <a class="tool-card" href="/tools/payroll-tax-calculator/"><h3>Payroll Tax</h3><p>Estimate payroll tax deductions.</p></a>
-      <a class="tool-card" href="/tools/self-employment-tax-calculator/"><h3>Self-Employment Tax</h3><p>Calculate self-employment tax.</p></a>
-      <a class="tool-card" href="/tools/payroll-deduction-calculator/"><h3>Payroll Deduction</h3><p>Estimate paycheck deductions.</p></a>
-      <a class="tool-card" href="/tools/employer-cost-calculator/"><h3>Employer Cost</h3><p>Calculate total employer payroll cost.</p></a>
-    </div>
-    <a class="view-all" href="/tools/">View all tax tools →</a>
-  </section>
+    <!-- Tax -->
+    <section>
+      <h2>Tax & Employer Tools</h2>
+      <div class="tool-grid">
+        <a class="tool-card" href="/tools/payroll-tax-calculator/"><h3>Payroll Tax</h3><p>Estimate payroll tax deductions.</p></a>
+        <a class="tool-card" href="/tools/self-employment-tax-calculator/"><h3>Self-Employment Tax</h3><p>Calculate self-employment tax.</p></a>
+        <a class="tool-card" href="/tools/payroll-deduction-calculator/"><h3>Payroll Deduction</h3><p>Estimate paycheck deductions.</p></a>
+        <a class="tool-card" href="/tools/employer-cost-calculator/"><h3>Employer Cost</h3><p>Calculate total employer payroll cost.</p></a>
+      </div>
+      <a class="view-all" href="/tools/">View all tax tools →</a>
+    </section>
 
-</main>
+  </main>
 
-<footer>
-  © 2025 PaycheckTools.com |
-  <a href="/about.html">About</a> |
-  <a href="/privacy-policy.html">Privacy</a> |
-  <a href="/terms.html">Terms</a>
-</footer>
+  <!-- Footer -->
+  <div id="site-footer"></div>
+  <script>
+    fetch('/templates/footer.html')
+      .then(r => r.text())
+      .then(html => {
+        document.getElementById('site-footer').innerHTML = html;
+      });
+  </script>
 
 </body>
 </html>

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <script>
+    fetch('/templates/head.html')
+      .then(r => r.text())
+      .then(html => document.head.insertAdjacentHTML('beforeend', html));
+  </script>
+
+  <meta name="description" content="Contact PaycheckTools for questions, feedback, or suggestions.">
+  <title>Contact Us – PaycheckTools</title>
+  <link rel="canonical" href="https://paychecktools.com/contact.html">
+</head>
+<body>
+
+  <!-- Header -->
+  <div id="site-header"></div>
+  <script>
+    fetch('/templates/header.html')
+      .then(r => r.text())
+      .then(html => {
+        document.getElementById('site-header').innerHTML = html;
+      });
+  </script>
+
+  <main>
+    <h1>Contact Us</h1>
+
+    <p>
+      We welcome your questions, feedback, and suggestions.
+      If you encounter any issues while using our calculators or have ideas for improvement, please let us know.
+    </p>
+
+    <h2>Email</h2>
+
+    <p>
+      You can reach us at:<br>
+      <strong>zhouqiext@gmail.com</strong>
+    </p>
+
+    <p>
+      We aim to respond to all inquiries within a reasonable timeframe.
+    </p>
+  </main>
+
+  <!-- Footer -->
+  <div id="site-footer"></div>
+  <script>
+    fetch('/templates/footer.html')
+      .then(r => r.text())
+      .then(html => {
+        document.getElementById('site-footer').innerHTML = html;
+      });
+  </script>
+
+</body>
+</html>

@@ -1,31 +1,69 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>Terms of Use – Paycheck Tools</title>
-<meta name="description" content="Terms of use for PaycheckTools.com.">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<style>
-body{font-family:Arial;max-width:900px;margin:auto;padding:30px;line-height:1.7;}
-h1,h2{color:#0a66c2;}
-</style>
+  <script>
+    fetch('/templates/head.html')
+      .then(r => r.text())
+      .then(html => document.head.insertAdjacentHTML('beforeend', html));
+  </script>
+
+  <meta name="description" content="Terms of Service for using PaycheckTools calculators and website.">
+  <title>Terms of Service – PaycheckTools</title>
+  <link rel="canonical" href="https://paychecktools.com/terms.html">
 </head>
 <body>
 
-<h1>Terms of Use</h1>
+  <!-- Header -->
+  <div id="site-header"></div>
+  <script>
+    fetch('/templates/header.html')
+      .then(r => r.text())
+      .then(html => {
+        document.getElementById('site-header').innerHTML = html;
+      });
+  </script>
 
-<p>By using PaycheckTools.com, you agree to the following terms.</p>
+  <main>
+    <h1>Terms of Service</h1>
 
-<h2>No Financial Advice</h2>
-<p>All calculators and content are provided for informational purposes only.</p>
+    <p>
+      By accessing or using PaycheckTools, you agree to be bound by these Terms of Service.
+      If you do not agree with these terms, please do not use the website.
+    </p>
 
-<h2>Limitation of Liability</h2>
-<p>We are not responsible for any decisions made based on information from this site.</p>
+    <h2>Use of the Website</h2>
+    <p>
+      PaycheckTools provides free calculators for informational and educational purposes only.
+      The results generated are estimates and should not be relied upon as financial, tax, or legal advice.
+    </p>
 
-<h2>Changes</h2>
-<p>We reserve the right to update these terms at any time.</p>
+    <h2>No Guarantees</h2>
+    <p>
+      We make no guarantees regarding the accuracy, completeness, or reliability of the calculations.
+      Actual income, taxes, and deductions may vary.
+    </p>
 
-<p><a href="/">← Back to Home</a></p>
+    <h2>Limitation of Liability</h2>
+    <p>
+      PaycheckTools shall not be liable for any losses or damages arising from the use of this website or reliance on its content.
+    </p>
+
+    <h2>Changes to These Terms</h2>
+    <p>
+      We reserve the right to update or modify these Terms of Service at any time.
+      Continued use of the website constitutes acceptance of the updated terms.
+    </p>
+  </main>
+
+  <!-- Footer -->
+  <div id="site-footer"></div>
+  <script>
+    fetch('/templates/footer.html')
+      .then(r => r.text())
+      .then(html => {
+        document.getElementById('site-footer').innerHTML = html;
+      });
+  </script>
 
 </body>
 </html>

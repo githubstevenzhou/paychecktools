@@ -1,6 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
+<head>
+  <script>
+    fetch('/templates/head.html')
+      .then(r => r.text())
+      .then(html => document.head.insertAdjacentHTML('beforeend', html));
+  </script>
+
 <meta charset="UTF-8">
 <title>Gross vs Net Income – What’s the Difference?</title>
 <meta name="description" content="Learn the difference between gross income and net income and how they affect your paycheck.">
@@ -19,6 +27,16 @@ a{color:#0a66c2;text-decoration:none;}
 </style>
 </head>
 <body>
+
+<!-- Header -->
+  <div id="site-header"></div>
+  <script>
+    fetch('/templates/header.html')
+      .then(r => r.text())
+      .then(html => {
+        document.getElementById('site-header').innerHTML = html;
+      });
+  </script>
 
 <h1>Gross vs Net Income: What’s the Difference?</h1>
 
@@ -43,6 +61,16 @@ to estimate your take-home pay.
 </p>
 
 <p><a href="/">← Back to Home</a></p>
+
+<!-- Footer -->
+  <div id="site-footer"></div>
+  <script>
+    fetch('/templates/footer.html')
+      .then(r => r.text())
+      .then(html => {
+        document.getElementById('site-footer').innerHTML = html;
+      });
+  </script>
 
 </body>
 </html>
