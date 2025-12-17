@@ -24,7 +24,7 @@
     box.querySelectorAll("button[data-vote]").forEach(btn => btn.classList.remove("active"));
     box.querySelectorAll("input[name='no-reason']").forEach(r => r.checked = false);
 
-    loadStats(); // 显示总票数
+    loadStats(); // 显示当前票数
   });
 
   // Yes / No 按钮点击逻辑
@@ -41,8 +41,7 @@
         status.textContent = "Submitting...";
         try {
           await submitVote({ vote: "yes" });
-          status.textContent = "Thanks! Feedback submitted.";
-          await loadStats();
+          await updateStatusAfterSubmit();
           finalizeFeedback(); // 禁用按钮，防止再次提交
         } catch {
           status.textContent = "Failed to submit feedback. Please try again.";
@@ -69,9 +68,8 @@
     status.textContent = "Submitting...";
     try {
       await submitVote({ vote: "no", reason: selectedReason });
-      status.textContent = "Thanks! Feedback submitted.";
-      await loadStats();
-      finalizeFeedback(); // 禁用按钮
+      await updateStatusAfterSubmit();
+      finalizeFeedback();
     } catch {
       status.textContent = "Failed to submit feedback. Please try again.";
     }
@@ -88,7 +86,7 @@
     if (!data.success) throw new Error();
   }
 
-  // 拉取总票数
+  // 拉取最新票数
   async function loadStats() {
     try {
       const res = await fetch("https://paychecktools-feedback.zhouqiext.workers.dev", {
@@ -98,12 +96,31 @@
       });
       const data = await res.json();
       if (data.success) {
-        status.textContent += ` Current feedback: Yes: ${data.yes} | No: ${data.no}`;
+        status.textContent = `Current feedback: Yes: ${data.yes} | No: ${data.no}`;
       }
     } catch {}
   }
 
-  // 提交成功后禁用所有按钮，防止重复提交
+  // 提交成功后更新 status 文本
+  async function updateStatusAfterSubmit() {
+    try {
+      const res = await fetch("https://paychecktools-feedback.zhouqiext.workers.dev", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ page, vote: "none" })
+      });
+      const data = await res.json();
+      if (data.success) {
+        status.textContent = `Thanks! Feedback submitted. Current feedback: Yes: ${data.yes} | No: ${data.no}`;
+      } else {
+        status.textContent = "Thanks! Feedback submitted.";
+      }
+    } catch {
+      status.textContent = "Thanks! Feedback submitted.";
+    }
+  }
+
+  // 禁用所有按钮，防止再次提交
   function finalizeFeedback() {
     hasSubmitted = true;
     selectedVote = null;
