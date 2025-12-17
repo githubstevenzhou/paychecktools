@@ -18,65 +18,45 @@
     selectedVote = null;
     selectedReason = null;
 
-    // 清除按钮高亮
     box.querySelectorAll("button[data-vote]").forEach(btn => btn.classList.remove("active"));
     box.querySelectorAll("input[name='no-reason']").forEach(r => r.checked = false);
 
-    loadStats(); // 显示总票数
+    loadStats(); // 显示当前总票数
   });
 
-  // Yes / No 点击逻辑
+  // Yes / No 按钮点击逻辑
   box.querySelectorAll("button[data-vote]").forEach(btn => {
-    btn.addEventListener("click", () => {
+    btn.addEventListener("click", async () => {
       selectedVote = btn.dataset.vote;
 
-      // 高亮按钮
       box.querySelectorAll("button[data-vote]").forEach(b => b.classList.toggle("active", b === btn));
 
-      if (selectedVote === "no") {
-        noBox.style.display = "block";
-      } else {
+      if (selectedVote === "yes") {
         noBox.style.display = "none";
+        status.textContent = "Submitting...";
+        await submitVote({ vote: "yes" });
+        // 提交完成后刷新总票数
+        await loadStats();
+      } else if (selectedVote === "no") {
+        noBox.style.display = "block";
+        status.textContent = ""; // 提示用户选择原因
       }
-
-      // 不显示默认提示文字
-      status.textContent = "";
     });
   });
 
-  // Submit 点击逻辑
+  // Submit 按钮点击逻辑（仅用于 No）
   submitBtn.addEventListener("click", async () => {
-    if (!selectedVote) {
-      status.textContent = "Please select Yes or No.";
+    if (selectedVote !== "no") return; // 仅在 No 时使用 Submit
+
+    const reason = document.querySelector("input[name='no-reason']:checked")?.value;
+    if (!reason) {
+      status.textContent = "Please select a reason for No before submitting.";
       return;
     }
-
-    if (selectedVote === "no") {
-      const reason = document.querySelector("input[name='no-reason']:checked")?.value;
-      if (!reason) {
-        status.textContent = "Please select a reason for No.";
-        return;
-      }
-      selectedReason = reason;
-    }
-
-    // 提交到 Worker
+    selectedReason = reason;
     status.textContent = "Submitting...";
-    try {
-      const res = await fetch("https://paychecktools-feedback.zhouqiext.workers.dev", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ page, vote: selectedVote, reason: selectedReason })
-      });
-
-      const data = await res.json();
-      if (!data.success) throw new Error();
-
-      // 显示最新统计
-      status.textContent = `Thanks! Yes: ${data.yes} | No: ${data.no}`;
-    } catch {
-      status.textContent = "Failed to submit feedback.";
-    }
+    await submitVote({ vote: "no", reason: selectedReason });
+    await loadStats();
 
     // Reset
     selectedVote = null;
@@ -86,7 +66,20 @@
     box.querySelectorAll("input[name='no-reason']").forEach(r => r.checked = false);
   });
 
-  // 拉取总票数
+  async function submitVote(payload) {
+    try {
+      const res = await fetch("https://paychecktools-feedback.zhouqiext.workers.dev", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ page, ...payload })
+      });
+      const data = await res.json();
+      if (!data.success) throw new Error();
+    } catch {
+      status.textContent = "Failed to submit feedback.";
+    }
+  }
+
   async function loadStats() {
     try {
       const res = await fetch("https://paychecktools-feedback.zhouqiext.workers.dev", {
@@ -96,7 +89,7 @@
       });
       const data = await res.json();
       if (data.success) {
-        status.textContent = `Yes: ${data.yes} | No: ${data.no}`;
+        status.textContent = `Current feedback: Yes: ${data.yes} | No: ${data.no}`;
       }
     } catch {}
   }
