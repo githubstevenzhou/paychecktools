@@ -23,17 +23,20 @@ main { max-width:1100px; margin:0 auto; padding:32px 16px; }
 footer { background:#fff; border-top:1px solid #e5e7eb; padding:24px 16px; text-align:center; font-size:14px; color:#6b7280; }
 footer a { color:#2563eb; text-decoration:none; margin:0 8px; }
 a.back-home { display:inline-block; margin-bottom:20px; color:#2563eb; text-decoration:none; font-weight:600; }
+
+/* Feedback Section Styles */
 #feedback-box { margin-top:24px; padding:16px; background:#f0f4f8; border-radius:8px; }
-#feedback-box button { margin-right:10px; }
-#no-reason-box { margin-top:12px; padding:12px; background:#fff; border:1px solid #cbd5e1; border-radius:5px; }
-#feedback-submit { margin-top:12px; padding:8px 16px; background:#2563eb; color:#fff; border:none; border-radius:5px; cursor:pointer; }
-#feedback-submit:hover { background:#1e40af; }
+#feedback-box button { margin-right:8px; }
+#feedback-box #no-reason-box { display:none; margin-top:12px; padding:12px; background:#fff; border:1px solid #cbd5e1; border-radius:5px; }
+#feedback-box #feedback-submit { margin-top:12px; padding:8px 16px; background:#2563eb; color:#fff; border:none; border-radius:5px; cursor:pointer; }
+#feedback-box #feedback-status { margin-top:10px; font-weight:600; }
 </style>
 </head>
 <body>
 <header>
   <a href="/index.html"><h1>PaycheckTools</h1><p>Free Paycheck, Salary & Tax Calculator Tools</p></a>
 </header>
+
 <main>
   <div class="calculator">
     <a class="back-home" href="/index.html">← Return to Homepage</a>
@@ -57,34 +60,33 @@ a.back-home { display:inline-block; margin-bottom:20px; color:#2563eb; text-deco
       <p>Taxes: $<span id="tax"></span></p>
       <p>Net: $<span id="net"></span></p>
     </div>
-
-<!-- Feedback Section -->
-<div id="feedback-box" style="display:none; margin-top:24px; padding:16px; background:#f0f4f8; border-radius:8px;">
-  <p><strong>Was this result helpful?</strong></p>
-
-  <div style="margin-bottom:12px;">
-    <button data-vote="yes">👍 Yes</button>
-    <button data-vote="no">👎 No</button>
   </div>
 
-  <div id="no-reason-box" style="display:none; margin-top:12px; padding:12px; background:#fff; border:1px solid #cbd5e1; border-radius:5px;">
-    <p>Please tell us why:</p>
-    <label><input type="radio" name="no-reason" value="wrong_calculation"> Calculation seems wrong</label><br>
-    <label><input type="radio" name="no-reason" value="unclear_result"> Result is unclear</label><br>
-    <label><input type="radio" name="no-reason" value="missing_option"> Missing option</label><br>
-    <label><input type="radio" name="no-reason" value="ui_confusing"> UI is confusing</label><br>
-  </div>
+  <!-- Feedback Section -->
+  <div id="feedback-box" style="display:none;">
+    <p><strong>Was this result helpful?</strong></p>
 
-  <!-- Unified Submit Button, always in next line -->
-  <div style="margin-top:12px;">
-    <button id="feedback-submit" style="padding:8px 16px; background:#2563eb; color:#fff; border:none; border-radius:5px; cursor:pointer;">Submit</button>
-  </div>
+    <div style="margin-bottom:12px;">
+      <button data-vote="yes">👍 Yes</button>
+      <button data-vote="no">👎 No</button>
+    </div>
 
-  <div id="feedback-status" style="margin-top:10px;font-weight:600;"></div>
-</div>
-    
+    <div id="no-reason-box">
+      <p>Please tell us why:</p>
+      <label><input type="radio" name="no-reason" value="wrong_calculation"> Calculation seems wrong</label><br>
+      <label><input type="radio" name="no-reason" value="unclear_result"> Result is unclear</label><br>
+      <label><input type="radio" name="no-reason" value="missing_option"> Missing option</label><br>
+      <label><input type="radio" name="no-reason" value="ui_confusing"> UI is confusing</label><br>
+    </div>
+
+    <div>
+      <button id="feedback-submit">Submit</button>
+    </div>
+
+    <div id="feedback-status"></div>
   </div>
 </main>
+
 <footer>
   © 2025 PaycheckTools.com |
   <a href="/about.html">About</a> |
@@ -111,8 +113,9 @@ document.getElementById('calculateBtn').addEventListener('click', function() {
   document.getElementById('net').innerText = result.netPay.toFixed(2);
   document.getElementById('output').style.display = 'block';
 
-  // Trigger feedback to show
-  document.dispatchEvent(new Event("calculator:result-ready"));
+  // Dispatch event to show feedback box
+  const event = new Event('calculator:result-ready');
+  document.dispatchEvent(event);
 });
 </script>
 </body>
