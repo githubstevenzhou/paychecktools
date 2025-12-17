@@ -1,36 +1,114 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Vote Test</title>
+  <style>
+    #vote-container {
+      margin-top: 20px;
+      padding: 10px;
+      border: 1px solid #ccc;
+      width: 300px;
+      font-family: sans-serif;
+    }
+    #vote-container button {
+      margin-right: 5px;
+      padding: 5px 10px;
+      cursor: pointer;
+    }
+    #vote-status {
+      margin-top: 10px;
+      color: green;
+    }
+    #vote-count {
+      margin-top: 5px;
+      font-weight: bold;
+    }
+  </style>
+</head>
 <body>
-<button id="vote-yes">Yes</button>
-<button id="vote-no">No</button>
-<div id="status"></div>
+  <div id="vote-container">
+    <div>Was this result helpful?</div>
+    <button id="vote-yes">Yes</button>
+    <button id="vote-no">No</button>
+    <div id="vote-status"></div>
+    <div id="vote-count"></div>
+  </div>
 
-<script>
-const workerUrl = "https://paychecktools-feedback.zhouqiext.workers.dev";
-const pageSlug = "/tools/test-page";
+  <script>
+    (function(){
+      const workerUrl = "https://paychecktools-feedback.zhouqiext.workers.dev"; // 替换为你的 Worker URL
+      const pageSlug = "/tools/test-page"; // 测试页面标识
 
-document.getElementById("vote-yes").onclick = () => sendVote("yes");
-document.getElementById("vote-no").onclick = () => sendVote("no");
+      const btnYes = document.getElementById("vote-yes");
+      const btnNo = document.getElementById("vote-no");
+      const statusDiv = document.getElementById("vote-status");
+      const countDiv = document.getElementById("vote-count");
 
-async function sendVote(vote) {
-  const status = document.getElementById("status");
-  status.textContent = "Submitting...";
-  try {
-    const res = await fetch(workerUrl, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        "Origin": "https://paychecktools.com"
-      },
-      body: JSON.stringify({ page: pageSlug, vote })
-    });
-    const data = await res.json();
-    status.textContent = data.success ? `Vote submitted! Yes:${data.yes} No:${data.no}` : data.message;
-  } catch(e) {
-    status.textContent = "Failed to submit vote. Please try again.";
-    console.error(e);
-  }
-}
-</script>
+      let voted = false;
+
+      const updateVoteCount = (data) => {
+        countDiv.textContent = `Yes: ${data.yes || 0} | No: ${data.no || 0}`;
+      };
+
+      const sendVote = async (vote) => {
+        if (voted) return;
+        voted = true;
+        btnYes.disabled = true;
+        btnNo.disabled = true;
+        statusDiv.textContent = "Submitting your vote...";
+
+        try {
+          const res = await fetch(workerUrl, {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              // 测试可用，线上请改为 "https://paychecktools.com"
+              "Origin": "https://paychecktools.com"
+            },
+            body: JSON.stringify({ page: pageSlug, vote })
+          });
+
+          const data = await res.json();
+
+          if (res.status === 429) {
+            statusDiv.textContent = "You can only vote once per minute.";
+          } else if (!data.success) {
+            statusDiv.textContent = `Error: ${data.message}`;
+          } else {
+            statusDiv.textContent = "Thank you for your vote!";
+            updateVoteCount(data);
+          }
+
+        } catch(e) {
+          statusDiv.textContent = "Failed to submit vote. Please try again.";
+          console.error(e);
+        }
+      };
+
+      const fetchVoteCount = async () => {
+        try {
+          const res = await fetch(workerUrl, {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              "Origin": "https://paychecktools.com"
+            },
+            body: JSON.stringify({ page: pageSlug, vote: "none" })
+          });
+          const data = await res.json();
+          if (data.success) updateVoteCount(data);
+        } catch (e) {
+          console.error("Failed to fetch vote count:", e);
+        }
+      };
+
+      btnYes.addEventListener("click", () => sendVote("yes"));
+      btnNo.addEventListener("click", () => sendVote("no"));
+
+      fetchVoteCount();
+
+    })();
+  </script>
 </body>
 </html>
