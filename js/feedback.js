@@ -7,24 +7,33 @@
   const page = location.pathname;
   let pendingNo = false;
 
+  // --- Event triggered when calculation result is ready ---
   document.addEventListener("calculator:result-ready", () => {
     box.style.display = "block";
     loadStats();
   });
 
+  // --- Handle click on Yes / No buttons ---
   box.addEventListener("click", async (e) => {
     const vote = e.target.dataset.vote;
     if (!vote) return;
 
+    // Always hide No Reason box first
+    noBox.style.display = "none";
+    pendingNo = false;
+
     if (vote === "no") {
+      // Show No Reason box
       pendingNo = true;
       noBox.style.display = "block";
       return;
     }
 
+    // Vote Yes
     submitVote({ vote });
   });
 
+  // --- Handle submission of No reason ---
   document.getElementById("submit-no-reason")?.addEventListener("click", () => {
     const reason = document.querySelector("input[name='no-reason']:checked")?.value;
     if (!reason) {
@@ -33,9 +42,11 @@
     }
 
     submitVote({ vote: "no", reason });
-    noBox.style.display = "none";
+    noBox.style.display = "none"; // hide after submission
+    pendingNo = false;
   });
 
+  // --- Submit vote to Worker ---
   async function submitVote(payload) {
     status.textContent = "Submitting...";
 
@@ -52,12 +63,14 @@
       const data = await res.json();
       if (!data.success) throw new Error();
 
+      // Display latest vote stats
       status.textContent = `Thanks! Yes: ${data.yes} | No: ${data.no}`;
     } catch {
       status.textContent = "Failed to submit feedback.";
     }
   }
 
+  // --- Load current vote stats ---
   async function loadStats() {
     try {
       const res = await fetch("https://paychecktools-feedback.zhouqiext.workers.dev", {
