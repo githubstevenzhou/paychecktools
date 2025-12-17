@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <!-- Global head -->
   <script>
     fetch('/templates/head.html')
       .then(r => r.text())
@@ -9,73 +10,83 @@
 
   <meta name="description" content="Learn more about PaycheckTools.">
   <title>Privacy Policy – PaycheckTools</title>
-    <link rel="canonical" href="https://paychecktools.com/privacy-policy.html">
+  <link rel="canonical" href="https://paychecktools.com/privacy-policy.html">
+
+  <style>
+    /* Skeleton 占位样式 */
+    #site-header.skeleton, #site-footer.skeleton {
+      background: #e0e0e0;
+      min-height: 80px;
+      animation: pulse 1.5s infinite ease-in-out;
+    }
+    @keyframes pulse {
+      0% { opacity: 0.6; }
+      50% { opacity: 0.3; }
+      100% { opacity: 0.6; }
+    }
+  </style>
 </head>
 
 <body>
-<div id="site-header"></div>
+
+  <!-- Header -->
+  <div id="site-header" class="skeleton"></div>
   <script>
     fetch('/templates/header.html')
       .then(r => r.text())
       .then(html => {
-        document.getElementById('site-header').innerHTML = html;
+        const el = document.getElementById('site-header');
+        el.innerHTML = html;
+        el.classList.remove('skeleton');
       });
   </script>
 
-<main>
-<h1>Privacy Policy</h1>
+  <main>
+    <h1>Privacy Policy</h1>
 
-<p>
-At PaycheckTools, we respect your privacy.
-This Privacy Policy explains how information is collected and used when you visit our website.
-</p>
+    <p>
+      At PaycheckTools, we respect your privacy.
+      This Privacy Policy explains how information is collected and used when you visit our website.
+    </p>
 
-<h2>Information We Collect</h2>
+    <h2>Information We Collect</h2>
+    <p>
+      PaycheckTools does not require users to create accounts or submit personal information to use our calculators.
+      Any data entered into calculators is processed locally in your browser and is not stored on our servers.
+    </p>
 
-<p>
-PaycheckTools does not require users to create accounts or submit personal information to use our calculators.
-Any data entered into calculators is processed locally in your browser and is not stored on our servers.
-</p>
+    <h2>Cookies and Advertising</h2>
+    <p>
+      We may use third-party advertising services such as Google AdSense.
+      These services may use cookies or similar technologies to display relevant advertisements.
+    </p>
+    <p>
+      Google may use cookies to serve ads based on your visits to this and other websites.
+      You can learn more about how Google uses data from sites that use its services by visiting Google's advertising policies.
+    </p>
 
-<h2>Cookies and Advertising</h2>
+    <h2>Third-Party Links</h2>
+    <p>
+      Our website may contain links to external websites.
+      We are not responsible for the content or privacy practices of those sites.
+    </p>
 
-<p>
-We may use third-party advertising services such as Google AdSense.
-These services may use cookies or similar technologies to display relevant advertisements.
-</p>
+    <h2>Consent</h2>
+    <p>By using PaycheckTools, you consent to this Privacy Policy.</p>
 
-<p>
-Google may use cookies to serve ads based on your visits to this and other websites.
-You can learn more about how Google uses data from sites that use its services by visiting Google's advertising policies.
-</p>
+    <h2>Updates</h2>
+    <p>This Privacy Policy may be updated from time to time. Any changes will be posted on this page.</p>
+  </main>
 
-<h2>Third-Party Links</h2>
-
-<p>
-Our website may contain links to external websites.
-We are not responsible for the content or privacy practices of those sites.
-</p>
-
-<h2>Consent</h2>
-
-<p>
-By using PaycheckTools, you consent to this Privacy Policy.
-</p>
-
-<h2>Updates</h2>
-
-<p>
-This Privacy Policy may be updated from time to time.
-Any changes will be posted on this page.
-</p>
-</main>
-<!-- Footer -->
-  <div id="site-footer"></div>
+  <!-- Footer -->
+  <div id="site-footer" class="skeleton"></div>
   <script>
     fetch('/templates/footer.html')
       .then(r => r.text())
       .then(html => {
-        document.getElementById('site-footer').innerHTML = html;
+        const el = document.getElementById('site-footer');
+        el.innerHTML = html;
+        el.classList.remove('skeleton');
       });
   </script>
 

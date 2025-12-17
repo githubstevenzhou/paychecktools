@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <!-- Global head -->
   <script>
     fetch('/templates/head.html')
       .then(r => r.text())
@@ -10,59 +11,76 @@
   <meta name="description" content="Learn more about PaycheckTools.">
   <title>About Us – PaycheckTools</title>
   <link rel="canonical" href="https://paychecktools.com/about.html">
+
+  <style>
+    /* Skeleton 占位样式 */
+    #site-header.skeleton, #site-footer.skeleton {
+      background: #e0e0e0;
+      min-height: 80px;
+      animation: pulse 1.5s infinite ease-in-out;
+    }
+    @keyframes pulse {
+      0% { opacity: 0.6; }
+      50% { opacity: 0.3; }
+      100% { opacity: 0.6; }
+    }
+  </style>
 </head>
 <body>
-<!-- Header -->
-  <div id="site-header"></div>
+
+  <!-- Header -->
+  <div id="site-header" class="skeleton"></div>
   <script>
     fetch('/templates/header.html')
       .then(r => r.text())
       .then(html => {
-        document.getElementById('site-header').innerHTML = html;
+        const el = document.getElementById('site-header');
+        el.innerHTML = html;
+        el.classList.remove('skeleton');
       });
   </script>
-<main>
-<h1>About PaycheckTools</h1>
 
-<p>
-PaycheckTools is a free online platform designed to help employees, freelancers, and independent contractors better understand their income.
-We provide simple and practical calculators for paycheck, salary, tax, commission, and related earnings scenarios.
-</p>
+  <main>
+    <h1>About PaycheckTools</h1>
 
-<p>
-Our goal is to make income calculations easier and more transparent.
-Many people receive their paychecks without fully understanding how taxes, deductions, or commissions affect their final take-home pay.
-PaycheckTools helps bridge that gap by offering easy-to-use tools with clear results.
-</p>
+    <p>
+      PaycheckTools is a free online platform designed to help employees, freelancers, and independent contractors better understand their income.
+      We provide simple and practical calculators for paycheck, salary, tax, commission, and related earnings scenarios.
+    </p>
 
-<h2>Who We Serve</h2>
+    <p>
+      Our goal is to make income calculations easier and more transparent.
+      Many people receive their paychecks without fully understanding how taxes, deductions, or commissions affect their final take-home pay.
+      PaycheckTools helps bridge that gap by offering easy-to-use tools with clear results.
+    </p>
 
-<ul>
-  <li>Employees who want to estimate their take-home pay</li>
-  <li>Freelancers and contractors calculating project income</li>
-  <li>Sales professionals estimating commissions</li>
-  <li>Anyone who wants a quick income calculation without complex spreadsheets</li>
-</ul>
+    <h2>Who We Serve</h2>
+    <ul>
+      <li>Employees who want to estimate their take-home pay</li>
+      <li>Freelancers and contractors calculating project income</li>
+      <li>Sales professionals estimating commissions</li>
+      <li>Anyone who wants a quick income calculation without complex spreadsheets</li>
+    </ul>
 
-<h2>Disclaimer</h2>
+    <h2>Disclaimer</h2>
+    <p>
+      PaycheckTools provides estimates for informational purposes only.
+      We do not provide financial, tax, or legal advice.
+      Actual results may vary based on individual circumstances and local regulations.
+    </p>
 
-<p>
-PaycheckTools provides estimates for informational purposes only.
-We do not provide financial, tax, or legal advice.
-Actual results may vary based on individual circumstances and local regulations.
-</p>
+    <p>If you have questions or feedback, please feel free to contact us.</p>
+  </main>
 
-<p>
-If you have questions or feedback, please feel free to contact us.
-</p>
-</main>
-<!-- Footer -->
-  <div id="site-footer"></div>
+  <!-- Footer -->
+  <div id="site-footer" class="skeleton"></div>
   <script>
     fetch('/templates/footer.html')
       .then(r => r.text())
       .then(html => {
-        document.getElementById('site-footer').innerHTML = html;
+        const el = document.getElementById('site-footer');
+        el.innerHTML = html;
+        el.classList.remove('skeleton');
       });
   </script>
 

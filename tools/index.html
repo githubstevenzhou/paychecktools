@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <!-- Global head -->
   <script>
     // 异步加载公共 head
     fetch('/templates/head.html')
@@ -14,17 +15,33 @@
 
   <!-- 引入统一样式 -->
   <link rel="stylesheet" href="/css/styles.css">
+
+  <style>
+    /* Skeleton 占位样式 */
+    #site-header.skeleton, #site-footer.skeleton {
+      background: #e0e0e0;
+      min-height: 80px;
+      animation: pulse 1.5s infinite ease-in-out;
+    }
+    @keyframes pulse {
+      0% { opacity: 0.6; }
+      50% { opacity: 0.3; }
+      100% { opacity: 0.6; }
+    }
+  </style>
 </head>
 
 <body>
 
   <!-- Header -->
-  <div id="site-header"></div>
+  <div id="site-header" class="skeleton"></div>
   <script>
     fetch('/templates/header.html')
       .then(r => r.text())
       .then(html => {
-        document.getElementById('site-header').innerHTML = html;
+        const el = document.getElementById('site-header');
+        el.innerHTML = html;
+        el.classList.remove('skeleton');
       });
   </script>
 
@@ -53,12 +70,14 @@
   </main>
 
   <!-- Footer -->
-  <div id="site-footer"></div>
+  <div id="site-footer" class="skeleton"></div>
   <script>
     fetch('/templates/footer.html')
       .then(r => r.text())
       .then(html => {
-        document.getElementById('site-footer').innerHTML = html;
+        const el = document.getElementById('site-footer');
+        el.innerHTML = html;
+        el.classList.remove('skeleton');
       });
   </script>
 
