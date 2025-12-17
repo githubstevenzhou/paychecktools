@@ -24,8 +24,11 @@
 
     if (vote === "no") {
       noBox.style.display = "block";
+      status.textContent = ""; // 清空提示
     } else {
       noBox.style.display = "none";
+      // 提示用户点击 Submit
+      status.textContent = "You selected Yes. Click Submit to confirm.";
     }
   });
 
@@ -48,7 +51,7 @@
       submitVote({ vote: "yes" });
     }
 
-    // Reset selections
+    // Reset selections after submission
     selectedVote = null;
     selectedReason = null;
     noBox.style.display = "none";
