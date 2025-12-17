@@ -1,122 +1,151 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>Paycheck Calculator – PaycheckTools</title>
-<meta name="description" content="Calculate your paycheck including gross pay, taxes, and net pay.">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="canonical" href="https://paychecktools.com/tools/paycheck-calculator/">
-<style>
-body { margin:0; font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto; background:#f5f7fa; color:#1f2937; }
-header { background:#2563eb; padding:28px 16px; text-align:center; }
-header a { color:#fff; text-decoration:none; }
-header h1 { margin:0; font-size:28px; }
-header p { margin-top:8px; font-size:16px; opacity:.95; }
-main { max-width:1100px; margin:0 auto; padding:32px 16px; }
-.calculator { background:#fff; padding:24px; border-radius:10px; box-shadow:0 4px 12px rgba(0,0,0,.05); max-width:600px; margin:0 auto 48px; }
-.calculator label { display:block; margin:12px 0; }
-.calculator input, .calculator select { padding:6px; width:100%; max-width:200px; margin-left:10px; }
-.calculator button { padding:10px 20px; margin-top:12px; background:#2563eb; color:#fff; border:none; cursor:pointer; border-radius:5px; }
-.calculator button:hover { background:#1e40af; }
-#output { margin-top:20px; padding:10px; background:#e3f2fd; border:1px solid #90caf9; display:none; border-radius:5px; }
-#output p { margin:6px 0; font-weight:500; }
-footer { background:#fff; border-top:1px solid #e5e7eb; padding:24px 16px; text-align:center; font-size:14px; color:#6b7280; }
-footer a { color:#2563eb; text-decoration:none; margin:0 8px; }
-a.back-home { display:inline-block; margin-bottom:20px; color:#2563eb; text-decoration:none; font-weight:600; }
+  <!-- 异步加载公共 head（meta / favicon / 全局设置） -->
+  <script>
+    fetch('/templates/head.html')
+      .then(r => r.text())
+      .then(html => document.head.insertAdjacentHTML('beforeend', html));
+  </script>
 
-/* Feedback Section Styles */
-#feedback-box { margin-top:24px; padding:16px; background:#f0f4f8; border-radius:8px; }
-#feedback-box button { margin-right:8px; }
-#feedback-box #no-reason-box { display:none; margin-top:12px; padding:12px; background:#fff; border:1px solid #cbd5e1; border-radius:5px; }
-#feedback-box #feedback-submit { margin-top:12px; padding:8px 16px; background:#2563eb; color:#fff; border:none; border-radius:5px; cursor:pointer; }
-#feedback-box #feedback-status { margin-top:10px; font-weight:600; }
-</style>
+  <!-- Page SEO -->
+  <title>Paycheck Calculator – PaycheckTools</title>
+  <meta name="description" content="Calculate your paycheck including gross pay, taxes, and net pay.">
+  <link rel="canonical" href="https://paychecktools.com/tools/paycheck-calculator/">
+
+  <!-- Unified Styles -->
+  <link rel="stylesheet" href="/css/styles.css">
 </head>
+
 <body>
-<header>
-  <a href="/index.html"><h1>PaycheckTools</h1><p>Free Paycheck, Salary & Tax Calculator Tools</p></a>
-</header>
 
-<main>
-  <div class="calculator">
+  <!-- Header -->
+  <div id="site-header"></div>
+  <script>
+    fetch('/templates/header.html')
+      .then(r => r.text())
+      .then(html => {
+        document.getElementById('site-header').innerHTML = html;
+      });
+  </script>
+
+  <main class="tool-container">
+
     <a class="back-home" href="/index.html">← Return to Homepage</a>
-    <h2>Paycheck Calculator</h2>
-    <label>Hourly Wage: <input id="wage" type="number" value="25"></label>
-    <label>Hours Worked: <input id="hours" type="number" value="40"></label>
-    <label>Overtime Hours: <input id="otHours" type="number" value="0"></label>
-    <label>Federal Tax (%): <input id="taxFederal" type="number" value="12"></label>
-    <label>State Tax (%): <input id="taxState" type="number" value="5"></label>
-    <label>Frequency:
-      <select id="frequency">
-        <option value="weekly" selected>Weekly</option>
-        <option value="biweekly">Biweekly</option>
-        <option value="monthly">Monthly</option>
-        <option value="semimonthly">Semimonthly</option>
-      </select>
-    </label>
-    <button id="calculateBtn">Calculate</button>
-    <div id="output">
-      <p>Gross: $<span id="gross"></span></p>
-      <p>Taxes: $<span id="tax"></span></p>
-      <p>Net: $<span id="net"></span></p>
-    </div>
-  </div>
 
-  <!-- Feedback Section -->
-  <div id="feedback-box" style="display:none;">
-    <p><strong>Was this result helpful?</strong></p>
+    <section class="calculator">
+      <h1>Paycheck Calculator</h1>
 
-    <div style="margin-bottom:12px;">
-      <button data-vote="yes">👍 Yes</button>
-      <button data-vote="no">👎 No</button>
-    </div>
+      <label>
+        Hourly Wage
+        <input id="wage" type="number" value="25">
+      </label>
 
-    <div id="no-reason-box">
-      <p>Please tell us why:</p>
-      <label><input type="radio" name="no-reason" value="wrong_calculation"> Calculation seems wrong</label><br>
-      <label><input type="radio" name="no-reason" value="unclear_result"> Result is unclear</label><br>
-      <label><input type="radio" name="no-reason" value="missing_option"> Missing option</label><br>
-      <label><input type="radio" name="no-reason" value="ui_confusing"> UI is confusing</label><br>
-    </div>
+      <label>
+        Hours Worked
+        <input id="hours" type="number" value="40">
+      </label>
 
-    <div>
-      <button id="feedback-submit">Submit</button>
-    </div>
+      <label>
+        Overtime Hours
+        <input id="otHours" type="number" value="0">
+      </label>
 
-    <div id="feedback-status"></div>
-  </div>
-</main>
+      <label>
+        Federal Tax (%)
+        <input id="taxFederal" type="number" value="12">
+      </label>
 
-<footer>
-  © 2025 PaycheckTools.com |
-  <a href="/about.html">About</a> |
-  <a href="/privacy-policy.html">Privacy</a> |
-  <a href="/terms.html">Terms</a>
-</footer>
+      <label>
+        State Tax (%)
+        <input id="taxState" type="number" value="5">
+      </label>
 
-<script src="/js/calculator-core.js"></script>
-<script src="/js/feedback.js"></script>
-<script>
-document.getElementById('calculateBtn').addEventListener('click', function() {
-  const result = calculatePaycheck({
-    wage: Number(document.getElementById('wage').value),
-    hours: Number(document.getElementById('hours').value),
-    otHours: Number(document.getElementById('otHours').value),
-    frequency: document.getElementById('frequency').value,
-    taxes: {
-      federal: Number(document.getElementById('taxFederal').value),
-      state: Number(document.getElementById('taxState').value)
-    }
-  });
-  document.getElementById('gross').innerText = result.grossPay.toFixed(2);
-  document.getElementById('tax').innerText = result.breakdown.taxAmount.toFixed(2);
-  document.getElementById('net').innerText = result.netPay.toFixed(2);
-  document.getElementById('output').style.display = 'block';
+      <label>
+        Pay Frequency
+        <select id="frequency">
+          <option value="weekly" selected>Weekly</option>
+          <option value="biweekly">Biweekly</option>
+          <option value="semimonthly">Semimonthly</option>
+          <option value="monthly">Monthly</option>
+        </select>
+      </label>
 
-  // Dispatch event to show feedback box
-  const event = new Event('calculator:result-ready');
-  document.dispatchEvent(event);
-});
-</script>
+      <button id="calculateBtn" class="primary-btn">
+        Calculate
+      </button>
+
+      <div id="output" class="result-box" style="display:none;">
+        <p>Gross Pay: <strong>$<span id="gross"></span></strong></p>
+        <p>Total Taxes: <strong>$<span id="tax"></span></strong></p>
+        <p>Net Pay: <strong>$<span id="net"></span></strong></p>
+      </div>
+    </section>
+
+    <!-- Feedback Section -->
+    <section id="feedback-box" class="feedback-box" style="display:none;">
+      <p><strong>Was this result helpful?</strong></p>
+
+      <div class="feedback-actions">
+        <button data-vote="yes">👍 Yes</button>
+        <button data-vote="no">👎 No</button>
+      </div>
+
+      <div id="no-reason-box" class="feedback-reasons">
+        <p>Please tell us why:</p>
+        <label><input type="radio" name="no-reason" value="wrong_calculation"> Calculation seems wrong</label>
+        <label><input type="radio" name="no-reason" value="unclear_result"> Result is unclear</label>
+        <label><input type="radio" name="no-reason" value="missing_option"> Missing option</label>
+        <label><input type="radio" name="no-reason" value="ui_confusing"> UI is confusing</label>
+      </div>
+
+      <button id="feedback-submit" class="secondary-btn">
+        Submit Feedback
+      </button>
+
+      <div id="feedback-status"></div>
+    </section>
+
+  </main>
+
+  <!-- Footer -->
+  <div id="site-footer"></div>
+  <script>
+    fetch('/templates/footer.html')
+      .then(r => r.text())
+      .then(html => {
+        document.getElementById('site-footer').innerHTML = html;
+      });
+  </script>
+
+  <!-- Core Scripts -->
+  <script src="/js/calculator-core.js"></script>
+  <script src="/js/feedback.js"></script>
+
+  <!-- Page Logic -->
+  <script>
+    document.getElementById('calculateBtn').addEventListener('click', function () {
+      const result = calculatePaycheck({
+        wage: Number(document.getElementById('wage').value),
+        hours: Number(document.getElementById('hours').value),
+        otHours: Number(document.getElementById('otHours').value),
+        frequency: document.getElementById('frequency').value,
+        taxes: {
+          federal: Number(document.getElementById('taxFederal').value),
+          state: Number(document.getElementById('taxState').value)
+        }
+      });
+
+      document.getElementById('gross').innerText = result.grossPay.toFixed(2);
+      document.getElementById('tax').innerText = result.breakdown.taxAmount.toFixed(2);
+      document.getElementById('net').innerText = result.netPay.toFixed(2);
+
+      document.getElementById('output').style.display = 'block';
+
+      // 通知 feedback.js 显示反馈区
+      document.dispatchEvent(new Event('calculator:result-ready'));
+    });
+  </script>
+
 </body>
 </html>
