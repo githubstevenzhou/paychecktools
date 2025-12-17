@@ -1,19 +1,17 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <!-- 异步加载公共 head（meta / favicon / 全局设置） -->
+  <!-- 异步加载公共 head -->
   <script>
     fetch('/templates/head.html')
       .then(r => r.text())
       .then(html => document.head.insertAdjacentHTML('beforeend', html));
   </script>
 
-  <!-- Page SEO -->
   <title>Paycheck Calculator – PaycheckTools</title>
   <meta name="description" content="Calculate your paycheck including gross pay, taxes, and net pay.">
   <link rel="canonical" href="https://paychecktools.com/tools/paycheck-calculator/">
 
-  <!-- Unified Styles -->
   <link rel="stylesheet" href="/css/styles.css">
 </head>
 
@@ -24,14 +22,10 @@
   <script>
     fetch('/templates/header.html')
       .then(r => r.text())
-      .then(html => {
-        document.getElementById('site-header').innerHTML = html;
-      });
+      .then(html => { document.getElementById('site-header').innerHTML = html; });
   </script>
 
   <main class="tool-container">
-
-    <a class="back-home" href="/index.html">← Return to Homepage</a>
 
     <section class="calculator">
       <h1>Paycheck Calculator</h1>
@@ -71,9 +65,7 @@
         </select>
       </label>
 
-      <button id="calculateBtn" class="primary-btn">
-        Calculate
-      </button>
+      <button id="calculateBtn" class="primary-btn">Calculate</button>
 
       <div id="output" class="result-box" style="display:none;">
         <p>Gross Pay: <strong>$<span id="gross"></span></strong></p>
@@ -91,7 +83,7 @@
         <button data-vote="no">👎 No</button>
       </div>
 
-      <div id="no-reason-box" class="feedback-reasons">
+      <div id="no-reason-box" class="feedback-reasons" style="display:none;">
         <p>Please tell us why:</p>
         <label><input type="radio" name="no-reason" value="wrong_calculation"> Calculation seems wrong</label>
         <label><input type="radio" name="no-reason" value="unclear_result"> Result is unclear</label>
@@ -99,9 +91,7 @@
         <label><input type="radio" name="no-reason" value="ui_confusing"> UI is confusing</label>
       </div>
 
-      <button id="feedback-submit" class="secondary-btn">
-        Submit Feedback
-      </button>
+      <button id="feedback-submit" class="secondary-btn">Submit Feedback</button>
 
       <div id="feedback-status"></div>
     </section>
@@ -113,16 +103,120 @@
   <script>
     fetch('/templates/footer.html')
       .then(r => r.text())
-      .then(html => {
-        document.getElementById('site-footer').innerHTML = html;
-      });
+      .then(html => { document.getElementById('site-footer').innerHTML = html; });
   </script>
 
   <!-- Core Scripts -->
   <script src="/js/calculator-core.js"></script>
-  <script src="/js/feedback.js"></script>
 
-  <!-- Page Logic -->
+  <!-- Feedback JS 修正版 -->
+  <script>
+  (function () {
+    const box = document.getElementById("feedback-box");
+    if (!box) return;
+
+    const status = document.getElementById("feedback-status");
+    const noBox = document.getElementById("no-reason-box");
+    const submitBtn = document.getElementById("feedback-submit");
+    const page = location.pathname;
+
+    let selectedVote = null;
+    let selectedReason = null;
+
+    // 显示 Feedback 区域
+    document.addEventListener("calculator:result-ready", () => {
+      box.style.display = "block";
+      noBox.style.display = "none";
+      status.textContent = "";
+      selectedVote = null;
+      selectedReason = null;
+
+      // 清除按钮高亮
+      box.querySelectorAll("button[data-vote]").forEach(btn => btn.classList.remove("active"));
+      box.querySelectorAll("input[name='no-reason']").forEach(r => r.checked = false);
+
+      loadStats(); // 显示总票数
+    });
+
+    // Yes / No 点击逻辑
+    box.querySelectorAll("button[data-vote]").forEach(btn => {
+      btn.addEventListener("click", () => {
+        selectedVote = btn.dataset.vote;
+
+        // 高亮按钮
+        box.querySelectorAll("button[data-vote]").forEach(b => b.classList.toggle("active", b === btn));
+
+        if (selectedVote === "no") {
+          noBox.style.display = "block";
+        } else {
+          noBox.style.display = "none";
+        }
+
+        // 不显示默认提示文字
+        status.textContent = "";
+      });
+    });
+
+    // Submit 点击逻辑
+    submitBtn.addEventListener("click", async () => {
+      if (!selectedVote) {
+        status.textContent = "Please select Yes or No.";
+        return;
+      }
+
+      if (selectedVote === "no") {
+        const reason = document.querySelector("input[name='no-reason']:checked")?.value;
+        if (!reason) {
+          status.textContent = "Please select a reason for No.";
+          return;
+        }
+        selectedReason = reason;
+      }
+
+      // 提交到 Worker
+      status.textContent = "Submitting...";
+      try {
+        const res = await fetch("https://paychecktools-feedback.zhouqiext.workers.dev", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ page, vote: selectedVote, reason: selectedReason })
+        });
+
+        const data = await res.json();
+        if (!data.success) throw new Error();
+
+        // 显示最新统计
+        status.textContent = `Thanks! Yes: ${data.yes} | No: ${data.no}`;
+      } catch {
+        status.textContent = "Failed to submit feedback.";
+      }
+
+      // Reset
+      selectedVote = null;
+      selectedReason = null;
+      noBox.style.display = "none";
+      box.querySelectorAll("button[data-vote]").forEach(b => b.classList.remove("active"));
+      box.querySelectorAll("input[name='no-reason']").forEach(r => r.checked = false);
+    });
+
+    // 拉取总票数
+    async function loadStats() {
+      try {
+        const res = await fetch("https://paychecktools-feedback.zhouqiext.workers.dev", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ page, vote: "none" })
+        });
+        const data = await res.json();
+        if (data.success) {
+          status.textContent = `Yes: ${data.yes} | No: ${data.no}`;
+        }
+      } catch {}
+    }
+  })();
+  </script>
+
+  <!-- 页面计算逻辑 -->
   <script>
     document.getElementById('calculateBtn').addEventListener('click', function () {
       const result = calculatePaycheck({
@@ -142,7 +236,6 @@
 
       document.getElementById('output').style.display = 'block';
 
-      // 通知 feedback.js 显示反馈区
       document.dispatchEvent(new Event('calculator:result-ready'));
     });
   </script>
