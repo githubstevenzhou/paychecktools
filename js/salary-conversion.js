@@ -1,21 +1,24 @@
 /**
- * salary-conversion.js (Enhanced Version)
- * ---------------------------------------
+ * salary-conversion.js (Enhanced & Feedback-Ready)
+ * -----------------------------------------------
  * Salary and Hourly Wage Conversion
  *
  * Converts between hourly wage, weekly, monthly, and yearly salary.
  * Supports optional gross-to-net calculation with taxes.
  *
- * Usage Example:
- * const result = convertSalary({
- *   amount: 25,            // 25 dollars/hour
- *   from: 'hourly',        // 'hourly' | 'weekly' | 'monthly' | 'yearly'
- *   to: 'yearly',          // desired target unit
- *   hoursPerWeek: 40,      // optional, default 40
- *   taxes: { federal: 12, state: 5 } // optional, for net calculation
- * });
- * console.log(result);
+ * Author: PaycheckTools
+ * Last Updated: 2025
  */
+
+/**
+ * Feedback hook
+ * Safe for browser & Node.js
+ */
+function notifyResultReady() {
+  if (typeof document !== 'undefined' && typeof document.dispatchEvent === 'function') {
+    document.dispatchEvent(new Event('calculator:result-ready'));
+  }
+}
 
 /**
  * Convert salary from one unit to another
@@ -25,14 +28,19 @@
  * @param {string} options.to - 'hourly' | 'weekly' | 'monthly' | 'yearly'
  * @param {number} [options.hoursPerWeek=40] - weekly hours
  * @param {Object} [options.taxes] - optional { federal, state } percentages for net calculation
- * @returns {Object} { gross: number, net: number, from, to }
+ * @returns {Object} { gross, net, from, to }
  */
 function convertSalary({ amount, from, to, hoursPerWeek = 40, taxes }) {
-  if (typeof amount !== 'number' || amount < 0) throw new Error('Invalid amount');
-  const units = ['hourly', 'weekly', 'monthly', 'yearly'];
-  if (!units.includes(from) || !units.includes(to)) throw new Error('Invalid from/to unit');
+  if (typeof amount !== 'number' || amount < 0) {
+    throw new Error('Invalid amount');
+  }
 
-  // Convert input to yearly salary first
+  const units = ['hourly', 'weekly', 'monthly', 'yearly'];
+  if (!units.includes(from) || !units.includes(to)) {
+    throw new Error('Invalid from/to unit');
+  }
+
+  // --- Normalize to yearly ---
   let yearly;
   switch (from) {
     case 'hourly': yearly = amount * hoursPerWeek * 52; break;
@@ -41,7 +49,7 @@ function convertSalary({ amount, from, to, hoursPerWeek = 40, taxes }) {
     case 'yearly': yearly = amount; break;
   }
 
-  // Convert yearly to target unit
+  // --- Convert yearly to target unit ---
   let gross;
   switch (to) {
     case 'hourly': gross = yearly / (hoursPerWeek * 52); break;
@@ -50,37 +58,29 @@ function convertSalary({ amount, from, to, hoursPerWeek = 40, taxes }) {
     case 'yearly': gross = yearly; break;
   }
 
-  // Optional net calculation
+  // --- Optional net calculation ---
   let net = gross;
   if (taxes) {
     const rate = ((taxes.federal || 0) + (taxes.state || 0)) / 100;
     net = gross * (1 - rate);
   }
 
-  return {
+  const result = {
     from,
     to,
     gross,
     net
   };
+
+  // ✅ Notify feedback system only after successful calculation
+  notifyResultReady();
+
+  return result;
 }
 
 /**
- * Optional Node.js module export
+ * Node.js module export
  */
 if (typeof module !== 'undefined' && module.exports) {
   module.exports = { convertSalary };
 }
-
-/**
- * --- Example Usage ---
- * Uncomment to test in browser or Node.js
- */
-// const example = convertSalary({
-//   amount: 25,
-//   from: 'hourly',
-//   to: 'yearly',
-//   hoursPerWeek: 40,
-//   taxes: { federal: 12, state: 5 }
-// });
-// console.log(example);

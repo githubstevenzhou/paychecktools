@@ -6,7 +6,9 @@
 <meta name="description" content="Calculate your paycheck including gross pay, taxes, and net pay.">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="canonical" href="https://paychecktools.com/tools/paycheck-calculator/">
+
 <style>
+/* ---------- Existing Styles ---------- */
 body { margin:0; font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto; background:#f5f7fa; color:#1f2937; }
 header { background:#2563eb; padding:28px 16px; text-align:center; }
 header a { color:#fff; text-decoration:none; }
@@ -23,16 +25,44 @@ main { max-width:1100px; margin:0 auto; padding:32px 16px; }
 footer { background:#fff; border-top:1px solid #e5e7eb; padding:24px 16px; text-align:center; font-size:14px; color:#6b7280; }
 footer a { color:#2563eb; text-decoration:none; margin:0 8px; }
 a.back-home { display:inline-block; margin-bottom:20px; color:#2563eb; text-decoration:none; font-weight:600; }
+
+/* ---------- Feedback Styles ---------- */
+#feedbackBox {
+  margin-top: 24px;
+  padding: 16px;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  background: #f9fafb;
+  display: none;
+}
+#feedbackBox button {
+  margin-right: 10px;
+}
+#noReasons {
+  margin-top: 10px;
+  display: none;
+}
+#feedbackMsg {
+  margin-top: 10px;
+  font-weight: 600;
+}
 </style>
 </head>
+
 <body>
 <header>
-  <a href="/index.html"><h1>PaycheckTools</h1><p>Free Paycheck, Salary & Tax Calculator Tools</p></a>
+  <a href="/index.html">
+    <h1>PaycheckTools</h1>
+    <p>Free Paycheck, Salary & Tax Calculator Tools</p>
+  </a>
 </header>
+
 <main>
   <div class="calculator">
     <a class="back-home" href="/index.html">← Return to Homepage</a>
     <h2>Paycheck Calculator</h2>
+
+    <!-- Calculator Inputs -->
     <label>Hourly Wage: <input id="wage" type="number" value="25"></label>
     <label>Hours Worked: <input id="hours" type="number" value="40"></label>
     <label>Overtime Hours: <input id="otHours" type="number" value="0"></label>
@@ -46,23 +76,58 @@ a.back-home { display:inline-block; margin-bottom:20px; color:#2563eb; text-deco
         <option value="semimonthly">Semimonthly</option>
       </select>
     </label>
+
     <button id="calculateBtn">Calculate</button>
+
+    <!-- Calculation Result -->
     <div id="output">
       <p>Gross: $<span id="gross"></span></p>
       <p>Taxes: $<span id="tax"></span></p>
       <p>Net: $<span id="net"></span></p>
     </div>
+
+    <!-- Feedback Section (Hidden until calculation is done) -->
+    <div id="feedbackBox">
+      <p><strong>Was this calculation helpful?</strong></p>
+
+      <button onclick="submitVote('yes')">👍 Yes</button>
+      <button onclick="submitVote('no')">👎 No</button>
+
+      <!-- No reason selector -->
+      <div id="noReasons">
+        <label>
+          Why not?
+          <select id="noReasonSelect">
+            <option value="unclear_result">Result unclear</option>
+            <option value="wrong_calculation">Calculation seems wrong</option>
+            <option value="missing_option">Missing option</option>
+            <option value="ui_confusing">UI confusing</option>
+          </select>
+        </label>
+        <button onclick="submitVote('no', true)">Submit</button>
+      </div>
+
+      <div id="feedbackMsg"></div>
+    </div>
+
   </div>
 </main>
+
 <footer>
   © 2025 PaycheckTools.com |
   <a href="/about.html">About</a> |
   <a href="/privacy-policy.html">Privacy</a> |
   <a href="/terms.html">Terms</a>
 </footer>
+
 <script src="/js/calculator-core.js"></script>
+
 <script>
-document.getElementById('calculateBtn').addEventListener('click', function() {
+/**
+ * Handle calculation logic
+ * After successful calculation, show feedback section
+ */
+document.getElementById('calculateBtn').addEventListener('click', function () {
   const result = calculatePaycheck({
     wage: Number(document.getElementById('wage').value),
     hours: Number(document.getElementById('hours').value),
@@ -73,11 +138,57 @@ document.getElementById('calculateBtn').addEventListener('click', function() {
       state: Number(document.getElementById('taxState').value)
     }
   });
+
   document.getElementById('gross').innerText = result.grossPay.toFixed(2);
   document.getElementById('tax').innerText = result.breakdown.taxAmount.toFixed(2);
   document.getElementById('net').innerText = result.netPay.toFixed(2);
   document.getElementById('output').style.display = 'block';
+
+  // Show feedback section only AFTER calculation
+  document.getElementById('feedbackBox').style.display = 'block';
 });
+
+/**
+ * Submit feedback vote to Cloudflare Worker
+ * @param {string} vote - 'yes' or 'no'
+ * @param {boolean} withReason - whether to include no reason
+ */
+async function submitVote(vote, withReason = false) {
+  const payload = {
+    page: "paycheck-calculator",
+    vote: vote
+  };
+
+  if (vote === 'no' && withReason) {
+    payload.reason = document.getElementById('noReasonSelect').value;
+  }
+
+  // Show reason selector when clicking "No"
+  if (vote === 'no' && !withReason) {
+    document.getElementById('noReasons').style.display = 'block';
+    return;
+  }
+
+  try {
+    const res = await fetch("https://paychecktools-feedback.zhouqiext.workers.dev", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload)
+    });
+
+    const data = await res.json();
+
+    if (data.success) {
+      document.getElementById('feedbackMsg').innerText = "Thank you for your feedback!";
+      document.getElementById('noReasons').style.display = 'none';
+    } else {
+      document.getElementById('feedbackMsg').innerText = data.message || "Submission failed.";
+    }
+  } catch (e) {
+    document.getElementById('feedbackMsg').innerText = "Network error. Please try again later.";
+  }
+}
 </script>
+
 </body>
 </html>

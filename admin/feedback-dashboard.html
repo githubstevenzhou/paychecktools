@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Feedback Dashboard</title>
+  <style>
+    body { font-family: Arial; padding: 20px; }
+    table { border-collapse: collapse; width: 100%; }
+    th, td { border: 1px solid #ccc; padding: 8px; }
+    th { background: #f4f4f4; }
+    .bad { background: #ffe5e5; }
+  </style>
+</head>
+<body>
+  <h1>Feedback Dashboard</h1>
+
+  <p>
+    Admin Token:
+    <input id="token" type="password">
+    <button onclick="load()">Load</button>
+  </p>
+
+  <table id="table">
+    <thead>
+      <tr>
+        <th>Page</th>
+        <th>Yes</th>
+        <th>No</th>
+        <th>No %</th>
+        <th>No Reasons</th>
+      </tr>
+    </thead>
+    <tbody></tbody>
+  </table>
+
+<script>
+async function load() {
+  const token = document.getElementById("token").value;
+  const res = await fetch(
+    "https://paychecktools-feedback.zhouqiext.workers.dev/stats?token=" + encodeURIComponent(token)
+  );
+  const data = await res.json();
+  if (!data.success) {
+    alert("Unauthorized");
+    return;
+  }
+
+  const tbody = document.querySelector("#table tbody");
+  tbody.innerHTML = "";
+
+  data.results.forEach(r => {
+    const tr = document.createElement("tr");
+    if (parseFloat(r.noRate) > 30) tr.className = "bad";
+
+    tr.innerHTML = `
+      <td>${r.page}</td>
+      <td>${r.yes}</td>
+      <td>${r.no}</td>
+      <td>${r.noRate}%</td>
+      <td>${Object.entries(r.reasons)
+        .map(([k,v]) => `${k}: ${v}`)
+        .join("<br>")}</td>
+    `;
+    tbody.appendChild(tr);
+  });
+}
+</script>
+</body>
+</html>

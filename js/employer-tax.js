@@ -1,26 +1,21 @@
 /**
- * employer-tax.js (Enhanced Version)
- * -----------------------------------
+ * employer-tax.js (Enhanced & Feedback-Ready)
+ * ------------------------------------------
  * Payroll, Self-Employment Tax, Employer Cost, and Deductions Calculator
- *
- * Supports:
- * 1. Payroll Tax Calculation
- * 2. Self-Employment Tax Calculation
- * 3. Employer Total Cost
- * 4. Optional Deductions
  *
  * Author: PaycheckTools
  * Last Updated: 2025
- *
- * Usage Example:
- * const result = calculateEmployerCosts({
- *   grossPay: 1000,
- *   payrollTaxRates: { socialSecurity: 6.2, medicare: 1.45 },
- *   selfEmploymentTaxRate: 15.3,
- *   otherDeductions: 50
- * });
- * console.log(result);
  */
+
+/**
+ * Feedback hook
+ * Safe for browser & Node.js
+ */
+function notifyResultReady() {
+  if (typeof document !== 'undefined' && typeof document.dispatchEvent === 'function') {
+    document.dispatchEvent(new Event('calculator:result-ready'));
+  }
+}
 
 /**
  * Calculate payroll taxes and employer costs
@@ -37,7 +32,9 @@ function calculateEmployerCosts({
   selfEmploymentTaxRate = 0,
   otherDeductions = 0
 }) {
-  if (typeof grossPay !== 'number' || grossPay < 0) throw new Error('Invalid grossPay');
+  if (typeof grossPay !== 'number' || grossPay < 0) {
+    throw new Error('Invalid grossPay');
+  }
 
   // --- Payroll taxes ---
   const payrollTaxAmount = Object.keys(payrollTaxRates).reduce((sum, key) => {
@@ -51,10 +48,10 @@ function calculateEmployerCosts({
   // --- Total employer cost ---
   const totalEmployerCost = grossPay + payrollTaxAmount + otherDeductions;
 
-  // --- Net pay to employee (after deductions) ---
+  // --- Net pay to employee ---
   const netPay = grossPay - otherDeductions;
 
-  return {
+  const result = {
     grossPay,
     netPay,
     payrollTaxAmount,
@@ -65,23 +62,16 @@ function calculateEmployerCosts({
       otherDeductions
     }
   };
+
+  // ✅ Notify feedback system only after successful calculation
+  notifyResultReady();
+
+  return result;
 }
 
 /**
- * Optional Node.js module export
+ * Node.js module export
  */
 if (typeof module !== 'undefined' && module.exports) {
   module.exports = { calculateEmployerCosts };
 }
-
-/**
- * --- Example Usage ---
- * Uncomment to test
- */
-// const example = calculateEmployerCosts({
-//   grossPay: 1000,
-//   payrollTaxRates: { socialSecurity: 6.2, medicare: 1.45 },
-//   selfEmploymentTaxRate: 15.3,
-//   otherDeductions: 50
-// });
-// console.log(example);
