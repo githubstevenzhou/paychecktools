@@ -1,0 +1,18 @@
+<!doctype html>
+<html>
+<body>
+<script>
+fetch("https://paychecktools-feedback.zhouqiext.workers.dev", {
+  method: "POST",
+  headers: {
+    "Content-Type": "application/json",
+    "Origin": "https://paychecktools.com"
+  },
+  body: JSON.stringify({
+    page: "/tools/worker-test",
+    vote: "yes"
+  })
+}).then(r => r.json()).then(console.log);
+</script>
+</body>
+</html>
