@@ -11,16 +11,34 @@
   <meta name="description" content="Calculate your paycheck including gross pay, taxes, and net pay.">
   <link rel="canonical" href="https://paychecktools.com/tools/paycheck-calculator/">
   <link rel="stylesheet" href="/css/styles.css">
+
+  <style>
+    /* Skeleton 占位样式 */
+    #site-header.skeleton, #site-footer.skeleton {
+      background: #e0e0e0;
+      min-height: 80px; /* 可根据实际高度调整 */
+      animation: pulse 1.5s infinite ease-in-out;
+    }
+    @keyframes pulse {
+      0% { opacity: 0.6; }
+      50% { opacity: 0.3; }
+      100% { opacity: 0.6; }
+    }
+  </style>
 </head>
 
 <body>
 
   <!-- Header -->
-  <div id="site-header"></div>
+  <div id="site-header" class="skeleton"></div>
   <script>
     fetch('/templates/header.html')
       .then(r => r.text())
-      .then(html => { document.getElementById('site-header').innerHTML = html; });
+      .then(html => {
+        const el = document.getElementById('site-header');
+        el.innerHTML = html;
+        el.classList.remove('skeleton'); // 移除占位样式
+      });
   </script>
 
   <main class="tool-container">
@@ -72,11 +90,15 @@
   </main>
 
   <!-- Footer -->
-  <div id="site-footer"></div>
+  <div id="site-footer" class="skeleton"></div>
   <script>
     fetch('/templates/footer.html')
       .then(r => r.text())
-      .then(html => { document.getElementById('site-footer').innerHTML = html; });
+      .then(html => {
+        const el = document.getElementById('site-footer');
+        el.innerHTML = html;
+        el.classList.remove('skeleton');
+      });
   </script>
 
   <!-- 核心计算逻辑 -->
