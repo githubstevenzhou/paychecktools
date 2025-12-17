@@ -1,18 +1,115 @@
-<!doctype html>
-<html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Vote Test</title>
+  <style>
+    #vote-container {
+      margin-top: 20px;
+      padding: 10px;
+      border: 1px solid #ccc;
+      width: 300px;
+      font-family: sans-serif;
+    }
+    #vote-container button {
+      margin-right: 5px;
+      padding: 5px 10px;
+      cursor: pointer;
+    }
+    #vote-status {
+      margin-top: 10px;
+      color: green;
+    }
+    #vote-count {
+      margin-top: 5px;
+      font-weight: bold;
+    }
+  </style>
+</head>
 <body>
-<script>
-fetch("https://paychecktools-feedback.zhouqiext.workers.dev", {
-  method: "POST",
-  headers: {
-    "Content-Type": "application/json",
-    "Origin": "https://paychecktools.com"
-  },
-  body: JSON.stringify({
-    page: "/tools/worker-test",
-    vote: "yes"
-  })
-}).then(r => r.json()).then(console.log);
-</script>
+  <div id="vote-container">
+    <div>Was this result helpful?</div>
+    <button id="vote-yes">Yes</button>
+    <button id="vote-no">No</button>
+    <div id="vote-status"></div>
+    <div id="vote-count"></div>
+  </div>
+
+  <script>
+    (function(){
+      // 替换为你的 Worker URL
+      const workerUrl = "https://paychecktools-feedback.zhouqiext.workers.dev";
+      const pageSlug = "/tools/test-page"; // 测试页面标识
+
+      const btnYes = document.getElementById("vote-yes");
+      const btnNo = document.getElementById("vote-no");
+      const statusDiv = document.getElementById("vote-status");
+      const countDiv = document.getElementById("vote-count");
+
+      let voted = false;
+
+      const updateVoteCount = (data) => {
+        countDiv.textContent = `Yes: ${data.yes || 0} | No: ${data.no || 0}`;
+      };
+
+      const sendVote = async (vote) => {
+        if (voted) return;
+        voted = true;
+        btnYes.disabled = true;
+        btnNo.disabled = true;
+        statusDiv.textContent = "Submitting your vote...";
+
+        try {
+          const res = await fetch(workerUrl, {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              "Origin": "https://paychecktools.com"
+            },
+            body: JSON.stringify({ page: pageSlug, vote: vote })
+          });
+
+          const data = await res.json();
+
+          if (res.status === 429) {
+            statusDiv.textContent = "You can only vote once per minute.";
+          } else if (!data.success) {
+            statusDiv.textContent = `Error: ${data.message}`;
+          } else {
+            statusDiv.textContent = "Thank you for your vote!";
+            await fetchVoteCount();
+          }
+
+        } catch (e) {
+          statusDiv.textContent = "Failed to submit vote. Please try again.";
+          console.error(e);
+        }
+      };
+
+      const fetchVoteCount = async () => {
+        try {
+          // vote: "none" 表示只获取统计，不增加票
+          const res = await fetch(workerUrl, {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              "Origin": "https://paychecktools.com"
+            },
+            body: JSON.stringify({ page: pageSlug, vote: "none" })
+          });
+          const data = await res.json();
+          if (data.success) updateVoteCount(data);
+        } catch (e) {
+          console.error("Failed to fetch vote count:", e);
+        }
+      };
+
+      btnYes.addEventListener("click", () => sendVote("yes"));
+      btnNo.addEventListener("click", () => sendVote("no"));
+
+      // 页面加载后获取统计
+      fetchVoteCount();
+    })();
+  </script>
 </body>
 </html>
