@@ -58,27 +58,31 @@ a.back-home { display:inline-block; margin-bottom:20px; color:#2563eb; text-deco
       <p>Net: $<span id="net"></span></p>
     </div>
 
-    <!-- Feedback Section -->
-    <div id="feedback-box" style="display:none;">
-      <p><strong>Was this result helpful?</strong></p>
+<!-- Feedback Section -->
+<div id="feedback-box" style="display:none; margin-top:24px; padding:16px; background:#f0f4f8; border-radius:8px;">
+  <p><strong>Was this result helpful?</strong></p>
 
-      <button data-vote="yes">👍 Yes</button>
-      <button data-vote="no">👎 No</button>
+  <div style="margin-bottom:12px;">
+    <button data-vote="yes">👍 Yes</button>
+    <button data-vote="no">👎 No</button>
+  </div>
 
-      <div id="no-reason-box" style="display:none;">
-        <p>Please tell us why:</p>
-        <label><input type="radio" name="no-reason" value="wrong_calculation"> Calculation seems wrong</label><br>
-        <label><input type="radio" name="no-reason" value="unclear_result"> Result is unclear</label><br>
-        <label><input type="radio" name="no-reason" value="missing_option"> Missing option</label><br>
-        <label><input type="radio" name="no-reason" value="ui_confusing"> UI is confusing</label><br>
-      </div>
+  <div id="no-reason-box" style="display:none; margin-top:12px; padding:12px; background:#fff; border:1px solid #cbd5e1; border-radius:5px;">
+    <p>Please tell us why:</p>
+    <label><input type="radio" name="no-reason" value="wrong_calculation"> Calculation seems wrong</label><br>
+    <label><input type="radio" name="no-reason" value="unclear_result"> Result is unclear</label><br>
+    <label><input type="radio" name="no-reason" value="missing_option"> Missing option</label><br>
+    <label><input type="radio" name="no-reason" value="ui_confusing"> UI is confusing</label><br>
+  </div>
 
-      <!-- Unified Submit Button -->
-      <button id="feedback-submit">Submit</button>
+  <!-- Unified Submit Button, always in next line -->
+  <div style="margin-top:12px;">
+    <button id="feedback-submit" style="padding:8px 16px; background:#2563eb; color:#fff; border:none; border-radius:5px; cursor:pointer;">Submit</button>
+  </div>
 
-      <div id="feedback-status" style="margin-top:10px;font-weight:600;"></div>
-    </div>
-
+  <div id="feedback-status" style="margin-top:10px;font-weight:600;"></div>
+</div>
+    
   </div>
 </main>
 <footer>
