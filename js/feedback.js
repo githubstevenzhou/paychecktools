@@ -4,36 +4,36 @@
 
   const status = document.getElementById("feedback-status");
   const noBox = document.getElementById("no-reason-box");
+  const submitBtn = document.getElementById("feedback-submit");
   const page = location.pathname;
 
   let selectedVote = null;
   let selectedReason = null;
 
-  // Show feedback when calculation is ready
+  // Show feedback box when calculation is ready
   document.addEventListener("calculator:result-ready", () => {
     box.style.display = "block";
     loadStats();
   });
 
-  // Handle Yes / No selection
-  box.addEventListener("click", (e) => {
-    const vote = e.target.dataset.vote;
-    if (!vote) return;
+  // Handle Yes / No button clicks
+  const voteButtons = box.querySelectorAll("button[data-vote]");
+  voteButtons.forEach(btn => {
+    btn.addEventListener("click", () => {
+      selectedVote = btn.dataset.vote;
 
-    selectedVote = vote;
-
-    if (vote === "no") {
-      noBox.style.display = "block";
-      status.textContent = ""; // 清空提示
-    } else {
-      noBox.style.display = "none";
-      // 提示用户点击 Submit
-      status.textContent = "You selected Yes. Click Submit to confirm.";
-    }
+      if (selectedVote === "no") {
+        noBox.style.display = "block";
+        status.textContent = "You selected No. Please choose a reason and click Submit.";
+      } else if (selectedVote === "yes") {
+        noBox.style.display = "none";
+        status.textContent = "You selected Yes. Click Submit to confirm.";
+      }
+    });
   });
 
-  // Unified Submit button
-  document.getElementById("feedback-submit")?.addEventListener("click", () => {
+  // Handle Submit button click
+  submitBtn.addEventListener("click", () => {
     if (!selectedVote) {
       status.textContent = "Please select Yes or No.";
       return;
