@@ -8,13 +8,14 @@
   </script>
 
   <title>Annual Income Calculator – PaycheckTools</title>
-  <meta name="description" content="Calculate your total annual income including salary and bonuses.">
+  <meta name="description" content="Calculate your total annual income based on monthly salary and bonus.">
   <link rel="canonical" href="https://paychecktools.com/tools/annual-income-calculator/">
   <link rel="stylesheet" href="/css/styles.css">
 </head>
 
 <body>
 
+<!-- Header -->
 <div id="site-header" class="skeleton"></div>
 <script>
 fetch('/templates/header.html')
@@ -28,28 +29,50 @@ fetch('/templates/header.html')
 
 <main class="tool-container">
 
-<section class="calculator">
-  <h1>Annual Income Calculator</h1>
+  <section class="calculator">
+    <h1>Annual Income Calculator</h1>
 
-  <label>Monthly Salary:
-    <input id="monthly" type="number" value="4000">
-  </label>
+    <label>
+      Monthly Salary:
+      <input id="monthly" type="number" value="4000">
+    </label>
 
-  <label>Bonus:
-    <input id="bonus" type="number" value="0">
-  </label>
+    <label>
+      Bonus:
+      <input id="bonus" type="number" value="0">
+    </label>
 
-  <button id="calculateBtn" class="primary-btn">Calculate</button>
+    <button id="calculateBtn" class="primary-btn">Calculate</button>
 
-  <div id="output" class="result-box" style="display:none;">
-    <p>Annual Income: <strong>$<span id="annual"></span></strong></p>
-  </div>
-</section>
+    <div id="output" class="result-box" style="display:none;">
+      <p>Annual Income: <strong>$<span id="annual"></span></strong></p>
+    </div>
+  </section>
 
-<section id="feedback-box" class="feedback-box" style="display:none;"></section>
+  <!-- Feedback -->
+  <section id="feedback-box" class="feedback-box" style="display:none;">
+    <p><strong>Was this result helpful?</strong></p>
+
+    <div class="feedback-actions">
+      <button data-vote="yes">👍 Yes</button>
+      <button data-vote="no">👎 No</button>
+    </div>
+
+    <div id="no-reason-box" style="display:none;">
+      <p>Please tell us why:</p>
+      <label><input type="radio" name="no-reason" value="wrong_calculation"> Calculation seems wrong</label>
+      <label><input type="radio" name="no-reason" value="unclear_result"> Result is unclear</label>
+      <label><input type="radio" name="no-reason" value="missing_option"> Missing option</label>
+      <label><input type="radio" name="no-reason" value="ui_confusing"> UI is confusing</label>
+      <button id="feedback-submit" class="secondary-btn">Submit Feedback</button>
+    </div>
+
+    <div id="feedback-status"></div>
+  </section>
 
 </main>
 
+<!-- Footer -->
 <div id="site-footer" class="skeleton"></div>
 <script>
 fetch('/templates/footer.html')
