@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <!-- 异步加载全局 head -->
   <script>
     fetch('/templates/head.html')
       .then(r => r.text())
@@ -15,89 +16,93 @@
 
 <body class="tools-page">
 
-<!-- Header -->
-<div id="site-header" class="skeleton"></div>
-<script>
-fetch('/templates/header.html')
-  .then(r => r.text())
-  .then(html => {
-    const el = document.getElementById('site-header');
-    el.innerHTML = html;
-    el.classList.remove('skeleton');
-  });
-</script>
+  <!-- Header -->
+  <div id="site-header" class="skeleton"></div>
+  <script>
+    fetch('/templates/header.html')
+      .then(r => r.text())
+      .then(html => {
+        const el = document.getElementById('site-header');
+        el.innerHTML = html;
+        el.classList.remove('skeleton');
+      });
+  </script>
 
-<main class="tool-container">
+  <!-- 主体内容，包裹 main -->
+  <div class="main-content">
+    <main class="tool-container">
 
-  <section class="calculator">
-    <h1>Annual Income Calculator</h1>
+      <!-- Calculator Section -->
+      <section class="calculator">
+        <h1>Annual Income Calculator</h1>
 
-    <label>
-      Monthly Salary:
-      <input id="monthly" type="number" value="4000">
-    </label>
+        <label>
+          Monthly Salary:
+          <input id="monthly" type="number" value="4000">
+        </label>
 
-    <label>
-      Bonus:
-      <input id="bonus" type="number" value="0">
-    </label>
+        <label>
+          Bonus:
+          <input id="bonus" type="number" value="0">
+        </label>
 
-    <button id="calculateBtn" class="primary-btn">Calculate</button>
+        <button id="calculateBtn" class="primary-btn">Calculate</button>
 
-    <div id="output" class="result-box" style="display:none;">
-      <p>Annual Income: <strong>$<span id="annual"></span></strong></p>
-    </div>
-  </section>
+        <div id="output" class="result-box" style="display:none;">
+          <p>Annual Income: <strong>$<span id="annual"></span></strong></p>
+        </div>
+      </section>
 
-  <!-- Feedback -->
-  <section id="feedback-box" class="feedback-box" style="display:none;">
-    <p><strong>Was this result helpful?</strong></p>
+      <!-- Feedback Section -->
+      <section id="feedback-box" class="feedback-box" style="display:none;">
+        <p><strong>Was this result helpful?</strong></p>
 
-    <div class="feedback-actions">
-      <button data-vote="yes">👍 Yes</button>
-      <button data-vote="no">👎 No</button>
-    </div>
+        <div class="feedback-actions">
+          <button data-vote="yes">👍 Yes</button>
+          <button data-vote="no">👎 No</button>
+        </div>
 
-    <div id="no-reason-box" style="display:none;">
-      <p>Please tell us why:</p>
-      <label><input type="radio" name="no-reason" value="wrong_calculation"> Calculation seems wrong</label>
-      <label><input type="radio" name="no-reason" value="unclear_result"> Result is unclear</label>
-      <label><input type="radio" name="no-reason" value="missing_option"> Missing option</label>
-      <label><input type="radio" name="no-reason" value="ui_confusing"> UI is confusing</label>
-      <button id="feedback-submit" class="secondary-btn">Submit Feedback</button>
-    </div>
+        <div id="no-reason-box" style="display:none;">
+          <p>Please tell us why:</p>
+          <label><input type="radio" name="no-reason" value="wrong_calculation"> Calculation seems wrong</label>
+          <label><input type="radio" name="no-reason" value="unclear_result"> Result is unclear</label>
+          <label><input type="radio" name="no-reason" value="missing_option"> Missing option</label>
+          <label><input type="radio" name="no-reason" value="ui_confusing"> UI is confusing</label>
+          <button id="feedback-submit" class="secondary-btn">Submit Feedback</button>
+        </div>
 
-    <div id="feedback-status"></div>
-  </section>
+        <div id="feedback-status"></div>
+      </section>
 
-</main>
+    </main>
+  </div>
 
-<!-- Footer -->
-<div id="site-footer" class="skeleton"></div>
-<script>
-fetch('/templates/footer.html')
-  .then(r => r.text())
-  .then(html => {
-    const el = document.getElementById('site-footer');
-    el.innerHTML = html;
-    el.classList.remove('skeleton');
-  });
-</script>
+  <!-- Footer -->
+  <div id="site-footer" class="skeleton"></div>
+  <script>
+    fetch('/templates/footer.html')
+      .then(r => r.text())
+      .then(html => {
+        const el = document.getElementById('site-footer');
+        el.innerHTML = html;
+        el.classList.remove('skeleton');
+      });
+  </script>
 
-<script src="/js/feedback.js"></script>
+  <!-- JS -->
+  <script src="/js/feedback.js"></script>
+  <script>
+    document.getElementById('calculateBtn').addEventListener('click', () => {
+      const monthly = Number(document.getElementById('monthly').value);
+      const bonus = Number(document.getElementById('bonus').value);
+      const annual = monthly * 12 + bonus;
 
-<script>
-document.getElementById('calculateBtn').addEventListener('click', () => {
-  const monthly = Number(document.getElementById('monthly').value);
-  const bonus = Number(document.getElementById('bonus').value);
-  const annual = monthly * 12 + bonus;
+      document.getElementById('annual').innerText = annual.toFixed(2);
+      document.getElementById('output').style.display = 'block';
 
-  document.getElementById('annual').innerText = annual.toFixed(2);
-  document.getElementById('output').style.display = 'block';
-
-  document.dispatchEvent(new Event('calculator:result-ready'));
-});
-</script>
+      document.dispatchEvent(new Event('calculator:result-ready'));
+    });
+  </script>
 
 </body>
 </html>
