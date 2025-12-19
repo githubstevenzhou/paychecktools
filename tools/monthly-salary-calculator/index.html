@@ -1,69 +1,97 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>Monthly Salary Calculator – PaycheckTools</title>
-<meta name="description" content="Calculate your monthly salary including gross pay, taxes, and net pay.">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="canonical" href="https://paychecktools.com/tools/monthly-salary-calculator/">
-<style>
-body { margin:0; font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto; background:#f5f7fa; color:#1f2937; }
-header { background:#2563eb; padding:28px 16px; text-align:center; }
-header a { color:#fff; text-decoration:none; }
-header h1 { margin:0; font-size:28px; }
-header p { margin-top:8px; font-size:16px; opacity:.95; }
-main { max-width:1100px; margin:0 auto; padding:32px 16px; }
-.calculator { background:#fff; padding:24px; border-radius:10px; box-shadow:0 4px 12px rgba(0,0,0,.05); max-width:600px; margin:0 auto 48px; }
-.calculator label { display:block; margin:12px 0; }
-.calculator input, .calculator select { padding:6px; width:100%; max-width:200px; margin-left:10px; }
-.calculator button { padding:10px 20px; margin-top:12px; background:#2563eb; color:#fff; border:none; cursor:pointer; border-radius:5px; }
-.calculator button:hover { background:#1e40af; }
-#output { margin-top:20px; padding:10px; background:#e3f2fd; border:1px solid #90caf9; display:none; border-radius:5px; }
-#output p { margin:6px 0; font-weight:500; }
-footer { background:#fff; border-top:1px solid #e5e7eb; padding:24px 16px; text-align:center; font-size:14px; color:#6b7280; }
-footer a { color:#2563eb; text-decoration:none; margin:0 8px; }
-a.back-home { display:inline-block; margin-bottom:20px; color:#2563eb; text-decoration:none; font-weight:600; }
-</style>
+  <script>
+    fetch('/templates/head.html')
+      .then(r => r.text())
+      .then(html => document.head.insertAdjacentHTML('beforeend', html));
+  </script>
+
+  <title>Monthly Salary Calculator – PaycheckTools</title>
+  <meta name="description" content="Calculate your monthly salary based on annual income.">
+  <link rel="canonical" href="https://paychecktools.com/tools/monthly-salary-calculator/">
+  <link rel="stylesheet" href="/css/styles.css">
 </head>
+
 <body>
-<header>
-  <a href="/index.html"><h1>PaycheckTools</h1><p>Free Paycheck, Salary & Tax Calculator Tools</p></a>
-</header>
-<main>
-  <div class="calculator">
-    <a class="back-home" href="/index.html">← Return to Homepage</a>
-    <h2>Monthly Salary Calculator</h2>
-    <label>Monthly Salary: <input id="wage" type="number" value="4000"></label>
-    <label>Federal Tax (%): <input id="taxFederal" type="number" value="12"></label>
-    <label>State Tax (%): <input id="taxState" type="number" value="5"></label>
-    <button id="calculateBtn">Calculate</button>
-    <div id="output">
-      <p>Gross: $<span id="gross"></span></p>
-      <p>Taxes: $<span id="tax"></span></p>
-      <p>Net: $<span id="net"></span></p>
-    </div>
-  </div>
-</main>
-<footer>
-  © 2025 PaycheckTools.com |
-  <a href="/about.html">About</a> |
-  <a href="/privacy-policy.html">Privacy</a> |
-  <a href="/terms.html">Terms</a>
-</footer>
-<script src="/js/calculator-core.js"></script>
+
+<!-- Header -->
+<div id="site-header" class="skeleton"></div>
 <script>
-document.getElementById('calculateBtn').addEventListener('click', function() {
-  const wage = Number(document.getElementById('wage').value);
-  const federal = Number(document.getElementById('taxFederal').value);
-  const state = Number(document.getElementById('taxState').value);
-  const gross = wage;
-  const taxAmount = gross * (federal + state)/100;
-  const net = gross - taxAmount;
-  document.getElementById('gross').innerText = gross.toFixed(2);
-  document.getElementById('tax').innerText = taxAmount.toFixed(2);
-  document.getElementById('net').innerText = net.toFixed(2);
+fetch('/templates/header.html')
+  .then(r => r.text())
+  .then(html => {
+    const el = document.getElementById('site-header');
+    el.innerHTML = html;
+    el.classList.remove('skeleton');
+  });
+</script>
+
+<main class="tool-container">
+
+  <section class="calculator">
+    <h1>Monthly Salary Calculator</h1>
+
+    <label>
+      Annual Salary:
+      <input id="annual" type="number" value="60000">
+    </label>
+
+    <button id="calculateBtn" class="primary-btn">Calculate</button>
+
+    <div id="output" class="result-box" style="display:none;">
+      <p>Monthly Salary: <strong>$<span id="monthly"></span></strong></p>
+    </div>
+  </section>
+
+  <!-- Feedback -->
+  <section id="feedback-box" class="feedback-box" style="display:none;">
+    <p><strong>Was this result helpful?</strong></p>
+
+    <div class="feedback-actions">
+      <button data-vote="yes">👍 Yes</button>
+      <button data-vote="no">👎 No</button>
+    </div>
+
+    <div id="no-reason-box" style="display:none;">
+      <p>Please tell us why:</p>
+      <label><input type="radio" name="no-reason" value="wrong_calculation"> Calculation seems wrong</label>
+      <label><input type="radio" name="no-reason" value="unclear_result"> Result is unclear</label>
+      <label><input type="radio" name="no-reason" value="missing_option"> Missing option</label>
+      <label><input type="radio" name="no-reason" value="ui_confusing"> UI is confusing</label>
+      <button id="feedback-submit" class="secondary-btn">Submit Feedback</button>
+    </div>
+
+    <div id="feedback-status"></div>
+  </section>
+
+</main>
+
+<!-- Footer -->
+<div id="site-footer" class="skeleton"></div>
+<script>
+fetch('/templates/footer.html')
+  .then(r => r.text())
+  .then(html => {
+    const el = document.getElementById('site-footer');
+    el.innerHTML = html;
+    el.classList.remove('skeleton');
+  });
+</script>
+
+<script src="/js/feedback.js"></script>
+
+<script>
+document.getElementById('calculateBtn').addEventListener('click', () => {
+  const annual = Number(document.getElementById('annual').value);
+  const monthly = annual / 12;
+
+  document.getElementById('monthly').innerText = monthly.toFixed(2);
   document.getElementById('output').style.display = 'block';
+
+  document.dispatchEvent(new Event('calculator:result-ready'));
 });
 </script>
+
 </body>
 </html>

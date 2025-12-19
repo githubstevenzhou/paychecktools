@@ -1,89 +1,125 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>Net Pay Calculator – PaycheckTools</title>
-<meta name="description" content="Estimate your take-home pay after taxes.">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="canonical" href="https://paychecktools.com/tools/net-pay-calculator/">
-<style>
-body { margin:0; font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto; background:#f5f7fa; color:#1f2937; }
-header { background:#2563eb; padding:28px 16px; text-align:center; }
-header a { color:#fff; text-decoration:none; }
-header h1 { margin:0; font-size:28px; }
-header p { margin-top:8px; font-size:16px; opacity:.95; }
-main { max-width:1100px; margin:0 auto; padding:32px 16px; }
-.calculator { background:#fff; padding:24px; border-radius:10px; box-shadow:0 4px 12px rgba(0,0,0,.05); max-width:600px; margin:0 auto 48px; }
-.calculator label { display:block; margin:12px 0; }
-.calculator input, .calculator select { padding:6px; width:100%; max-width:200px; margin-left:10px; }
-.calculator button { padding:10px 20px; margin-top:12px; background:#2563eb; color:#fff; border:none; cursor:pointer; border-radius:5px; }
-.calculator button:hover { background:#1e40af; }
-#output { margin-top:20px; padding:10px; background:#e3f2fd; border:1px solid #90caf9; display:none; border-radius:5px; }
-#output p { margin:6px 0; font-weight:500; }
-footer { background:#fff; border-top:1px solid #e5e7eb; padding:24px 16px; text-align:center; font-size:14px; color:#6b7280; }
-footer a { color:#2563eb; text-decoration:none; margin:0 8px; }
-a.back-home { display:inline-block; margin-bottom:20px; color:#2563eb; text-decoration:none; font-weight:600; }
-</style>
+  <!-- Shared head -->
+  <script>
+    fetch('/templates/head.html')
+      .then(r => r.text())
+      .then(html => document.head.insertAdjacentHTML('beforeend', html));
+  </script>
+
+  <title>Net Pay Calculator – PaycheckTools</title>
+  <meta name="description" content="Calculate your net pay after federal and state taxes.">
+  <link rel="canonical" href="https://paychecktools.com/tools/net-pay-calculator/">
+  <link rel="stylesheet" href="/css/styles.css">
 </head>
+
 <body>
-<header>
-  <a href="/index.html"><h1>PaycheckTools</h1><p>Free Paycheck, Salary & Tax Calculator Tools</p></a>
-</header>
-<main>
-  <div class="calculator">
-    <a class="back-home" href="/index.html">← Return to Homepage</a>
-    <h2>Net Pay Calculator</h2>
 
-    <label>Income Amount: <input id="gross" type="number" value="1000"></label>
+<!-- Header -->
+<div id="site-header"></div>
+<script>
+  fetch('/templates/header.html')
+    .then(r => r.text())
+    .then(html => document.getElementById('site-header').innerHTML = html);
+</script>
 
-    <label>Income Unit:
-      <select id="incomeUnit">
-        <option value="hourly">Hourly</option>
+<main class="tool-container">
+
+  <!-- Calculator -->
+  <section class="calculator">
+    <h1>Net Pay Calculator</h1>
+
+    <label>
+      Gross Pay:
+      <input id="grossPay" type="number" value="5000">
+    </label>
+
+    <label>
+      Pay Frequency:
+      <select id="frequency">
         <option value="weekly">Weekly</option>
+        <option value="biweekly">Biweekly</option>
+        <option value="semimonthly">Semimonthly</option>
         <option value="monthly" selected>Monthly</option>
         <option value="yearly">Yearly</option>
       </select>
     </label>
 
-    <label>Federal Tax (%): <input id="taxFederal" type="number" value="12"></label>
-    <label>State Tax (%): <input id="taxState" type="number" value="5"></label>
-    <button id="calculateBtn">Calculate</button>
+    <label>
+      Federal Tax (%):
+      <input id="taxFederal" type="number" value="12">
+    </label>
 
-    <div id="output">
-      <p>Net Pay: $<span id="net"></span></p>
+    <label>
+      State Tax (%):
+      <input id="taxState" type="number" value="5">
+    </label>
+
+    <button id="calculateBtn" class="primary-btn">Calculate</button>
+
+    <div id="output" class="result-box" style="display:none;">
+      <p>Net Pay: <strong><span id="netPay"></span></strong></p>
     </div>
-  </div>
-</main>
-<footer>
-  © 2025 PaycheckTools.com |
-  <a href="/about.html">About</a> |
-  <a href="/privacy-policy.html">Privacy</a> |
-  <a href="/terms.html">Terms</a>
-</footer>
+  </section>
 
-<script src="/js/salary-conversion.js"></script>
+  <!-- Feedback (inline, not loaded) -->
+  <section id="feedback-box" class="feedback-box" style="display:none;">
+    <p><strong>Was this result helpful?</strong></p>
+
+    <div class="feedback-actions">
+      <button data-vote="yes">👍 Yes</button>
+      <button data-vote="no">👎 No</button>
+    </div>
+
+    <div id="no-reason-box" style="display:none;">
+      <p>Please tell us why:</p>
+      <label><input type="radio" name="no-reason" value="wrong_calculation"> Calculation seems wrong</label>
+      <label><input type="radio" name="no-reason" value="unclear_result"> Result is unclear</label>
+      <label><input type="radio" name="no-reason" value="missing_option"> Missing option</label>
+      <label><input type="radio" name="no-reason" value="ui_confusing"> UI is confusing</label>
+      <button id="feedback-submit" class="secondary-btn">Submit Feedback</button>
+    </div>
+
+    <div id="feedback-status"></div>
+  </section>
+
+</main>
+
+<!-- Footer -->
+<div id="site-footer"></div>
+<script>
+  fetch('/templates/footer.html')
+    .then(r => r.text())
+    .then(html => document.getElementById('site-footer').innerHTML = html);
+</script>
+
+<!-- Core calculation -->
+<script src="/js/calculator-core.js"></script>
+
+<!-- Feedback logic -->
+<script src="/js/feedback.js"></script>
 
 <script>
-document.getElementById('calculateBtn').addEventListener('click', function() {
-  const gross = Number(document.getElementById('gross').value);
-  const fromUnit = document.getElementById('incomeUnit').value;
-  const federal = Number(document.getElementById('taxFederal').value);
-  const state = Number(document.getElementById('taxState').value);
+  document.getElementById('calculateBtn').addEventListener('click', () => {
+    const gross = Number(document.getElementById('grossPay').value);
+    const frequency = document.getElementById('frequency').value;
+    const federal = Number(document.getElementById('taxFederal').value);
+    const state = Number(document.getElementById('taxState').value);
 
-  try {
-    const result = convertSalary({
-      amount: gross,
-      from: fromUnit,  // 用户选择的单位
-      to: fromUnit,    // 输出同单位
+    const result = calculateNetFromGross({
+      gross,
+      frequency,
       taxes: { federal, state }
     });
 
-    document.getElementById('net').innerText = result.net.toFixed(2);
+    document.getElementById('netPay').innerText = result.netPay.toFixed(2);
     document.getElementById('output').style.display = 'block';
-  } catch (err) {
-    alert('Error: ' + err.message);
-  }
-});
+
+    // trigger feedback
+    document.dispatchEvent(new Event('calculator:result-ready'));
+  });
 </script>
+
 </body>
 </html>
