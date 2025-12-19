@@ -1,14 +1,20 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Free Payroll Calculator – Calculate Payroll Online | PaycheckTools</title>
+  <!-- Global head -->
+  <script>
+    // 异步加载公共 head
+    fetch('/templates/head.html')
+      .then(r => r.text())
+      .then(html => document.head.insertAdjacentHTML('beforeend', html));
+  </script>
+
   <meta name="description" content="Use this free payroll calculator to estimate payroll, taxes, deductions, and take-home pay. No signup required. Simple and fast online payroll calculation.">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Free Payroll Calculator – PaycheckTools</title>
   <link rel="canonical" href="https://paychecktools.com/tools/free-payroll-calculator/">
 
-  <!-- Styles -->
-  <link rel="stylesheet" href="/styles.css">
+  <!-- 引入统一样式 -->
+  <link rel="stylesheet" href="/css/styles.css">
 
   <style>
     /* Skeleton 占位样式 */
@@ -21,6 +27,48 @@
       0% { opacity: 0.6; }
       50% { opacity: 0.3; }
       100% { opacity: 0.6; }
+    }
+    /* Tool Box 样式 */
+    .tool-box label {
+      display: block;
+      margin-top: 12px;
+      font-weight: 600;
+    }
+    .tool-box input, .tool-box select {
+      width: 100%;
+      padding: 8px;
+      margin-top: 4px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+    .tool-box button {
+      margin-top: 12px;
+      padding: 10px 16px;
+      background-color: #0073e6;
+      color: #fff;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    .tool-box button:hover {
+      background-color: #005bb5;
+    }
+    .result-box {
+      margin-top: 16px;
+      padding: 12px;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      background: #f9f9f9;
+    }
+    .tool-explanation p {
+      margin-bottom: 12px;
+      line-height: 1.6;
+    }
+    .faq h2 {
+      margin-top: 24px;
+    }
+    .faq h3 {
+      margin-top: 16px;
     }
   </style>
 </head>
@@ -39,80 +87,78 @@
       });
   </script>
 
-  <main class="container">
+  <main>
+    <div class="container">
+      <h1>Free Payroll Calculator</h1>
 
-    <!-- H1 -->
-    <h1>Free Payroll Calculator</h1>
+      <!-- Tool UI -->
+      <section class="tool-box">
+        <form id="payrollForm">
+          <label for="grossPay">Gross Pay</label>
+          <input type="number" id="grossPay" placeholder="Enter gross pay" required>
 
-    <!-- Tool UI -->
-    <section class="tool-box">
-      <form id="payrollForm">
+          <label for="payFrequency">Pay Frequency</label>
+          <select id="payFrequency">
+            <option value="hourly">Hourly</option>
+            <option value="weekly">Weekly</option>
+            <option value="biweekly">Biweekly</option>
+            <option value="monthly">Monthly</option>
+            <option value="yearly">Yearly</option>
+          </select>
 
-        <label for="grossPay">Gross Pay</label>
-        <input type="number" id="grossPay" placeholder="Enter gross pay" required>
+          <label for="taxRate">Estimated Tax Rate (%)</label>
+          <input type="number" id="taxRate" placeholder="e.g. 20">
 
-        <label for="payFrequency">Pay Frequency</label>
-        <select id="payFrequency">
-          <option value="hourly">Hourly</option>
-          <option value="weekly">Weekly</option>
-          <option value="biweekly">Biweekly</option>
-          <option value="monthly">Monthly</option>
-          <option value="yearly">Yearly</option>
-        </select>
+          <label for="deductions">Other Deductions</label>
+          <input type="number" id="deductions" placeholder="e.g. 200">
 
-        <label for="taxRate">Estimated Tax Rate (%)</label>
-        <input type="number" id="taxRate" placeholder="e.g. 20">
+          <button type="button" onclick="calculatePayroll()">Calculate Payroll</button>
+        </form>
 
-        <label for="deductions">Other Deductions</label>
-        <input type="number" id="deductions" placeholder="e.g. 200">
+        <div id="result" class="result-box"></div>
+      </section>
 
-        <button type="button" onclick="calculatePayroll()">Calculate Payroll</button>
-      </form>
+      <!-- Explanation Content -->
+      <section class="tool-explanation">
+        <p>
+          A <strong>free payroll calculator</strong> helps individuals and small businesses estimate payroll quickly without using paid software or complex systems. This tool allows you to calculate payroll based on gross income, pay frequency, estimated tax rates, and basic deductions, giving you a clear view of your expected take-home pay.
+        </p>
 
-      <div id="result" class="result-box"></div>
-    </section>
+        <p>
+          With this free payroll calculator, you can enter your hourly wage or salary, select how often you are paid, and apply an estimated payroll tax rate. The calculator instantly shows how taxes and deductions impact your net pay, making it easier to understand payroll calculations and income breakdowns.
+        </p>
 
-    <!-- Explanation Content -->
-    <section class="tool-explanation">
-      <p>
-        A <strong>free payroll calculator</strong> helps individuals and small businesses estimate payroll quickly without using paid software or complex systems. This tool allows you to calculate payroll based on gross income, pay frequency, estimated tax rates, and basic deductions, giving you a clear view of your expected take-home pay.
-      </p>
+        <p>
+          This tool is commonly used by freelancers, part-time employees, contractors, and small business owners who need a fast payroll estimate. Employees can also use it to double-check paychecks, compare job offers, or plan monthly budgets based on net income.
+        </p>
 
-      <p>
-        With this free payroll calculator, you can enter your hourly wage or salary, select how often you are paid, and apply an estimated payroll tax rate. The calculator instantly shows how taxes and deductions impact your net pay, making it easier to understand payroll calculations and income breakdowns.
-      </p>
+        <p>
+          Unlike full payroll software, this <strong>free payroll calculator</strong> focuses on quick calculations rather than payroll management or compliance. No account is required, no data is stored, and all calculations are performed instantly in your browser.
+        </p>
 
-      <p>
-        This tool is commonly used by freelancers, part-time employees, contractors, and small business owners who need a fast payroll estimate. Employees can also use it to double-check paychecks, compare job offers, or plan monthly budgets based on net income.
-      </p>
+        <p>
+          For more detailed calculations, you may also use our
+          <a href="/tools/payroll-tax-calculator/">Payroll Tax Calculator</a>
+          or
+          <a href="/tools/payroll-deduction-calculator/">Payroll Deduction Calculator</a>
+          to refine specific parts of your payroll estimate.
+        </p>
+      </section>
 
-      <p>
-        Unlike full payroll software, this <strong>free payroll calculator</strong> focuses on quick calculations rather than payroll management or compliance. No account is required, no data is stored, and all calculations are performed instantly in your browser.
-      </p>
+      <!-- FAQ -->
+      <section class="faq">
+        <h2>Frequently Asked Questions</h2>
 
-      <p>
-        For more detailed calculations, you may also use our
-        <a href="/tools/payroll-tax-calculator/">Payroll Tax Calculator</a>
-        or
-        <a href="/tools/payroll-deduction-calculator/">Payroll Deduction Calculator</a>
-        to refine specific parts of your payroll estimate.
-      </p>
-    </section>
+        <h3>Is this payroll calculator really free?</h3>
+        <p>Yes. This is a completely free payroll calculator with no signup, subscription, or hidden fees.</p>
 
-    <!-- FAQ -->
-    <section class="faq">
-      <h2>Frequently Asked Questions</h2>
+        <h3>Can I use this calculator for small business payroll?</h3>
+        <p>You can use it for basic payroll estimates. For complex payroll processing, additional tools may be required.</p>
 
-      <h3>Is this payroll calculator really free?</h3>
-      <p>Yes. This is a completely free payroll calculator with no signup, subscription, or hidden fees.</p>
-
-      <h3>Can I use this calculator for small business payroll?</h3>
-      <p>You can use it for basic payroll estimates. For complex payroll processing, additional tools may be required.</p>
-
-      <h3>Does this free payroll calculator include taxes and deductions?</h3>
-      <p>The calculator allows you to include estimated tax rates and deductions to calculate net pay.</p>
-    </section>
-
+        <h3>Does this free payroll calculator include taxes and deductions?</h3>
+        <p>The calculator allows you to include estimated tax rates and deductions to calculate net pay.</p>
+      </section>
+    </div>
   </main>
 
   <!-- Footer -->
