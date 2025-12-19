@@ -1,22 +1,10 @@
-/* ===== 全局布局：保证 footer 自适应底部 ===== */
-html, body {
-  height: 100%;
+/* ===== 全局基础样式 ===== */
+body {
   margin: 0;
-  padding: 0;
-  display: flex;
-  flex-direction: column; /* 垂直布局 */
   font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
   background: #f5f7fa;
   color: #1f2937;
   line-height: 1.6;
-}
-
-/* 主体内容撑满剩余空间 */
-.main-content {
-  flex: 1;
-  max-width: 1100px;
-  margin: 0 auto;
-  padding: 32px 16px;
 }
 
 /* ===== Header 样式 ===== */
@@ -110,4 +98,15 @@ footer {
   margin-top: 12px;
   font-size: 13px;
   color: #9ca3af;
+}
+
+/* ===== 工具页面特有布局：固定 footer ===== */
+body.tools-page {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh; /* 页面至少撑满整个窗口高度 */
+}
+
+body.tools-page .main-content {
+  flex: 1; /* 主体内容撑开，footer 自然在底部 */
 }
