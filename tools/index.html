@@ -28,6 +28,25 @@
       50% { opacity: 0.3; }
       100% { opacity: 0.6; }
     }
+    /* Tool card description */
+    .tool-card {
+      display: flex;
+      flex-direction: column;
+      text-decoration: none;
+      color: #000;
+      border: 1px solid #ddd;
+      padding: 12px;
+      border-radius: 6px;
+      transition: box-shadow 0.2s;
+    }
+    .tool-card:hover {
+      box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+    }
+    .tool-description {
+      font-size: 0.9rem;
+      color: #555;
+      margin-top: 4px;
+    }
   </style>
 </head>
 
@@ -49,23 +68,95 @@
     <h1>All Paycheck & Salary Calculator Tools</h1>
 
     <div class="tool-grid">
-      <a class="tool-card" href="/tools/net-pay-calculator/">Net Pay Calculator</a>
-      <a class="tool-card" href="/tools/gross-to-net-calculator/">Gross to Net Calculator</a>
-      <a class="tool-card" href="/tools/paycheck-calculator/">Paycheck Calculator</a>
-      <a class="tool-card" href="/tools/weekly-paycheck-calculator/">Weekly Paycheck Calculator</a>
-      <a class="tool-card" href="/tools/biweekly-pay-calculator/">Biweekly Pay Calculator</a>
-      <a class="tool-card" href="/tools/monthly-salary-calculator/">Monthly Salary Calculator</a>
-      <a class="tool-card" href="/tools/take-home-pay-calculator/">Take Home Pay Calculator</a>
-      <a class="tool-card" href="/tools/hourly-to-salary-calculator/">Hourly to Salary Calculator</a>
-      <a class="tool-card" href="/tools/salary-to-hourly-calculator/">Salary to Hourly Calculator</a>
-      <a class="tool-card" href="/tools/annual-income-calculator/">Annual Income Calculator</a>
-      <a class="tool-card" href="/tools/overtime-pay-calculator/">Overtime Pay Calculator</a>
-      <a class="tool-card" href="/tools/part-time-salary-calculator/">Part-Time Salary Calculator</a>
-      <a class="tool-card" href="/tools/payroll-tax-calculator/">Payroll Tax Calculator</a>
-      <a class="tool-card" href="/tools/self-employment-tax-calculator/">Self-Employment Tax Calculator</a>
-      <a class="tool-card" href="/tools/payroll-deduction-calculator/">Payroll Deduction Calculator</a>
-      <a class="tool-card" href="/tools/employer-cost-calculator/">Employer Cost Calculator</a>
-      <a class="tool-card" href="/tools/commission-calculator/">Commission Calculator</a>
+      <a class="tool-card" href="/tools/net-pay-calculator/">
+        Net Pay Calculator
+        <span class="tool-description">Estimate your take-home pay after taxes and deductions quickly and easily.</span>
+      </a>
+
+      <a class="tool-card" href="/tools/gross-to-net-calculator/">
+        Gross to Net Calculator
+        <span class="tool-description">Convert gross salary to net income based on tax rates and deductions.</span>
+      </a>
+
+      <a class="tool-card" href="/tools/paycheck-calculator/">
+        Paycheck Calculator
+        <span class="tool-description">Calculate exact paycheck amounts for different pay periods and tax scenarios.</span>
+      </a>
+
+      <a class="tool-card" href="/tools/weekly-paycheck-calculator/">
+        Weekly Paycheck Calculator
+        <span class="tool-description">Determine your weekly net pay from gross salary with accurate deductions.</span>
+      </a>
+
+      <a class="tool-card" href="/tools/biweekly-pay-calculator/">
+        Biweekly Pay Calculator
+        <span class="tool-description">Estimate your biweekly take-home pay considering taxes and benefits.</span>
+      </a>
+
+      <a class="tool-card" href="/tools/monthly-salary-calculator/">
+        Monthly Salary Calculator
+        <span class="tool-description">Quickly convert gross monthly salary to net pay with tax and deduction estimates.</span>
+      </a>
+
+      <a class="tool-card" href="/tools/take-home-pay-calculator/">
+        Take Home Pay Calculator
+        <span class="tool-description">Find out exactly how much money you take home after all deductions.</span>
+      </a>
+
+      <a class="tool-card" href="/tools/hourly-to-salary-calculator/">
+        Hourly to Salary Calculator
+        <span class="tool-description">Convert your hourly rate into annual, monthly, or weekly salary amounts.</span>
+      </a>
+
+      <a class="tool-card" href="/tools/salary-to-hourly-calculator/">
+        Salary to Hourly Calculator
+        <span class="tool-description">Convert an annual or monthly salary into an hourly wage for better planning.</span>
+      </a>
+
+      <a class="tool-card" href="/tools/annual-income-calculator/">
+        Annual Income Calculator
+        <span class="tool-description">Calculate your total annual income based on different pay schedules and bonuses.</span>
+      </a>
+
+      <a class="tool-card" href="/tools/overtime-pay-calculator/">
+        Overtime Pay Calculator
+        <span class="tool-description">Compute extra pay for overtime hours at your current rate and schedule.</span>
+      </a>
+
+      <a class="tool-card" href="/tools/part-time-salary-calculator/">
+        Part-Time Salary Calculator
+        <span class="tool-description">Estimate pay for part-time work including hourly rates and weekly hours.</span>
+      </a>
+
+      <a class="tool-card" href="/tools/payroll-tax-calculator/">
+        Payroll Tax Calculator
+        <span class="tool-description">Calculate payroll taxes including federal, state, and local contributions.</span>
+      </a>
+
+      <a class="tool-card" href="/tools/self-employment-tax-calculator/">
+        Self-Employment Tax Calculator
+        <span class="tool-description">Determine self-employment taxes and net income for freelancers and contractors.</span>
+      </a>
+
+      <a class="tool-card" href="/tools/payroll-deduction-calculator/">
+        Payroll Deduction Calculator
+        <span class="tool-description">Estimate deductions for benefits, insurance, and other withholdings from your paycheck.</span>
+      </a>
+
+      <a class="tool-card" href="/tools/free-payroll-calculator/">
+        Free Payroll Calculator
+        <span class="tool-description">Quickly calculate net pay for any pay period with no signup or paid software required.</span>
+      </a>
+
+      <a class="tool-card" href="/tools/employer-cost-calculator/">
+        Employer Cost Calculator
+        <span class="tool-description">Estimate total costs for employing someone, including salary, taxes, and benefits.</span>
+      </a>
+
+      <a class="tool-card" href="/tools/commission-calculator/">
+        Commission Calculator
+        <span class="tool-description">Calculate commissions and total pay based on sales and commission rates.</span>
+      </a>
     </div>
   </main>
 
