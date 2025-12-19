@@ -9,15 +9,35 @@
 
   <!-- Styles -->
   <link rel="stylesheet" href="/styles.css">
+
+  <style>
+    /* Skeleton 占位样式 */
+    #site-header.skeleton, #site-footer.skeleton {
+      background: #e0e0e0;
+      min-height: 80px;
+      animation: pulse 1.5s infinite ease-in-out;
+    }
+    @keyframes pulse {
+      0% { opacity: 0.6; }
+      50% { opacity: 0.3; }
+      100% { opacity: 0.6; }
+    }
+  </style>
 </head>
 
 <body>
 
-  <header class="site-header">
-    <div class="container">
-      <a href="/" class="logo">PaycheckTools</a>
-    </div>
-  </header>
+  <!-- Header -->
+  <div id="site-header" class="skeleton"></div>
+  <script>
+    fetch('/templates/header.html')
+      .then(r => r.text())
+      .then(html => {
+        const el = document.getElementById('site-header');
+        el.innerHTML = html;
+        el.classList.remove('skeleton');
+      });
+  </script>
 
   <main class="container">
 
@@ -95,11 +115,17 @@
 
   </main>
 
-  <footer class="site-footer">
-    <div class="container">
-      <p>© 2025 PaycheckTools. All rights reserved.</p>
-    </div>
-  </footer>
+  <!-- Footer -->
+  <div id="site-footer" class="skeleton"></div>
+  <script>
+    fetch('/templates/footer.html')
+      .then(r => r.text())
+      .then(html => {
+        const el = document.getElementById('site-footer');
+        el.innerHTML = html;
+        el.classList.remove('skeleton');
+      });
+  </script>
 
   <!-- Script -->
   <script>
