@@ -11,6 +11,48 @@
   <meta name="description" content="Estimate your self-employment tax based on net earnings using our easy calculator for freelancers, independent contractors, and small business owners.">
   <link rel="canonical" href="https://paychecktools.com/tools/self-employment-tax-calculator/">
   <link rel="stylesheet" href="/css/styles.css">
+
+  <!-- FAQ Schema -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "What is self-employment tax?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Self-employment tax is a tax that covers Social Security and Medicare contributions for freelancers, independent contractors, and small business owners who do not have taxes withheld by an employer."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How is self-employment tax calculated?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Self-employment tax is calculated by multiplying your net earnings by the applicable self-employment tax rate, which is commonly 15.3 percent in the United States."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Does this calculator include income tax?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "No. This calculator estimates only self-employment tax. Federal and state income taxes are not included in the calculation."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Who should use a self-employment tax calculator?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Freelancers, gig workers, independent contractors, and small business owners can use this calculator to estimate tax liability and plan quarterly tax payments."
+        }
+      }
+    ]
+  }
+  </script>
 </head>
 
 <body>
@@ -52,12 +94,37 @@ fetch('/templates/header.html')
   <section class="tool-explanation">
     <h2>About the Self-Employment Tax Calculator</h2>
     <p>
-      This <strong>Self-Employment Tax Calculator</strong> helps freelancers, independent contractors, and small business owners quickly estimate their self-employment taxes based on <strong>net earnings</strong>. 
-      By entering your annual income and applicable tax rate, you can calculate the portion of your <strong>paycheck</strong> that will go toward Social Security and Medicare taxes. 
-      Understanding your <strong>self-employment tax</strong> is essential for budgeting, planning quarterly payments, and ensuring compliance with tax obligations. 
+      The <strong>Self-Employment Tax Calculator</strong> helps freelancers, independent contractors, and small business owners estimate their <strong>self-employment tax</strong> based on annual <strong>net earnings</strong>.
+      By entering your income and tax rate, you can quickly see how much you may owe for Social Security and Medicare contributions.
     </p>
     <p>
-      Knowing your expected tax amount helps you manage <strong>income</strong> and avoid surprises at tax time. Simply input your <strong>net earnings</strong> and tax rate to instantly see your estimated tax liability and better plan your finances as a self-employed professional.
+      This calculator is especially useful for planning <strong>quarterly tax payments</strong>, managing cash flow, and avoiding unexpected tax bills.
+      Understanding your self-employment tax obligation allows you to budget more accurately and maintain financial stability throughout the year.
+    </p>
+  </section>
+
+  <!-- FAQ -->
+  <section class="faq-section">
+    <h2>Self-Employment Tax Calculator FAQs</h2>
+
+    <h3>What is self-employment tax?</h3>
+    <p>
+      Self-employment tax covers Social Security and Medicare contributions for individuals who work for themselves and do not have an employer withholding payroll taxes.
+    </p>
+
+    <h3>How is self-employment tax calculated?</h3>
+    <p>
+      It is calculated by multiplying your net earnings by the applicable self-employment tax rate, commonly 15.3 percent in the U.S.
+    </p>
+
+    <h3>Does this calculator include income tax?</h3>
+    <p>
+      No. This tool estimates only self-employment tax. Federal and state income taxes are calculated separately.
+    </p>
+
+    <h3>Who should use a self-employment tax calculator?</h3>
+    <p>
+      Freelancers, gig workers, contractors, and small business owners can use this calculator to estimate tax liability and plan ahead.
     </p>
   </section>
 

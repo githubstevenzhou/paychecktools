@@ -3,21 +3,51 @@
 <head>
   <!-- Global head -->
   <script>
-    // 异步加载公共 head
     fetch('/templates/head.html')
       .then(r => r.text())
       .then(html => document.head.insertAdjacentHTML('beforeend', html));
   </script>
 
-  <meta name="description" content="Use this free payroll calculator to estimate payroll, taxes, deductions, and take-home pay. No signup required. Simple and fast online payroll calculation.">
   <title>Free Payroll Calculator – PaycheckTools</title>
+  <meta name="description" content="Use this free payroll calculator to estimate payroll, taxes, deductions, and take-home pay. No signup required. Simple and fast online payroll calculation.">
   <link rel="canonical" href="https://paychecktools.com/tools/free-payroll-calculator/">
-
-  <!-- 引入统一样式 -->
   <link rel="stylesheet" href="/css/styles.css">
 
+  <!-- FAQ Schema -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "Is this payroll calculator really free?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes. This is a completely free payroll calculator with no signup, subscription, or hidden fees."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Can I use this calculator for small business payroll?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "You can use it for basic payroll estimates. For complex payroll processing, additional tools may be required."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Does this free payroll calculator include taxes and deductions?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "The calculator allows you to include estimated tax rates and deductions to calculate net pay."
+        }
+      }
+    ]
+  }
+  </script>
+
   <style>
-    /* Skeleton 占位样式 */
     #site-header.skeleton, #site-footer.skeleton {
       background: #e0e0e0;
       min-height: 80px;
@@ -28,7 +58,6 @@
       50% { opacity: 0.3; }
       100% { opacity: 0.6; }
     }
-    /* Tool Box 样式 */
     .tool-box label {
       display: block;
       margin-top: 12px;
@@ -75,123 +104,122 @@
 
 <body>
 
-  <!-- Header -->
-  <div id="site-header" class="skeleton"></div>
-  <script>
-    fetch('/templates/header.html')
-      .then(r => r.text())
-      .then(html => {
-        const el = document.getElementById('site-header');
-        el.innerHTML = html;
-        el.classList.remove('skeleton');
-      });
-  </script>
+<!-- Header -->
+<div id="site-header" class="skeleton"></div>
+<script>
+fetch('/templates/header.html')
+  .then(r => r.text())
+  .then(html => {
+    const el = document.getElementById('site-header');
+    el.innerHTML = html;
+    el.classList.remove('skeleton');
+  });
+</script>
 
-  <main>
-    <div class="container">
-      <h1>Free Payroll Calculator</h1>
+<main>
+  <div class="container">
+    <h1>Free Payroll Calculator</h1>
 
-      <!-- Tool UI -->
-      <section class="tool-box">
-        <form id="payrollForm">
-          <label for="grossPay">Gross Pay</label>
-          <input type="number" id="grossPay" placeholder="Enter gross pay" required>
+    <!-- Tool UI -->
+    <section class="tool-box">
+      <form id="payrollForm">
+        <label for="grossPay">Gross Pay</label>
+        <input type="number" id="grossPay" placeholder="Enter gross pay" required>
 
-          <label for="payFrequency">Pay Frequency</label>
-          <select id="payFrequency">
-            <option value="hourly">Hourly</option>
-            <option value="weekly">Weekly</option>
-            <option value="biweekly">Biweekly</option>
-            <option value="monthly">Monthly</option>
-            <option value="yearly">Yearly</option>
-          </select>
+        <label for="payFrequency">Pay Frequency</label>
+        <select id="payFrequency">
+          <option value="hourly">Hourly</option>
+          <option value="weekly">Weekly</option>
+          <option value="biweekly">Biweekly</option>
+          <option value="monthly">Monthly</option>
+          <option value="yearly">Yearly</option>
+        </select>
 
-          <label for="taxRate">Estimated Tax Rate (%)</label>
-          <input type="number" id="taxRate" placeholder="e.g. 20">
+        <label for="taxRate">Estimated Tax Rate (%)</label>
+        <input type="number" id="taxRate" placeholder="e.g. 20">
 
-          <label for="deductions">Other Deductions</label>
-          <input type="number" id="deductions" placeholder="e.g. 200">
+        <label for="deductions">Other Deductions</label>
+        <input type="number" id="deductions" placeholder="e.g. 200">
 
-          <button type="button" onclick="calculatePayroll()">Calculate Payroll</button>
-        </form>
+        <button type="button" onclick="calculatePayroll()">Calculate Payroll</button>
+      </form>
 
-        <div id="result" class="result-box"></div>
-      </section>
+      <div id="result" class="result-box"></div>
+    </section>
 
-      <!-- Explanation Content -->
-      <section class="tool-explanation">
-        <p>
-          A <strong>free payroll calculator</strong> helps individuals and small businesses estimate payroll quickly without using paid software or complex systems. This tool allows you to calculate payroll based on gross income, pay frequency, estimated tax rates, and basic deductions, giving you a clear view of your expected take-home pay.
-        </p>
+    <!-- Explanation -->
+    <section class="tool-explanation">
+      <p>
+        A <strong>free payroll calculator</strong> helps individuals and small businesses estimate payroll quickly without using paid software or complex systems. This tool allows you to calculate payroll based on gross income, pay frequency, estimated tax rates, and basic deductions.
+      </p>
 
-        <p>
-          With this free payroll calculator, you can enter your hourly wage or salary, select how often you are paid, and apply an estimated payroll tax rate. The calculator instantly shows how taxes and deductions impact your net pay, making it easier to understand payroll calculations and income breakdowns.
-        </p>
+      <p>
+        With this free payroll calculator, you can enter your wage or salary, select how often you are paid, and apply an estimated tax rate to see how deductions affect your net pay.
+      </p>
 
-        <p>
-          This tool is commonly used by freelancers, part-time employees, contractors, and small business owners who need a fast payroll estimate. Employees can also use it to double-check paychecks, compare job offers, or plan monthly budgets based on net income.
-        </p>
+      <p>
+        This tool is commonly used by freelancers, contractors, employees, and small business owners for quick payroll checks, budgeting, and income planning.
+      </p>
 
-        <p>
-          Unlike full payroll software, this <strong>free payroll calculator</strong> focuses on quick calculations rather than payroll management or compliance. No account is required, no data is stored, and all calculations are performed instantly in your browser.
-        </p>
+      <p>
+        Unlike full payroll software, this calculator focuses on instant estimates. No account is required, and all calculations are performed directly in your browser.
+      </p>
 
-        <p>
-          For more detailed calculations, you may also use our
-          <a href="/tools/payroll-tax-calculator/">Payroll Tax Calculator</a>
-          or
-          <a href="/tools/payroll-deduction-calculator/">Payroll Deduction Calculator</a>
-          to refine specific parts of your payroll estimate.
-        </p>
-      </section>
+      <p>
+        You may also use our
+        <a href="/tools/payroll-tax-calculator/">Payroll Tax Calculator</a>
+        or
+        <a href="/tools/payroll-deduction-calculator/">Payroll Deduction Calculator</a>
+        for more detailed estimates.
+      </p>
+    </section>
 
-      <!-- FAQ -->
-      <section class="faq">
-        <h2>Frequently Asked Questions</h2>
+    <!-- FAQ -->
+    <section class="faq">
+      <h2>Frequently Asked Questions</h2>
 
-        <h3>Is this payroll calculator really free?</h3>
-        <p>Yes. This is a completely free payroll calculator with no signup, subscription, or hidden fees.</p>
+      <h3>Is this payroll calculator really free?</h3>
+      <p>Yes. This is a completely free payroll calculator with no signup, subscription, or hidden fees.</p>
 
-        <h3>Can I use this calculator for small business payroll?</h3>
-        <p>You can use it for basic payroll estimates. For complex payroll processing, additional tools may be required.</p>
+      <h3>Can I use this calculator for small business payroll?</h3>
+      <p>You can use it for basic payroll estimates. For complex payroll processing, additional tools may be required.</p>
 
-        <h3>Does this free payroll calculator include taxes and deductions?</h3>
-        <p>The calculator allows you to include estimated tax rates and deductions to calculate net pay.</p>
-      </section>
-    </div>
-  </main>
+      <h3>Does this free payroll calculator include taxes and deductions?</h3>
+      <p>The calculator allows you to include estimated tax rates and deductions to calculate net pay.</p>
+    </section>
+  </div>
+</main>
 
-  <!-- Footer -->
-  <div id="site-footer" class="skeleton"></div>
-  <script>
-    fetch('/templates/footer.html')
-      .then(r => r.text())
-      .then(html => {
-        const el = document.getElementById('site-footer');
-        el.innerHTML = html;
-        el.classList.remove('skeleton');
-      });
-  </script>
+<!-- Footer -->
+<div id="site-footer" class="skeleton"></div>
+<script>
+fetch('/templates/footer.html')
+  .then(r => r.text())
+  .then(html => {
+    const el = document.getElementById('site-footer');
+    el.innerHTML = html;
+    el.classList.remove('skeleton');
+  });
+</script>
 
-  <!-- Script -->
-  <script>
-    function calculatePayroll() {
-      const gross = parseFloat(document.getElementById('grossPay').value) || 0;
-      const taxRate = parseFloat(document.getElementById('taxRate').value) || 0;
-      const deductions = parseFloat(document.getElementById('deductions').value) || 0;
+<script>
+function calculatePayroll() {
+  const gross = parseFloat(document.getElementById('grossPay').value) || 0;
+  const taxRate = parseFloat(document.getElementById('taxRate').value) || 0;
+  const deductions = parseFloat(document.getElementById('deductions').value) || 0;
 
-      const taxAmount = gross * (taxRate / 100);
-      const netPay = gross - taxAmount - deductions;
+  const taxAmount = gross * (taxRate / 100);
+  const netPay = gross - taxAmount - deductions;
 
-      document.getElementById('result').innerHTML = `
-        <h3>Payroll Result</h3>
-        <p><strong>Gross Pay:</strong> $${gross.toFixed(2)}</p>
-        <p><strong>Estimated Tax:</strong> $${taxAmount.toFixed(2)}</p>
-        <p><strong>Deductions:</strong> $${deductions.toFixed(2)}</p>
-        <p><strong>Net Pay:</strong> $${netPay.toFixed(2)}</p>
-      `;
-    }
-  </script>
+  document.getElementById('result').innerHTML = `
+    <h3>Payroll Result</h3>
+    <p><strong>Gross Pay:</strong> $${gross.toFixed(2)}</p>
+    <p><strong>Estimated Tax:</strong> $${taxAmount.toFixed(2)}</p>
+    <p><strong>Deductions:</strong> $${deductions.toFixed(2)}</p>
+    <p><strong>Net Pay:</strong> $${netPay.toFixed(2)}</p>
+  `;
+}
+</script>
 
 </body>
 </html>

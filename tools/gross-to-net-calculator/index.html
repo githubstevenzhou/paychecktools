@@ -11,6 +11,40 @@
   <meta name="description" content="Use this free gross to net calculator to convert gross income into net pay after taxes. Quickly estimate take-home pay based on your total tax rate.">
   <link rel="canonical" href="https://paychecktools.com/tools/gross-to-net-calculator/">
   <link rel="stylesheet" href="/css/styles.css">
+
+  <!-- FAQ Schema -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "What is the difference between gross income and net income?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Gross income is your total earnings before taxes, while net income is the amount you take home after taxes are deducted."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How accurate is this gross to net calculator?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "This calculator provides an estimate based on the total tax rate you enter. Actual net income may vary depending on deductions, benefits, and local tax rules."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Can I use this calculator for salary or freelance income?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes. You can use this gross to net calculator for salaried, hourly, or freelance income as a quick take-home pay estimate."
+        }
+      }
+    ]
+  }
+  </script>
 </head>
 
 <body>
@@ -28,14 +62,17 @@ fetch('/templates/header.html')
 
 <main class="tool-container">
 
+  <!-- Calculator -->
   <section class="calculator">
     <h1>Gross to Net Calculator</h1>
 
-    <label>Gross Income:
+    <label>
+      Gross Income:
       <input id="gross" type="number" value="60000">
     </label>
 
-    <label>Total Tax Rate (%):
+    <label>
+      Total Tax Rate (%):
       <input id="rate" type="number" value="22">
     </label>
 
@@ -45,27 +82,6 @@ fetch('/templates/header.html')
       <p>Total Tax: <span id="tax"></span></p>
       <p>Net Income: <strong><span id="net"></span></strong></p>
     </div>
-  </section>
-
-  <!-- SEO Explanation -->
-  <section class="tool-explanation">
-    <h2>How the Gross to Net Calculator Works</h2>
-    <p>
-      This gross to net calculator helps you estimate how much income you actually take home after taxes are applied.
-      By entering your gross income and total tax rate, the calculator converts your gross pay into net pay instantly.
-      This is especially useful for salary planning, budgeting, and comparing job offers with different tax implications.
-    </p>
-    <p>
-      Many employees and freelancers know their gross income but are unsure how much they will receive after taxes.
-      Using a free gross to net calculator removes guesswork by providing a clear net income estimate in seconds.
-      While actual tax calculations may vary depending on deductions, benefits, and local regulations, this tool offers
-      a fast and reliable baseline for financial decision-making.
-    </p>
-    <p>
-      Whether you are paid annually, monthly, or negotiating compensation, converting gross income to net pay helps
-      you better understand your real earnings. PaycheckTools provides this calculator free to use, with no sign-up
-      required, so you can quickly estimate your take-home pay anytime.
-    </p>
   </section>
 
   <!-- Feedback -->
@@ -87,6 +103,46 @@ fetch('/templates/header.html')
     </div>
 
     <div id="feedback-status"></div>
+  </section>
+
+  <!-- SEO Explanation -->
+  <section class="tool-explanation">
+    <h2>How the Gross to Net Calculator Works</h2>
+
+    <p>
+      This gross to net calculator helps you estimate how much income you actually take home after taxes are applied.
+      By entering your gross income and total tax rate, the calculator converts gross pay into net pay instantly.
+    </p>
+
+    <p>
+      Many employees and freelancers know their gross income but are unsure how much they will receive after taxes.
+      This free gross to net calculator provides a fast estimate for budgeting, salary planning, and offer comparison.
+    </p>
+
+    <p>
+      While actual tax outcomes may vary due to deductions and benefits, this tool gives a reliable baseline for
+      understanding your take-home pay. No sign-up is required, and calculations run directly in your browser.
+    </p>
+  </section>
+
+  <!-- FAQ -->
+  <section class="faq">
+    <h2>Frequently Asked Questions</h2>
+
+    <h3>What is the difference between gross income and net income?</h3>
+    <p>
+      Gross income is your total earnings before taxes, while net income is the amount you receive after taxes are deducted.
+    </p>
+
+    <h3>How accurate is this gross to net calculator?</h3>
+    <p>
+      This calculator provides an estimate based on the tax rate you enter. Actual net income may vary depending on deductions, benefits, and local tax regulations.
+    </p>
+
+    <h3>Can I use this calculator for salary or freelance income?</h3>
+    <p>
+      Yes. This tool can be used for salaried employees, hourly workers, and freelancers as a quick take-home pay estimate.
+    </p>
   </section>
 
 </main>

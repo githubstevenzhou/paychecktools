@@ -8,65 +8,131 @@
       .then(html => document.head.insertAdjacentHTML('beforeend', html));
   </script>
 
-  <title>Free Part-Time Salary Calculator | Part-Time Pay Estimator – PaycheckTools</title>
-  <meta name="description" content="Use this free part-time salary calculator to estimate your part-time income, calculate earnings from hourly wage, and check your total pay for part-time work. Perfect for students or freelancers.">
-  <link rel="canonical" href="https://paychecktools.com/tools/part-time-salary-calculator/">
+  <title>Free Overtime Pay Calculator – PaycheckTools</title>
+  <meta name="description" content="Calculate your overtime pay and net income after federal and state taxes using this free overtime pay calculator.">
+  <link rel="canonical" href="https://paychecktools.com/tools/overtime-pay-calculator/">
   <link rel="stylesheet" href="/css/styles.css">
 </head>
 
 <body>
 
 <!-- Header -->
-<div id="site-header" class="skeleton"></div>
+<div id="site-header"></div>
 <script>
-fetch('/templates/header.html')
-  .then(r => r.text())
-  .then(html => {
-    const el = document.getElementById('site-header');
-    el.innerHTML = html;
-    el.classList.remove('skeleton');
-  });
+  fetch('/templates/header.html')
+    .then(r => r.text())
+    .then(html => document.getElementById('site-header').innerHTML = html);
 </script>
 
 <main class="tool-container">
 
   <!-- Calculator -->
   <section class="calculator">
-    <h1>Part-Time Salary Calculator</h1>
+    <h1>Overtime Pay Calculator</h1>
 
-    <label>Hourly Wage:
-      <input id="hourly" type="number" value="20">
+    <label>
+      Hourly Wage:
+      <input id="wage" type="number" value="25">
     </label>
 
-    <label>Hours per Week:
-      <input id="hours" type="number" value="20">
+    <label>
+      Regular Hours:
+      <input id="regularHours" type="number" value="40">
     </label>
 
-    <label>Weeks per Year:
-      <input id="weeks" type="number" value="52">
+    <label>
+      Overtime Hours:
+      <input id="otHours" type="number" value="5">
+    </label>
+
+    <label>
+      Overtime Rate Multiplier:
+      <input id="otRate" type="number" step="0.1" value="1.5">
+    </label>
+
+    <label>
+      Federal Tax (%):
+      <input id="taxFederal" type="number" value="12">
+    </label>
+
+    <label>
+      State Tax (%):
+      <input id="taxState" type="number" value="5">
     </label>
 
     <button id="calculateBtn" class="primary-btn">Calculate</button>
 
     <div id="output" class="result-box" style="display:none;">
-      <p>Estimated Annual Salary: <strong><span id="salary"></span></strong></p>
+      <p>Gross Pay: <span id="grossPay"></span></p>
+      <p>Overtime Pay: <span id="otPay"></span></p>
+      <p>Net Pay: <strong><span id="netPay"></span></strong></p>
     </div>
   </section>
 
-  <!-- SEO Explanation with Keywords -->
+  <!-- SEO Explanation -->
   <section class="tool-explanation">
-    <h2>Calculate Your Part-Time Earnings Easily</h2>
+    <h2>Estimate Your Overtime Earnings and Take-Home Pay</h2>
     <p>
-      This free part-time salary calculator helps you quickly estimate your annual income based on your hourly wage, weekly hours, and total weeks worked. 
-      Whether you are a student, freelancer, or part-time employee, this tool provides an accurate part-time income calculation.
+      This free overtime pay calculator helps you determine both your gross and net pay, including overtime hours.
+      By entering your hourly wage, regular hours, overtime hours, and overtime rate, you can quickly estimate
+      how much extra income you earn from overtime work.
     </p>
     <p>
-      You can also use it as a part-time pay estimator or hourly wage calculator to determine how much you earn from part-time work. 
-      By entering your work schedule and pay rate, this part-time job salary calculator calculates total earnings, helping with budgeting and financial planning.
+      Overtime pay is often calculated at a higher rate than regular wages, but tax deductions can make
+      take-home pay harder to predict. This calculator simplifies the process by applying estimated federal
+      and state tax percentages to your total earnings.
     </p>
     <p>
-      Adjust hours or wage to see how changes affect your part-time salary. This part-time earnings calculator is free, fast, and does not require login, making it simple to track your expected income for any part-time job.
+      Use this tool to plan your budget, understand paycheck deductions, or compare job offers that include
+      overtime opportunities. PaycheckTools provides this calculator free to use, with no account required.
     </p>
+  </section>
+
+  <!-- FAQ -->
+  <section class="tool-faq">
+    <h2>Overtime Pay Calculator FAQs</h2>
+
+    <div class="faq-item">
+      <h3>How is overtime pay calculated?</h3>
+      <p>
+        Overtime pay is calculated by multiplying your hourly wage by the overtime rate multiplier
+        (commonly 1.5×), then multiplying that amount by the number of overtime hours worked.
+        This calculator adds overtime pay to regular earnings to show total gross pay.
+      </p>
+    </div>
+
+    <div class="faq-item">
+      <h3>When does overtime pay usually apply?</h3>
+      <p>
+        In the United States, overtime pay generally applies to hours worked over 40 hours per week
+        for non-exempt employees. Specific overtime rules may vary by state law or employer policy.
+      </p>
+    </div>
+
+    <div class="faq-item">
+      <h3>Does this overtime pay calculator include taxes?</h3>
+      <p>
+        Yes. You can enter estimated federal and state tax rates, and the calculator will apply them
+        to your gross pay to estimate your net take-home income. Actual payroll deductions may differ.
+      </p>
+    </div>
+
+    <div class="faq-item">
+      <h3>Can salaried employees earn overtime pay?</h3>
+      <p>
+        Some salaried employees may qualify for overtime depending on their job duties and classification.
+        This calculator is primarily designed for hourly workers, as overtime rules for salaried employees
+        can be more complex.
+      </p>
+    </div>
+
+    <div class="faq-item">
+      <h3>Is overtime always paid at 1.5×?</h3>
+      <p>
+        Most overtime is paid at 1.5× the regular hourly rate, but some employers offer double time
+        in special situations. You can adjust the overtime rate multiplier to match your pay policy.
+      </p>
+    </div>
   </section>
 
   <!-- Feedback -->
@@ -93,34 +159,76 @@ fetch('/templates/header.html')
 </main>
 
 <!-- Footer -->
-<div id="site-footer" class="skeleton"></div>
+<div id="site-footer"></div>
 <script>
-fetch('/templates/footer.html')
-  .then(r => r.text())
-  .then(html => {
-    const el = document.getElementById('site-footer');
-    el.innerHTML = html;
-    el.classList.remove('skeleton');
-  });
+  fetch('/templates/footer.html')
+    .then(r => r.text())
+    .then(html => document.getElementById('site-footer').innerHTML = html);
 </script>
+
+<!-- Core calculation -->
+<script src="/js/calculator-core.js"></script>
 
 <!-- Feedback logic -->
 <script src="/js/feedback.js"></script>
 
-<!-- Core calculation -->
 <script>
-document.getElementById('calculateBtn').addEventListener('click', () => {
-  const hourly = Number(document.getElementById('hourly').value);
-  const hours = Number(document.getElementById('hours').value);
-  const weeks = Number(document.getElementById('weeks').value);
+  document.getElementById('calculateBtn').addEventListener('click', () => {
+    const wage = Number(document.getElementById('wage').value);
+    const regularHours = Number(document.getElementById('regularHours').value);
+    const otHours = Number(document.getElementById('otHours').value);
+    const otRate = Number(document.getElementById('otRate').value);
+    const federal = Number(document.getElementById('taxFederal').value);
+    const state = Number(document.getElementById('taxState').value);
 
-  const salary = hourly * hours * weeks;
+    const regularPay = wage * regularHours;
+    const overtimePay = wage * otRate * otHours;
+    const grossPay = regularPay + overtimePay;
 
-  document.getElementById('salary').innerText = salary.toFixed(2);
-  document.getElementById('output').style.display = 'block';
+    const taxAmount = grossPay * (federal + state) / 100;
+    const netPay = grossPay - taxAmount;
 
-  document.dispatchEvent(new Event('calculator:result-ready'));
-});
+    document.getElementById('grossPay').innerText = grossPay.toFixed(2);
+    document.getElementById('otPay').innerText = overtimePay.toFixed(2);
+    document.getElementById('netPay').innerText = netPay.toFixed(2);
+
+    document.getElementById('output').style.display = 'block';
+    document.dispatchEvent(new Event('calculator:result-ready'));
+  });
+</script>
+
+<!-- FAQ Schema -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "How is overtime pay calculated?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Overtime pay is calculated by multiplying your hourly wage by the overtime rate multiplier and then multiplying that result by the number of overtime hours worked. The calculator adds overtime pay to regular earnings to show total gross pay."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Does this overtime pay calculator include taxes?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes. You can enter estimated federal and state tax percentages and the calculator applies them to gross pay to estimate net take-home income."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "When does overtime pay usually apply?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Overtime pay usually applies to hours worked over 40 hours per week for non-exempt employees in the United States, though rules may vary by state or employer."
+      }
+    }
+  ]
+}
 </script>
 
 </body>

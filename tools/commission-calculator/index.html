@@ -11,9 +11,59 @@
   <meta name="description" content="Use this free commission calculator to calculate commission earnings based on sales, commission rate, and base salary. Instant and accurate results.">
   <link rel="canonical" href="https://paychecktools.com/tools/commission-calculator/">
   <link rel="stylesheet" href="/css/styles.css">
+
+  <!-- FAQ Schema -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "How is commission calculated?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Commission is calculated by multiplying your total sales amount by the commission rate you enter. For example, a 5% commission on $10,000 in sales results in $500 in commission earnings."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Does this commission calculator include taxes?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "No. This calculator shows gross commission and total pay before taxes. Tax withholding varies by location and employment type and is not included in the calculation."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Can I include a base salary?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes. If your compensation plan includes a fixed base salary, you can enter it as an optional value. The calculator will add it to your commission to show total pay."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Is this calculator accurate for different commission structures?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "This tool is designed for simple, flat-rate commission structures. Tiered commissions, quotas, draws, or caps are not currently supported."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Why does my actual commission differ from this result?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Differences may occur due to commission caps, chargebacks, payout timing, taxes, or employer-specific compensation rules not reflected in this simplified calculation."
+        }
+      }
+    ]
+  }
+  </script>
 </head>
 
-<body>
+<body class="tools-page">
 
 <!-- Header -->
 <div id="site-header" class="skeleton"></div>
@@ -51,34 +101,9 @@ fetch('/templates/header.html')
     <button id="calculateBtn" class="primary-btn">Calculate</button>
 
     <div id="output" class="result-box" style="display:none;">
-      <p>Commission Earned: <span id="commission"></span></p>
-      <p>Total Pay: <strong><span id="total"></span></strong></p>
+      <p>Commission Earned: <strong>$<span id="commission"></span></strong></p>
+      <p>Total Pay: <strong>$<span id="total"></span></strong></p>
     </div>
-  </section>
-
-  <!-- Explanation Section -->
-  <section class="tool-explanation">
-    <h2>How the Commission Calculator Works</h2>
-
-    <p>
-      This commission calculator helps you estimate how much commission you earn based on your total sales amount and commission rate. As a free online tool, it allows sales professionals to quickly calculate commission earnings without using spreadsheets or manual formulas.
-    </p>
-
-    <p>
-      To calculate commission, enter the total value of sales you generated and the commission rate offered by your employer or contract. The calculator multiplies the sales amount by the commission percentage to determine your commission earned for the period.
-    </p>
-
-    <p>
-      If your compensation plan includes a base salary, you can enter it as an optional value. The calculator then adds the base salary to your commission to show your total pay. This reflects common commission-based compensation structures used in sales, real estate, and performance-based roles.
-    </p>
-
-    <p>
-      Understanding your commission income is important for budgeting, income forecasting, and evaluating sales performance. Many professionals rely on commission calculators to compare compensation plans, estimate monthly or annual earnings, and set realistic sales targets.
-    </p>
-
-    <p>
-      This tool is designed for sales representatives, agents, freelancers, and anyone earning commission-based income. All calculations are performed locally in your browser, ensuring fast results and privacy. You can adjust the inputs at any time to instantly recalculate your commission and total pay.
-    </p>
   </section>
 
   <!-- Feedback -->
@@ -86,8 +111,8 @@ fetch('/templates/header.html')
     <p><strong>Was this result helpful?</strong></p>
 
     <div class="feedback-actions">
-      <button data-vote="yes">👍 Yes</button>
-      <button data-vote="no">👎 No</button>
+      <button data-vote="yes">Yes</button>
+      <button data-vote="no">No</button>
     </div>
 
     <div id="no-reason-box" style="display:none;">
@@ -100,6 +125,61 @@ fetch('/templates/header.html')
     </div>
 
     <div id="feedback-status"></div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="tool-faq">
+    <h2>Frequently Asked Questions</h2>
+
+    <h3>How is commission calculated?</h3>
+    <p>
+      Commission is calculated by multiplying your total sales amount by the commission rate you enter. For example, a 5% commission on $10,000 in sales results in $500 in commission earnings.
+    </p>
+
+    <h3>Does this commission calculator include taxes?</h3>
+    <p>
+      No. This calculator shows gross commission and total pay before taxes. Tax withholding varies by location and employment type and is not included in the calculation.
+    </p>
+
+    <h3>Can I include a base salary?</h3>
+    <p>
+      Yes. If your compensation plan includes a fixed base salary, you can enter it as an optional value. The calculator will add it to your commission to show total pay.
+    </p>
+
+    <h3>Is this calculator accurate for different commission structures?</h3>
+    <p>
+      This tool is designed for simple, flat-rate commission structures. Tiered commissions, quotas, draws, or caps are not currently supported.
+    </p>
+
+    <h3>Why does my actual commission differ from this result?</h3>
+    <p>
+      Differences may occur due to commission caps, chargebacks, payout timing, taxes, or employer-specific compensation rules not reflected in this simplified calculation.
+    </p>
+  </section>
+
+  <!-- Explanation -->
+  <section class="tool-explanation">
+    <h2>How the Commission Calculator Works</h2>
+
+    <p>
+      This commission calculator helps you estimate commission earnings based on your total sales amount and commission rate, without requiring spreadsheets or manual formulas.
+    </p>
+
+    <p>
+      Enter the total value of sales you generated and the commission rate offered by your employer or contract. The calculator multiplies these values to determine your commission earned.
+    </p>
+
+    <p>
+      If your compensation plan includes a base salary, you can include it as an optional input. The calculator adds the base salary to commission earnings to calculate total pay.
+    </p>
+
+    <p>
+      Understanding commission income is important for budgeting, income forecasting, and evaluating sales performance, especially for commission-based roles.
+    </p>
+
+    <p>
+      All calculations are performed locally in your browser to ensure fast results and protect your privacy.
+    </p>
   </section>
 
 </main>
@@ -130,6 +210,7 @@ document.getElementById('calculateBtn').addEventListener('click', () => {
   document.getElementById('commission').innerText = commission.toFixed(2);
   document.getElementById('total').innerText = total.toFixed(2);
   document.getElementById('output').style.display = 'block';
+  document.getElementById('feedback-box').style.display = 'block';
 
   document.dispatchEvent(new Event('calculator:result-ready'));
 });

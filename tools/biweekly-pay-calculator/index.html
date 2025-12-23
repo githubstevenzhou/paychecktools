@@ -11,9 +11,59 @@
   <meta name="description" content="Use this free biweekly paycheck calculator to estimate gross pay, taxes, and net pay based on hourly wage, overtime, and tax rates.">
   <link rel="canonical" href="https://paychecktools.com/tools/biweekly-pay-calculator/">
   <link rel="stylesheet" href="/css/styles.css">
+
+  <!-- FAQ Schema -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "Does this biweekly paycheck calculator include taxes?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes. This calculator estimates federal and state taxes using the percentages you enter. It does not automatically apply tax brackets, deductions, or credits, so results should be treated as estimates."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Is this calculator accurate for all US states?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "The calculator works for any state as long as you provide the correct state tax rate. Local taxes, city taxes, and other deductions are not included."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How is overtime pay calculated?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Overtime pay is calculated separately based on the overtime hours you enter. The calculation assumes standard overtime rules, but actual rates may vary depending on employer policy and local labor laws."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Why is my net pay different from my actual paycheck?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Differences may occur due to benefits, retirement contributions, insurance premiums, garnishments, or tax withholding rules that are not included in this simplified estimate."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Can salaried employees use this biweekly calculator?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "This tool is designed primarily for hourly workers. Salaried employees can still use it by converting their salary to an equivalent hourly wage, but results may be less precise."
+        }
+      }
+    ]
+  }
+  </script>
 </head>
 
-<body>
+<body class="tools-page">
 
 <!-- Header -->
 <div id="site-header" class="skeleton"></div>
@@ -33,58 +83,38 @@ fetch('/templates/header.html')
   <section class="calculator">
     <h1>Biweekly Paycheck Calculator</h1>
 
-    <label>Hourly Wage:
+    <label>
+      Hourly Wage:
       <input id="wage" type="number" value="25">
     </label>
 
-    <label>Hours Worked:
+    <label>
+      Hours Worked:
       <input id="hours" type="number" value="80">
     </label>
 
-    <label>Overtime Hours:
+    <label>
+      Overtime Hours:
       <input id="otHours" type="number" value="0">
     </label>
 
-    <label>Federal Tax (%):
+    <label>
+      Federal Tax (%):
       <input id="taxFederal" type="number" value="12">
     </label>
 
-    <label>State Tax (%):
+    <label>
+      State Tax (%):
       <input id="taxState" type="number" value="5">
     </label>
 
     <button id="calculateBtn" class="primary-btn">Calculate</button>
 
     <div id="output" class="result-box" style="display:none;">
-      <p>Gross Pay: <span id="gross"></span></p>
-      <p>Taxes: <span id="tax"></span></p>
-      <p>Net Pay: <span id="net"></span></p>
+      <p>Gross Pay: <strong>$<span id="gross"></span></strong></p>
+      <p>Taxes: <strong>$<span id="tax"></span></strong></p>
+      <p>Net Pay: <strong>$<span id="net"></span></strong></p>
     </div>
-  </section>
-
-  <!-- Explanation Section -->
-  <section class="tool-explanation">
-    <h2>How the Biweekly Paycheck Calculator Works</h2>
-
-    <p>
-      This biweekly paycheck calculator helps you estimate how much you take home every two weeks based on your hourly wage, hours worked, overtime, and tax rates. As a free online tool, it allows you to calculate both gross pay and net pay without spreadsheets, manual formulas, or registration.
-    </p>
-
-    <p>
-      To calculate your biweekly paycheck, enter your hourly wage and the total number of hours worked during the pay period. If you worked overtime, include those hours separately. The calculator applies the biweekly pay frequency, which is commonly used by employers who issue 26 paychecks per year.
-    </p>
-
-    <p>
-      After calculating gross pay, the tool estimates taxes using the federal and state tax percentages you provide. These values are then used to determine your net pay, which represents the amount you actually receive after taxes are deducted. This makes the calculator especially useful for budgeting and cash-flow planning.
-    </p>
-
-    <p>
-      Understanding your biweekly net pay is important for managing recurring expenses such as rent, utilities, loan payments, and savings contributions. Many workers prefer biweekly pay schedules because they offer more frequent income while still aligning with monthly financial obligations.
-    </p>
-
-    <p>
-      This calculator is designed for hourly employees, contractors, and anyone paid on a biweekly basis. All calculations are performed locally in your browser for speed and privacy, and you can adjust the inputs at any time to instantly recalculate your paycheck.
-    </p>
   </section>
 
   <!-- Feedback -->
@@ -92,8 +122,8 @@ fetch('/templates/header.html')
     <p><strong>Was this result helpful?</strong></p>
 
     <div class="feedback-actions">
-      <button data-vote="yes">👍 Yes</button>
-      <button data-vote="no">👎 No</button>
+      <button data-vote="yes">Yes</button>
+      <button data-vote="no">No</button>
     </div>
 
     <div id="no-reason-box" style="display:none;">
@@ -106,6 +136,61 @@ fetch('/templates/header.html')
     </div>
 
     <div id="feedback-status"></div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="tool-faq">
+    <h2>Frequently Asked Questions</h2>
+
+    <h3>Does this biweekly paycheck calculator include taxes?</h3>
+    <p>
+      Yes. This calculator estimates federal and state taxes using the percentages you enter. It does not automatically apply tax brackets, deductions, or credits, so results should be treated as estimates.
+    </p>
+
+    <h3>Is this calculator accurate for all US states?</h3>
+    <p>
+      The calculator works for any state as long as you provide the correct state tax rate. Local taxes, city taxes, and other deductions are not included.
+    </p>
+
+    <h3>How is overtime pay calculated?</h3>
+    <p>
+      Overtime pay is calculated separately based on the overtime hours you enter. The calculation assumes standard overtime rules, but actual rates may vary depending on employer policy and local labor laws.
+    </p>
+
+    <h3>Why is my net pay different from my actual paycheck?</h3>
+    <p>
+      Differences may occur due to benefits, retirement contributions, insurance premiums, garnishments, or tax withholding rules that are not included in this simplified estimate.
+    </p>
+
+    <h3>Can salaried employees use this biweekly calculator?</h3>
+    <p>
+      This tool is designed primarily for hourly workers. Salaried employees can still use it by converting their salary to an equivalent hourly wage, but results may be less precise.
+    </p>
+  </section>
+
+  <!-- Explanation -->
+  <section class="tool-explanation">
+    <h2>How the Biweekly Paycheck Calculator Works</h2>
+
+    <p>
+      This biweekly paycheck calculator helps you estimate how much you take home every two weeks based on your hourly wage, hours worked, overtime, and tax rates.
+    </p>
+
+    <p>
+      Enter your hourly wage and total hours worked during the pay period. If you worked overtime, include those hours separately. A biweekly pay schedule typically results in 26 paychecks per year.
+    </p>
+
+    <p>
+      The calculator first determines your gross pay, then estimates taxes using the federal and state percentages you provide. These amounts are subtracted to calculate your net pay.
+    </p>
+
+    <p>
+      Understanding your biweekly net pay helps with budgeting recurring expenses such as rent, utilities, loan payments, and savings contributions.
+    </p>
+
+    <p>
+      All calculations are performed locally in your browser for speed and privacy, and inputs can be adjusted at any time for instant results.
+    </p>
   </section>
 
 </main>
@@ -143,6 +228,8 @@ document.getElementById('calculateBtn').addEventListener('click', () => {
   net.innerText = result.netPay.toFixed(2);
 
   output.style.display = 'block';
+  document.getElementById('feedback-box').style.display = 'block';
+
   document.dispatchEvent(new Event('calculator:result-ready'));
 });
 </script>

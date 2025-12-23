@@ -8,7 +8,7 @@
   </script>
 
   <title>Paycheck Calculator – PaycheckTools</title>
-  <meta name="description" content="Calculate your paycheck including gross pay, taxes, and net pay with our easy-to-use calculator.">
+  <meta name="description" content="Calculate your paycheck including gross pay, taxes, and net pay with our easy-to-use paycheck calculator.">
   <link rel="canonical" href="https://paychecktools.com/tools/paycheck-calculator/">
   <link rel="stylesheet" href="/css/styles.css">
 
@@ -42,14 +42,30 @@ fetch('/templates/header.html')
 
 <main class="tool-container">
 
+  <!-- Calculator -->
   <section class="calculator">
     <h1>Paycheck Calculator</h1>
 
-    <label>Hourly Wage: <input id="wage" type="number" value="25"></label>
-    <label>Hours Worked: <input id="hours" type="number" value="40"></label>
-    <label>Overtime Hours: <input id="otHours" type="number" value="0"></label>
-    <label>Federal Tax (%): <input id="taxFederal" type="number" value="12"></label>
-    <label>State Tax (%): <input id="taxState" type="number" value="5"></label>
+    <label>Hourly Wage:
+      <input id="wage" type="number" value="25">
+    </label>
+
+    <label>Hours Worked:
+      <input id="hours" type="number" value="40">
+    </label>
+
+    <label>Overtime Hours:
+      <input id="otHours" type="number" value="0">
+    </label>
+
+    <label>Federal Tax (%):
+      <input id="taxFederal" type="number" value="12">
+    </label>
+
+    <label>State Tax (%):
+      <input id="taxState" type="number" value="5">
+    </label>
+
     <label>Pay Frequency:
       <select id="frequency">
         <option value="weekly" selected>Weekly</option>
@@ -64,28 +80,81 @@ fetch('/templates/header.html')
     <div id="output" class="result-box" style="display:none;">
       <p>Gross Pay: <span id="gross"></span></p>
       <p>Taxes: <span id="tax"></span></p>
-      <p>Net Pay: <span id="net"></span></p>
+      <p>Net Pay: <strong><span id="net"></span></strong></p>
     </div>
   </section>
 
-  <!-- Tool Explanation -->
+  <!-- SEO Explanation -->
   <section class="tool-explanation">
     <h2>About the Paycheck Calculator</h2>
     <p>
-      The <strong>Paycheck Calculator</strong> helps you quickly determine your <strong>gross pay</strong>, <strong>taxes</strong>, and <strong>net pay</strong> based on your <strong>hourly wage</strong>, total hours worked, and any overtime hours. By selecting your pay frequency and entering federal and state tax rates, you can accurately estimate your paycheck for weekly, biweekly, semimonthly, or monthly periods.
+      The paycheck calculator helps you estimate your gross pay, tax deductions, and net take-home pay
+      based on your hourly wage, hours worked, overtime, and pay frequency.
     </p>
     <p>
-      This calculator is ideal for employees and freelancers who want to track their <strong>income</strong>, manage <strong>paychecks</strong>, and plan budgets effectively. Use this tool to better understand how your <strong>salary</strong> translates into take-home pay after taxes.
+      By entering federal and state tax rates, this calculator shows how taxes affect your paycheck
+      across weekly, biweekly, semimonthly, or monthly pay periods.
     </p>
+    <p>
+      This tool is useful for budgeting, income planning, and understanding how changes in hours
+      or pay frequency impact your take-home earnings.
+    </p>
+  </section>
+
+  <!-- FAQ -->
+  <section class="tool-faq">
+    <h2>Paycheck Calculator FAQs</h2>
+
+    <div class="faq-item">
+      <h3>How is my paycheck calculated?</h3>
+      <p>
+        Your paycheck is calculated by multiplying your hourly wage by hours worked, adding overtime pay if applicable,
+        and then subtracting estimated federal and state taxes. The result is your net take-home pay.
+      </p>
+    </div>
+
+    <div class="faq-item">
+      <h3>What does pay frequency mean?</h3>
+      <p>
+        Pay frequency refers to how often you receive your paycheck, such as weekly, biweekly, semimonthly,
+        or monthly. The frequency affects the paycheck amount but not your total annual income.
+      </p>
+    </div>
+
+    <div class="faq-item">
+      <h3>Does this paycheck calculator include overtime?</h3>
+      <p>
+        Yes. You can enter overtime hours, and the calculator will include overtime pay when estimating
+        your gross and net paycheck amounts.
+      </p>
+    </div>
+
+    <div class="faq-item">
+      <h3>Are the tax amounts exact?</h3>
+      <p>
+        No. The calculator uses estimated federal and state tax percentages. Actual paycheck deductions
+        may differ due to filing status, benefits, and other payroll factors.
+      </p>
+    </div>
+
+    <div class="faq-item">
+      <h3>Can I use this calculator for budgeting?</h3>
+      <p>
+        Yes. This paycheck calculator is useful for budgeting and financial planning by helping you
+        understand how much income you can expect after taxes for each pay period.
+      </p>
+    </div>
   </section>
 
   <!-- Feedback -->
   <section id="feedback-box" class="feedback-box" style="display:none;">
     <p><strong>Was this result helpful?</strong></p>
+
     <div class="feedback-actions">
       <button data-vote="yes">👍 Yes</button>
       <button data-vote="no">👎 No</button>
     </div>
+
     <div id="no-reason-box" style="display:none;">
       <p>Please tell us why:</p>
       <label><input type="radio" name="no-reason" value="wrong_calculation"> Calculation seems wrong</label>
@@ -94,6 +163,7 @@ fetch('/templates/header.html')
       <label><input type="radio" name="no-reason" value="ui_confusing"> UI is confusing</label>
       <button id="feedback-submit" class="secondary-btn">Submit Feedback</button>
     </div>
+
     <div id="feedback-status"></div>
   </section>
 
@@ -111,10 +181,10 @@ fetch('/templates/footer.html')
   });
 </script>
 
-<!-- 核心计算逻辑 -->
+<!-- Core logic -->
 <script src="/js/calculator-core.js"></script>
 
-<!-- Feedback JS -->
+<!-- Feedback -->
 <script src="/js/feedback.js"></script>
 
 <script>
@@ -137,6 +207,40 @@ document.getElementById('calculateBtn').addEventListener('click', function () {
   document.getElementById('output').style.display = 'block';
   document.dispatchEvent(new Event('calculator:result-ready'));
 });
+</script>
+
+<!-- FAQ Schema -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "How is my paycheck calculated?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Your paycheck is calculated by multiplying your hourly wage by hours worked, adding overtime pay if applicable, and subtracting estimated federal and state taxes."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What does pay frequency mean?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Pay frequency refers to how often you receive your paycheck, such as weekly, biweekly, semimonthly, or monthly."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Does this paycheck calculator include overtime?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes. You can enter overtime hours and the calculator will include overtime pay when estimating your paycheck."
+      }
+    }
+  ]
+}
 </script>
 
 </body>

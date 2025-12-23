@@ -53,38 +53,13 @@
         </div>
       </section>
 
-      <!-- Explanation Section (SEO Content) -->
-      <section class="tool-explanation">
-        <h2>How This Annual Income Calculator Works</h2>
-
-        <p>
-          This annual income calculator helps you estimate your total yearly earnings based on your monthly salary and any additional bonus income. As a free online tool, it provides instant results without requiring registration, downloads, or spreadsheets.
-        </p>
-
-        <p>
-          To calculate your annual income, enter your monthly salary and the bonus amount you expect to receive during the year. The calculator multiplies your monthly pay by twelve and then adds the bonus to produce your total annual income. This method reflects how most employers, lenders, and financial institutions define gross annual income.
-        </p>
-
-        <p>
-          Understanding your annual income is essential for financial planning and everyday decisions. Many tax forms, loan applications, rental agreements, and budgeting tools require you to report a yearly income figure rather than a monthly one. Using an annual income calculator allows you to convert your pay structure quickly and accurately.
-        </p>
-
-        <p>
-          This tool is useful for employees, freelancers, contractors, and job seekers who want a clear view of their yearly earnings. Whether you are comparing job offers, planning expenses, or estimating taxes, this calculator provides a fast and reliable way to calculate annual salary directly in your browser.
-        </p>
-
-        <p>
-          All calculations are performed locally, ensuring speed and privacy. You can update the values at any time to recalculate your annual income instantly as your salary or bonus changes.
-        </p>
-      </section>
-
       <!-- Feedback Section -->
       <section id="feedback-box" class="feedback-box" style="display:none;">
         <p><strong>Was this result helpful?</strong></p>
 
         <div class="feedback-actions">
-          <button data-vote="yes">👍 Yes</button>
-          <button data-vote="no">👎 No</button>
+          <button data-vote="yes">Yes</button>
+          <button data-vote="no">No</button>
         </div>
 
         <div id="no-reason-box" style="display:none;">
@@ -97,6 +72,57 @@
         </div>
 
         <div id="feedback-status"></div>
+      </section>
+
+      <!-- FAQ Section -->
+      <section class="tool-faq">
+        <h2>Frequently Asked Questions</h2>
+
+        <h3>Does this annual income calculator include taxes?</h3>
+        <p>
+          No. This calculator estimates your gross annual income before taxes. Tax deductions vary based on location, filing status, and individual circumstances, so they are not included in this calculation.
+        </p>
+
+        <h3>What counts as bonus income?</h3>
+        <p>
+          Bonus income can include performance bonuses, commissions, incentives, or any additional one-time payments you expect to receive during the year. Regular monthly salary should not be included as a bonus.
+        </p>
+
+        <h3>Is this calculator accurate for freelancers or contractors?</h3>
+        <p>
+          Yes, as long as you have a consistent monthly income estimate. Freelancers and contractors can use this calculator to estimate yearly earnings, but actual income may vary depending on workload and payment schedules.
+        </p>
+
+        <h3>Why is my calculated annual income different from my paycheck?</h3>
+        <p>
+          Differences may occur due to taxes, benefits, retirement contributions, unpaid leave, or irregular bonuses. This tool calculates gross income and does not account for deductions or variable pay changes.
+        </p>
+
+        <h3>Can I use this calculator if I am paid bi-weekly?</h3>
+        <p>
+          You can still use this tool by converting your pay to a monthly average. For example, multiply your bi-weekly pay by 26 and divide by 12 to estimate a monthly salary.
+        </p>
+      </section>
+
+      <!-- Explanation Section -->
+      <section class="tool-explanation">
+        <h2>How This Annual Income Calculator Works</h2>
+
+        <p>
+          This annual income calculator helps you estimate your total yearly earnings based on your monthly salary and any additional bonus income. As a free online tool, it provides instant results without requiring registration, downloads, or spreadsheets.
+        </p>
+
+        <p>
+          To calculate your annual income, enter your monthly salary and the bonus amount you expect to receive during the year. The calculator multiplies your monthly pay by twelve and then adds the bonus to produce your total annual income.
+        </p>
+
+        <p>
+          Understanding your annual income is essential for financial planning. Many tax forms, loan applications, rental agreements, and budgeting tools require a yearly income figure rather than a monthly one.
+        </p>
+
+        <p>
+          This tool is useful for employees, freelancers, contractors, and job seekers who want a clear view of their yearly earnings. All calculations are performed locally for speed and privacy.
+        </p>
       </section>
 
     </main>
@@ -124,9 +150,60 @@
 
       document.getElementById('annual').innerText = annual.toFixed(2);
       document.getElementById('output').style.display = 'block';
+      document.getElementById('feedback-box').style.display = 'block';
 
       document.dispatchEvent(new Event('calculator:result-ready'));
     });
+  </script>
+
+  <!-- FAQ Schema -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "Does this annual income calculator include taxes?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "No. This calculator estimates your gross annual income before taxes. Tax deductions vary based on location, filing status, and individual circumstances, so they are not included in this calculation."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What counts as bonus income?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Bonus income can include performance bonuses, commissions, incentives, or any additional one-time payments you expect to receive during the year."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Is this calculator accurate for freelancers or contractors?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes. Freelancers and contractors can use this calculator to estimate yearly earnings as long as they have a consistent monthly income estimate."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Why is my calculated annual income different from my paycheck?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Differences may occur due to taxes, benefits, retirement contributions, unpaid leave, or irregular bonuses."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Can I use this calculator if I am paid bi-weekly?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes. You can convert bi-weekly pay into a monthly average by multiplying by 26 and dividing by 12."
+        }
+      }
+    ]
+  }
   </script>
 
 </body>

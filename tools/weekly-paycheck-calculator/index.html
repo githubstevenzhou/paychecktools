@@ -11,10 +11,53 @@
   <meta name="description" content="Calculate your weekly paycheck including gross pay, taxes, and net pay using our easy-to-use calculator.">
   <link rel="canonical" href="https://paychecktools.com/tools/weekly-paycheck-calculator/">
   <link rel="stylesheet" href="/css/styles.css">
+
+  <!-- FAQ Schema -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "What is a weekly paycheck?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "A weekly paycheck is the amount of money you earn and receive for one week of work, usually based on your hourly wage and hours worked."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How do I calculate my weekly paycheck?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "You calculate your weekly paycheck by multiplying your hourly wage by the number of hours worked, then subtracting applicable taxes."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Does this calculator include overtime pay?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "This calculator provides a basic estimate and does not automatically calculate overtime rates. You can include overtime by adjusting the hourly wage or hours worked."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Is this weekly paycheck calculator accurate?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "This calculator provides an estimate based on the information you enter. Actual weekly pay may vary depending on tax laws, deductions, and employer policies."
+        }
+      }
+    ]
+  }
+  </script>
 </head>
 
 <body>
 
+<!-- Header -->
 <div id="site-header" class="skeleton"></div>
 <script>
 fetch('/templates/header.html')
@@ -57,11 +100,46 @@ fetch('/templates/header.html')
   <section class="tool-explanation">
     <h2>About the Weekly Paycheck Calculator</h2>
     <p>
-      The <strong>Weekly Paycheck Calculator</strong> is designed to help you quickly estimate your <strong>weekly income</strong> based on your <strong>hourly wage</strong> and the number of hours you work. By inputting your hourly rate, total hours worked, and applicable tax rate, this calculator provides your <strong>gross pay</strong>, <strong>taxes</strong>, and <strong>net pay</strong> for the week. 
+      The <strong>Weekly Paycheck Calculator</strong> helps you estimate your <strong>weekly income</strong> based on your hourly wage and hours worked. 
+      By entering your pay rate, total hours, and tax percentage, you can quickly see your <strong>gross pay</strong>, <strong>tax amount</strong>, and <strong>net pay</strong> for the week.
     </p>
     <p>
-      This tool is ideal for employees and freelancers who want to track their <strong>weekly earnings</strong>, plan budgets, and manage finances effectively. Simply enter your numbers to see how much money you take home each week after taxes, ensuring you stay informed about your <strong>paycheck</strong> and <strong>income</strong>.
+      This calculator is useful for hourly employees and freelancers who want a clear view of their weekly earnings. 
+      It allows you to plan expenses, manage cash flow, and better understand how taxes affect your <strong>weekly paycheck</strong>.
     </p>
+  </section>
+
+  <!-- FAQ -->
+  <section class="faq-section">
+    <h2>Frequently Asked Questions</h2>
+
+    <div class="faq-item">
+      <h3>What is a weekly paycheck?</h3>
+      <p>
+        A weekly paycheck is the amount you earn for one week of work, typically calculated using your hourly wage and hours worked.
+      </p>
+    </div>
+
+    <div class="faq-item">
+      <h3>How is weekly net pay calculated?</h3>
+      <p>
+        Weekly net pay is calculated by subtracting taxes from your gross weekly earnings.
+      </p>
+    </div>
+
+    <div class="faq-item">
+      <h3>Does this calculator include overtime pay?</h3>
+      <p>
+        This calculator does not automatically apply overtime rules. You can include overtime by adjusting your hourly wage or total hours worked.
+      </p>
+    </div>
+
+    <div class="faq-item">
+      <h3>Who should use this weekly paycheck calculator?</h3>
+      <p>
+        This tool is ideal for hourly workers, part-time employees, and freelancers who want to estimate their weekly take-home pay.
+      </p>
+    </div>
   </section>
 
   <!-- Feedback -->
@@ -87,6 +165,7 @@ fetch('/templates/header.html')
 
 </main>
 
+<!-- Footer -->
 <div id="site-footer" class="skeleton"></div>
 <script>
 fetch('/templates/footer.html')
