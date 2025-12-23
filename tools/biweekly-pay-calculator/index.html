@@ -7,8 +7,8 @@
       .then(html => document.head.insertAdjacentHTML('beforeend', html));
   </script>
 
-  <title>Biweekly Paycheck Calculator – PaycheckTools</title>
-  <meta name="description" content="Calculate your biweekly paycheck including taxes and net pay.">
+  <title>Free Biweekly Paycheck Calculator – Calculate Biweekly Net Pay After Taxes</title>
+  <meta name="description" content="Use this free biweekly paycheck calculator to estimate gross pay, taxes, and net pay based on hourly wage, overtime, and tax rates.">
   <link rel="canonical" href="https://paychecktools.com/tools/biweekly-pay-calculator/">
   <link rel="stylesheet" href="/css/styles.css">
 </head>
@@ -29,14 +29,29 @@ fetch('/templates/header.html')
 
 <main class="tool-container">
 
+  <!-- Calculator -->
   <section class="calculator">
     <h1>Biweekly Paycheck Calculator</h1>
 
-    <label>Hourly Wage: <input id="wage" type="number" value="25"></label>
-    <label>Hours Worked: <input id="hours" type="number" value="80"></label>
-    <label>Overtime Hours: <input id="otHours" type="number" value="0"></label>
-    <label>Federal Tax (%): <input id="taxFederal" type="number" value="12"></label>
-    <label>State Tax (%): <input id="taxState" type="number" value="5"></label>
+    <label>Hourly Wage:
+      <input id="wage" type="number" value="25">
+    </label>
+
+    <label>Hours Worked:
+      <input id="hours" type="number" value="80">
+    </label>
+
+    <label>Overtime Hours:
+      <input id="otHours" type="number" value="0">
+    </label>
+
+    <label>Federal Tax (%):
+      <input id="taxFederal" type="number" value="12">
+    </label>
+
+    <label>State Tax (%):
+      <input id="taxState" type="number" value="5">
+    </label>
 
     <button id="calculateBtn" class="primary-btn">Calculate</button>
 
@@ -45,6 +60,31 @@ fetch('/templates/header.html')
       <p>Taxes: <span id="tax"></span></p>
       <p>Net Pay: <span id="net"></span></p>
     </div>
+  </section>
+
+  <!-- Explanation Section -->
+  <section class="tool-explanation">
+    <h2>How the Biweekly Paycheck Calculator Works</h2>
+
+    <p>
+      This biweekly paycheck calculator helps you estimate how much you take home every two weeks based on your hourly wage, hours worked, overtime, and tax rates. As a free online tool, it allows you to calculate both gross pay and net pay without spreadsheets, manual formulas, or registration.
+    </p>
+
+    <p>
+      To calculate your biweekly paycheck, enter your hourly wage and the total number of hours worked during the pay period. If you worked overtime, include those hours separately. The calculator applies the biweekly pay frequency, which is commonly used by employers who issue 26 paychecks per year.
+    </p>
+
+    <p>
+      After calculating gross pay, the tool estimates taxes using the federal and state tax percentages you provide. These values are then used to determine your net pay, which represents the amount you actually receive after taxes are deducted. This makes the calculator especially useful for budgeting and cash-flow planning.
+    </p>
+
+    <p>
+      Understanding your biweekly net pay is important for managing recurring expenses such as rent, utilities, loan payments, and savings contributions. Many workers prefer biweekly pay schedules because they offer more frequent income while still aligning with monthly financial obligations.
+    </p>
+
+    <p>
+      This calculator is designed for hourly employees, contractors, and anyone paid on a biweekly basis. All calculations are performed locally in your browser for speed and privacy, and you can adjust the inputs at any time to instantly recalculate your paycheck.
+    </p>
   </section>
 
   <!-- Feedback -->

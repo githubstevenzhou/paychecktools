@@ -8,13 +8,14 @@
   </script>
 
   <title>Take Home Pay Calculator – PaycheckTools</title>
-  <meta name="description" content="Calculate your take-home pay after taxes and deductions.">
+  <meta name="description" content="Calculate your take-home pay after taxes and deductions using our easy calculator for accurate paycheck estimation.">
   <link rel="canonical" href="https://paychecktools.com/tools/take-home-pay-calculator/">
   <link rel="stylesheet" href="/css/styles.css">
 </head>
 
 <body>
 
+<!-- Header -->
 <div id="site-header" class="skeleton"></div>
 <script>
 fetch('/templates/header.html')
@@ -28,6 +29,7 @@ fetch('/templates/header.html')
 
 <main class="tool-container">
 
+  <!-- Calculator -->
   <section class="calculator">
     <h1>Take Home Pay Calculator</h1>
 
@@ -49,6 +51,18 @@ fetch('/templates/header.html')
       <p>Total Tax: <span id="tax"></span></p>
       <p>Take-Home Pay: <strong><span id="net"></span></strong></p>
     </div>
+  </section>
+
+  <!-- Tool Explanation -->
+  <section class="tool-explanation">
+    <h2>About the Take Home Pay Calculator</h2>
+    <p>
+      The <strong>Take Home Pay Calculator</strong> helps you determine your <strong>net pay</strong> after all taxes and deductions. By entering your gross income, tax rate, and any additional deductions, you can instantly see the amount you will actually receive in your <strong>paycheck</strong>. 
+      This tool is essential for budgeting, understanding your <strong>income</strong>, and planning your finances accurately.
+    </p>
+    <p>
+      Whether you are a salaried employee, freelancer, or independent contractor, knowing your <strong>take-home pay</strong> helps you manage expenses and make informed decisions. Simply input your numbers to calculate your estimated <strong>net income</strong> after taxes and deductions.
+    </p>
   </section>
 
   <!-- Feedback -->
@@ -74,6 +88,7 @@ fetch('/templates/header.html')
 
 </main>
 
+<!-- Footer -->
 <div id="site-footer" class="skeleton"></div>
 <script>
 fetch('/templates/footer.html')

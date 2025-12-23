@@ -8,13 +8,14 @@
   </script>
 
   <title>Salary to Hourly Calculator – PaycheckTools</title>
-  <meta name="description" content="Convert annual salary to hourly wage.">
+  <meta name="description" content="Convert your annual salary to hourly wage with our Salary to Hourly Calculator. Easily estimate your hourly pay based on hours worked and weeks per year.">
   <link rel="canonical" href="https://paychecktools.com/tools/salary-to-hourly-calculator/">
   <link rel="stylesheet" href="/css/styles.css">
 </head>
 
 <body>
 
+<!-- Header -->
 <div id="site-header" class="skeleton"></div>
 <script>
 fetch('/templates/header.html')
@@ -28,6 +29,7 @@ fetch('/templates/header.html')
 
 <main class="tool-container">
 
+  <!-- Calculator -->
   <section class="calculator">
     <h1>Salary to Hourly Calculator</h1>
 
@@ -50,15 +52,27 @@ fetch('/templates/header.html')
     </div>
   </section>
 
+  <!-- Tool Explanation -->
+  <section class="tool-explanation">
+    <h2>How to Use the Salary to Hourly Calculator</h2>
+    <p>
+      Our <strong>Salary to Hourly Calculator</strong> allows you to quickly convert your annual salary into an <strong>hourly wage</strong> based on the number of hours you work per week and weeks worked per year. 
+      By entering your <strong>annual salary</strong> and your typical work schedule, you can determine your effective pay rate, which is useful for understanding your paycheck, comparing job offers, or calculating overtime. 
+      This tool is ideal for full-time, part-time, and freelance workers who want an accurate estimate of their <strong>hourly pay</strong> and <strong>net income</strong>.
+    </p>
+    <p>
+      Knowing your <strong>hourly wage</strong> helps with financial planning, budgeting, and negotiating compensation. 
+      Simply input your salary, weekly hours, and weeks per year to instantly see your <strong>pay rate</strong> and better understand how your annual income translates into hourly earnings.
+    </p>
+  </section>
+
   <!-- Feedback -->
   <section id="feedback-box" class="feedback-box" style="display:none;">
     <p><strong>Was this result helpful?</strong></p>
-
     <div class="feedback-actions">
       <button data-vote="yes">👍 Yes</button>
       <button data-vote="no">👎 No</button>
     </div>
-
     <div id="no-reason-box" style="display:none;">
       <p>Please tell us why:</p>
       <label><input type="radio" name="no-reason" value="wrong_calculation"> Calculation seems wrong</label>
@@ -67,12 +81,12 @@ fetch('/templates/header.html')
       <label><input type="radio" name="no-reason" value="ui_confusing"> UI is confusing</label>
       <button id="feedback-submit" class="secondary-btn">Submit Feedback</button>
     </div>
-
     <div id="feedback-status"></div>
   </section>
 
 </main>
 
+<!-- Footer -->
 <div id="site-footer" class="skeleton"></div>
 <script>
 fetch('/templates/footer.html')

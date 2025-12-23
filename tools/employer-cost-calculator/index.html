@@ -7,8 +7,8 @@
       .then(html => document.head.insertAdjacentHTML('beforeend', html));
   </script>
 
-  <title>Employer Cost Calculator – PaycheckTools</title>
-  <meta name="description" content="Calculate the total employer cost including payroll taxes and benefits.">
+  <title>Free Employer Cost Calculator – Calculate Total Cost of an Employee</title>
+  <meta name="description" content="Use this free employer cost calculator to estimate total employee cost including payroll taxes, benefits, and additional employer expenses.">
   <link rel="canonical" href="https://paychecktools.com/tools/employer-cost-calculator/">
   <link rel="stylesheet" href="/css/styles.css">
 </head>
@@ -29,22 +29,27 @@ fetch('/templates/header.html')
 
 <main class="tool-container">
 
+  <!-- Calculator -->
   <section class="calculator">
     <h1>Employer Cost Calculator</h1>
 
-    <label>Employee Gross Pay:
+    <label>
+      Employee Gross Pay:
       <input id="gross" type="number" value="5000">
     </label>
 
-    <label>Employer Payroll Tax (%):
+    <label>
+      Employer Payroll Tax (%):
       <input id="tax" type="number" value="7.65">
     </label>
 
-    <label>Benefits Cost:
+    <label>
+      Benefits Cost:
       <input id="benefits" type="number" value="300">
     </label>
 
-    <label>Other Employer Costs:
+    <label>
+      Other Employer Costs:
       <input id="other" type="number" value="0">
     </label>
 
@@ -54,6 +59,31 @@ fetch('/templates/header.html')
       <p>Payroll Tax: <span id="taxAmount"></span></p>
       <p>Total Employer Cost: <strong><span id="total"></span></strong></p>
     </div>
+  </section>
+
+  <!-- Explanation Section -->
+  <section class="tool-explanation">
+    <h2>How the Employer Cost Calculator Works</h2>
+
+    <p>
+      This employer cost calculator helps you estimate the true cost of employing a worker beyond their gross pay. As a free online tool, it allows employers, HR teams, and business owners to calculate total employee cost including payroll taxes, benefits, and additional expenses.
+    </p>
+
+    <p>
+      To calculate employer cost, enter the employee’s gross pay and the employer payroll tax rate. In many countries, employers are required to pay additional payroll taxes such as social security contributions, unemployment insurance, or similar statutory charges. These costs are calculated as a percentage of gross pay.
+    </p>
+
+    <p>
+      You can also include benefits costs such as health insurance, retirement contributions, or allowances. If there are other recurring employer expenses related to the employee, such as equipment, training, or administrative costs, they can be added separately to reflect the full employment cost.
+    </p>
+
+    <p>
+      Understanding the total employer cost is essential for workforce planning, budgeting, and hiring decisions. Many businesses underestimate how much an employee truly costs when only considering salary, which can lead to inaccurate financial forecasts.
+    </p>
+
+    <p>
+      This calculator is designed for small business owners, HR professionals, and finance teams who need a quick and reliable estimate of employee cost. All calculations are performed locally in your browser for speed and privacy, and you can adjust the inputs at any time to instantly recalculate the total cost.
+    </p>
   </section>
 
   <!-- Feedback -->

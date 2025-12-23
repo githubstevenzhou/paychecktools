@@ -8,7 +8,7 @@
   </script>
 
   <title>Payroll Tax Calculator – PaycheckTools</title>
-  <meta name="description" content="Calculate payroll taxes and net pay based on gross income and tax rates.">
+  <meta name="description" content="Use our Payroll Tax Calculator to estimate net pay based on gross income, federal and state tax rates, and other payroll deductions. Calculate your paycheck easily.">
   <link rel="canonical" href="https://paychecktools.com/tools/payroll-tax-calculator/">
   <link rel="stylesheet" href="/css/styles.css">
 </head>
@@ -29,6 +29,7 @@ fetch('/templates/header.html')
 
 <main class="tool-container">
 
+  <!-- Calculator -->
   <section class="calculator">
     <h1>Payroll Tax Calculator</h1>
 
@@ -56,15 +57,27 @@ fetch('/templates/header.html')
     </div>
   </section>
 
+  <!-- Tool Explanation -->
+  <section class="tool-explanation">
+    <h2>How to Use the Payroll Tax Calculator</h2>
+    <p>
+      The <strong>Payroll Tax Calculator</strong> is designed to help employees, contractors, and part-time workers quickly estimate their <strong>net pay</strong> after deductions. 
+      By entering your <strong>gross income</strong> along with applicable <strong>federal</strong>, <strong>state</strong>, and other payroll tax rates, you can instantly calculate how much will be withheld from your paycheck and what you will actually take home. 
+      This tool acts as a simple <strong>paycheck calculator</strong> that gives a clear view of your <strong>salary</strong> and <strong>tax obligations</strong> without complex spreadsheets.
+    </p>
+    <p>
+      Whether you receive a weekly, biweekly, or monthly paycheck, this <strong>payroll tax calculator</strong> ensures you understand the impact of taxes on your income. 
+      Planning your finances is easier when you know exactly how <strong>tax rates</strong> affect your <strong>take-home pay</strong>, helping with budgeting, savings, and understanding your overall compensation package.
+    </p>
+  </section>
+
   <!-- Feedback -->
   <section id="feedback-box" class="feedback-box" style="display:none;">
     <p><strong>Was this result helpful?</strong></p>
-
     <div class="feedback-actions">
       <button data-vote="yes">👍 Yes</button>
       <button data-vote="no">👎 No</button>
     </div>
-
     <div id="no-reason-box" style="display:none;">
       <p>Please tell us why:</p>
       <label><input type="radio" name="no-reason" value="wrong_calculation"> Calculation seems wrong</label>
@@ -73,7 +86,6 @@ fetch('/templates/header.html')
       <label><input type="radio" name="no-reason" value="ui_confusing"> UI is confusing</label>
       <button id="feedback-submit" class="secondary-btn">Submit Feedback</button>
     </div>
-
     <div id="feedback-status"></div>
   </section>
 

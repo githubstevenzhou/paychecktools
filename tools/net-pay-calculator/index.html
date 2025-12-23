@@ -8,8 +8,8 @@
       .then(html => document.head.insertAdjacentHTML('beforeend', html));
   </script>
 
-  <title>Net Pay Calculator – PaycheckTools</title>
-  <meta name="description" content="Estimate your take-home pay after taxes.">
+  <title>Free Net Pay Calculator – PaycheckTools</title>
+  <meta name="description" content="Use this free net pay calculator to estimate your take-home pay after federal and state taxes.">
   <link rel="canonical" href="https://paychecktools.com/tools/net-pay-calculator/">
   <link rel="stylesheet" href="/css/styles.css">
 </head>
@@ -66,7 +66,27 @@
     </div>
   </section>
 
-  <!-- Feedback (inline, not loaded) -->
+  <!-- SEO Explanation -->
+  <section class="tool-explanation">
+    <h2>Estimate Your Take-Home Pay After Taxes</h2>
+    <p>
+      This net pay calculator helps you estimate how much income you actually take home after taxes.
+      By entering your income amount, pay frequency, and tax rates, you can quickly see your estimated
+      net pay without complex payroll calculations.
+    </p>
+    <p>
+      Many employees are paid hourly, weekly, monthly, or annually, while taxes are usually applied
+      as percentages. This free net pay calculator works across different income units, making it
+      easier to understand your real earnings regardless of how your salary is structured.
+    </p>
+    <p>
+      Whether you are budgeting expenses, comparing job offers, or planning future income, knowing
+      your take-home pay is more useful than gross income alone. PaycheckTools provides this calculator
+      free to use, with no registration required.
+    </p>
+  </section>
+
+  <!-- Feedback -->
   <section id="feedback-box" class="feedback-box" style="display:none;">
     <p><strong>Was this result helpful?</strong></p>
 
@@ -139,7 +159,6 @@
       document.getElementById('net').innerText = result.net.toFixed(2);
       document.getElementById('output').style.display = 'block';
 
-      // trigger feedback
       document.dispatchEvent(new Event('calculator:result-ready'));
     } catch (err) {
       alert('Error: ' + err.message);

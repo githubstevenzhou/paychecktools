@@ -8,8 +8,8 @@
       .then(html => document.head.insertAdjacentHTML('beforeend', html));
   </script>
 
-  <title>Overtime Pay Calculator – PaycheckTools</title>
-  <meta name="description" content="Calculate your overtime pay and net income including taxes.">
+  <title>Free Overtime Pay Calculator – PaycheckTools</title>
+  <meta name="description" content="Calculate your overtime pay and net income after federal and state taxes using this free overtime pay calculator.">
   <link rel="canonical" href="https://paychecktools.com/tools/overtime-pay-calculator/">
   <link rel="stylesheet" href="/css/styles.css">
 </head>
@@ -69,7 +69,26 @@
     </div>
   </section>
 
-  <!-- Feedback (inline) -->
+  <!-- SEO Explanation -->
+  <section class="tool-explanation">
+    <h2>Estimate Your Overtime Earnings and Take-Home Pay</h2>
+    <p>
+      This free overtime pay calculator helps you determine both your gross and net pay, including overtime hours.
+      Simply input your hourly wage, regular and overtime hours, and any overtime multiplier, then add federal and state tax rates
+      to get an accurate estimate of your take-home pay.
+    </p>
+    <p>
+      Many employees work extra hours or overtime at a higher rate, but calculating actual pay after taxes can be confusing.
+      This tool makes it easy to see exactly how much overtime contributes to your total earnings and what you will
+      actually receive after deductions.
+    </p>
+    <p>
+      Use this calculator for budgeting, payroll planning, or comparing job offers with overtime considerations.
+      PaycheckTools provides this free, easy-to-use calculator without requiring registration or login.
+    </p>
+  </section>
+
+  <!-- Feedback -->
   <section id="feedback-box" class="feedback-box" style="display:none;">
     <p><strong>Was this result helpful?</strong></p>
 
@@ -128,7 +147,6 @@
 
     document.getElementById('output').style.display = 'block';
 
-    // trigger feedback
     document.dispatchEvent(new Event('calculator:result-ready'));
   });
 </script>

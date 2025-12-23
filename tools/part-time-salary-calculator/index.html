@@ -1,20 +1,22 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <!-- Shared head -->
   <script>
     fetch('/templates/head.html')
       .then(r => r.text())
       .then(html => document.head.insertAdjacentHTML('beforeend', html));
   </script>
 
-  <title>Part-Time Salary Calculator – PaycheckTools</title>
-  <meta name="description" content="Estimate part-time salary based on hourly wage and weekly hours.">
+  <title>Free Part-Time Salary Calculator | Part-Time Pay Estimator – PaycheckTools</title>
+  <meta name="description" content="Use this free part-time salary calculator to estimate your part-time income, calculate earnings from hourly wage, and check your total pay for part-time work. Perfect for students or freelancers.">
   <link rel="canonical" href="https://paychecktools.com/tools/part-time-salary-calculator/">
   <link rel="stylesheet" href="/css/styles.css">
 </head>
 
 <body>
 
+<!-- Header -->
 <div id="site-header" class="skeleton"></div>
 <script>
 fetch('/templates/header.html')
@@ -28,6 +30,7 @@ fetch('/templates/header.html')
 
 <main class="tool-container">
 
+  <!-- Calculator -->
   <section class="calculator">
     <h1>Part-Time Salary Calculator</h1>
 
@@ -48,6 +51,22 @@ fetch('/templates/header.html')
     <div id="output" class="result-box" style="display:none;">
       <p>Estimated Annual Salary: <strong><span id="salary"></span></strong></p>
     </div>
+  </section>
+
+  <!-- SEO Explanation with Keywords -->
+  <section class="tool-explanation">
+    <h2>Calculate Your Part-Time Earnings Easily</h2>
+    <p>
+      This free part-time salary calculator helps you quickly estimate your annual income based on your hourly wage, weekly hours, and total weeks worked. 
+      Whether you are a student, freelancer, or part-time employee, this tool provides an accurate part-time income calculation.
+    </p>
+    <p>
+      You can also use it as a part-time pay estimator or hourly wage calculator to determine how much you earn from part-time work. 
+      By entering your work schedule and pay rate, this part-time job salary calculator calculates total earnings, helping with budgeting and financial planning.
+    </p>
+    <p>
+      Adjust hours or wage to see how changes affect your part-time salary. This part-time earnings calculator is free, fast, and does not require login, making it simple to track your expected income for any part-time job.
+    </p>
   </section>
 
   <!-- Feedback -->
@@ -73,6 +92,7 @@ fetch('/templates/header.html')
 
 </main>
 
+<!-- Footer -->
 <div id="site-footer" class="skeleton"></div>
 <script>
 fetch('/templates/footer.html')
@@ -84,8 +104,10 @@ fetch('/templates/footer.html')
   });
 </script>
 
+<!-- Feedback logic -->
 <script src="/js/feedback.js"></script>
 
+<!-- Core calculation -->
 <script>
 document.getElementById('calculateBtn').addEventListener('click', () => {
   const hourly = Number(document.getElementById('hourly').value);

@@ -7,14 +7,15 @@
       .then(html => document.head.insertAdjacentHTML('beforeend', html));
   </script>
 
-  <title>Commission Calculator – PaycheckTools</title>
-  <meta name="description" content="Calculate commission earnings based on sales and commission rate.">
+  <title>Free Commission Calculator – Calculate Sales Commission and Total Pay</title>
+  <meta name="description" content="Use this free commission calculator to calculate commission earnings based on sales, commission rate, and base salary. Instant and accurate results.">
   <link rel="canonical" href="https://paychecktools.com/tools/commission-calculator/">
   <link rel="stylesheet" href="/css/styles.css">
 </head>
 
 <body>
 
+<!-- Header -->
 <div id="site-header" class="skeleton"></div>
 <script>
 fetch('/templates/header.html')
@@ -28,18 +29,22 @@ fetch('/templates/header.html')
 
 <main class="tool-container">
 
+  <!-- Calculator -->
   <section class="calculator">
     <h1>Commission Calculator</h1>
 
-    <label>Total Sales Amount:
+    <label>
+      Total Sales Amount:
       <input id="sales" type="number" value="10000">
     </label>
 
-    <label>Commission Rate (%):
+    <label>
+      Commission Rate (%):
       <input id="rate" type="number" value="5">
     </label>
 
-    <label>Base Salary (optional):
+    <label>
+      Base Salary (optional):
       <input id="base" type="number" value="0">
     </label>
 
@@ -49,6 +54,31 @@ fetch('/templates/header.html')
       <p>Commission Earned: <span id="commission"></span></p>
       <p>Total Pay: <strong><span id="total"></span></strong></p>
     </div>
+  </section>
+
+  <!-- Explanation Section -->
+  <section class="tool-explanation">
+    <h2>How the Commission Calculator Works</h2>
+
+    <p>
+      This commission calculator helps you estimate how much commission you earn based on your total sales amount and commission rate. As a free online tool, it allows sales professionals to quickly calculate commission earnings without using spreadsheets or manual formulas.
+    </p>
+
+    <p>
+      To calculate commission, enter the total value of sales you generated and the commission rate offered by your employer or contract. The calculator multiplies the sales amount by the commission percentage to determine your commission earned for the period.
+    </p>
+
+    <p>
+      If your compensation plan includes a base salary, you can enter it as an optional value. The calculator then adds the base salary to your commission to show your total pay. This reflects common commission-based compensation structures used in sales, real estate, and performance-based roles.
+    </p>
+
+    <p>
+      Understanding your commission income is important for budgeting, income forecasting, and evaluating sales performance. Many professionals rely on commission calculators to compare compensation plans, estimate monthly or annual earnings, and set realistic sales targets.
+    </p>
+
+    <p>
+      This tool is designed for sales representatives, agents, freelancers, and anyone earning commission-based income. All calculations are performed locally in your browser, ensuring fast results and privacy. You can adjust the inputs at any time to instantly recalculate your commission and total pay.
+    </p>
   </section>
 
   <!-- Feedback -->
@@ -74,6 +104,7 @@ fetch('/templates/header.html')
 
 </main>
 
+<!-- Footer -->
 <div id="site-footer" class="skeleton"></div>
 <script>
 fetch('/templates/footer.html')

@@ -8,15 +8,14 @@
   </script>
 
   <title>Paycheck Calculator – PaycheckTools</title>
-  <meta name="description" content="Calculate your paycheck including gross pay, taxes, and net pay.">
+  <meta name="description" content="Calculate your paycheck including gross pay, taxes, and net pay with our easy-to-use calculator.">
   <link rel="canonical" href="https://paychecktools.com/tools/paycheck-calculator/">
   <link rel="stylesheet" href="/css/styles.css">
 
   <style>
-    /* Skeleton 占位样式 */
     #site-header.skeleton, #site-footer.skeleton {
       background: #e0e0e0;
-      min-height: 80px; /* 可根据实际高度调整 */
+      min-height: 80px;
       animation: pulse 1.5s infinite ease-in-out;
     }
     @keyframes pulse {
@@ -29,108 +28,116 @@
 
 <body>
 
-  <!-- Header -->
-  <div id="site-header" class="skeleton"></div>
-  <script>
-    fetch('/templates/header.html')
-      .then(r => r.text())
-      .then(html => {
-        const el = document.getElementById('site-header');
-        el.innerHTML = html;
-        el.classList.remove('skeleton'); // 移除占位样式
-      });
-  </script>
+<!-- Header -->
+<div id="site-header" class="skeleton"></div>
+<script>
+fetch('/templates/header.html')
+  .then(r => r.text())
+  .then(html => {
+    const el = document.getElementById('site-header');
+    el.innerHTML = html;
+    el.classList.remove('skeleton');
+  });
+</script>
 
-  <main class="tool-container">
+<main class="tool-container">
 
-    <section class="calculator">
-      <h1>Paycheck Calculator</h1>
+  <section class="calculator">
+    <h1>Paycheck Calculator</h1>
 
-      <label>Hourly Wage: <input id="wage" type="number" value="25"></label>
-      <label>Hours Worked: <input id="hours" type="number" value="40"></label>
-      <label>Overtime Hours: <input id="otHours" type="number" value="0"></label>
-      <label>Federal Tax (%): <input id="taxFederal" type="number" value="12"></label>
-      <label>State Tax (%): <input id="taxState" type="number" value="5"></label>
-      <label>Pay Frequency:
-        <select id="frequency">
-          <option value="weekly" selected>Weekly</option>
-          <option value="biweekly">Biweekly</option>
-          <option value="semimonthly">Semimonthly</option>
-          <option value="monthly">Monthly</option>
-        </select>
-      </label>
+    <label>Hourly Wage: <input id="wage" type="number" value="25"></label>
+    <label>Hours Worked: <input id="hours" type="number" value="40"></label>
+    <label>Overtime Hours: <input id="otHours" type="number" value="0"></label>
+    <label>Federal Tax (%): <input id="taxFederal" type="number" value="12"></label>
+    <label>State Tax (%): <input id="taxState" type="number" value="5"></label>
+    <label>Pay Frequency:
+      <select id="frequency">
+        <option value="weekly" selected>Weekly</option>
+        <option value="biweekly">Biweekly</option>
+        <option value="semimonthly">Semimonthly</option>
+        <option value="monthly">Monthly</option>
+      </select>
+    </label>
 
-      <button id="calculateBtn" class="primary-btn">Calculate</button>
+    <button id="calculateBtn" class="primary-btn">Calculate</button>
 
-      <div id="output" class="result-box" style="display:none;">
-        <p>Gross Pay: <span id="gross"></span></p>
-        <p>Taxes: <span id="tax"></span></p>
-        <p>Net Pay: <span id="net"></span></p>
-      </div>
-    </section>
+    <div id="output" class="result-box" style="display:none;">
+      <p>Gross Pay: <span id="gross"></span></p>
+      <p>Taxes: <span id="tax"></span></p>
+      <p>Net Pay: <span id="net"></span></p>
+    </div>
+  </section>
 
-    <!-- Feedback -->
-    <section id="feedback-box" class="feedback-box" style="display:none;">
-      <p><strong>Was this result helpful?</strong></p>
-      <div class="feedback-actions">
-        <button data-vote="yes">👍 Yes</button>
-        <button data-vote="no">👎 No</button>
-      </div>
-      <div id="no-reason-box" style="display:none;">
-        <p>Please tell us why:</p>
-        <label><input type="radio" name="no-reason" value="wrong_calculation"> Calculation seems wrong</label>
-        <label><input type="radio" name="no-reason" value="unclear_result"> Result is unclear</label>
-        <label><input type="radio" name="no-reason" value="missing_option"> Missing option</label>
-        <label><input type="radio" name="no-reason" value="ui_confusing"> UI is confusing</label>
-        <button id="feedback-submit" class="secondary-btn">Submit Feedback</button>
-      </div>
-      <div id="feedback-status"></div>
-    </section>
+  <!-- Tool Explanation -->
+  <section class="tool-explanation">
+    <h2>About the Paycheck Calculator</h2>
+    <p>
+      The <strong>Paycheck Calculator</strong> helps you quickly determine your <strong>gross pay</strong>, <strong>taxes</strong>, and <strong>net pay</strong> based on your <strong>hourly wage</strong>, total hours worked, and any overtime hours. By selecting your pay frequency and entering federal and state tax rates, you can accurately estimate your paycheck for weekly, biweekly, semimonthly, or monthly periods.
+    </p>
+    <p>
+      This calculator is ideal for employees and freelancers who want to track their <strong>income</strong>, manage <strong>paychecks</strong>, and plan budgets effectively. Use this tool to better understand how your <strong>salary</strong> translates into take-home pay after taxes.
+    </p>
+  </section>
 
-  </main>
+  <!-- Feedback -->
+  <section id="feedback-box" class="feedback-box" style="display:none;">
+    <p><strong>Was this result helpful?</strong></p>
+    <div class="feedback-actions">
+      <button data-vote="yes">👍 Yes</button>
+      <button data-vote="no">👎 No</button>
+    </div>
+    <div id="no-reason-box" style="display:none;">
+      <p>Please tell us why:</p>
+      <label><input type="radio" name="no-reason" value="wrong_calculation"> Calculation seems wrong</label>
+      <label><input type="radio" name="no-reason" value="unclear_result"> Result is unclear</label>
+      <label><input type="radio" name="no-reason" value="missing_option"> Missing option</label>
+      <label><input type="radio" name="no-reason" value="ui_confusing"> UI is confusing</label>
+      <button id="feedback-submit" class="secondary-btn">Submit Feedback</button>
+    </div>
+    <div id="feedback-status"></div>
+  </section>
 
-  <!-- Footer -->
-  <div id="site-footer" class="skeleton"></div>
-  <script>
-    fetch('/templates/footer.html')
-      .then(r => r.text())
-      .then(html => {
-        const el = document.getElementById('site-footer');
-        el.innerHTML = html;
-        el.classList.remove('skeleton');
-      });
-  </script>
+</main>
 
-  <!-- 核心计算逻辑 -->
-  <script src="/js/calculator-core.js"></script>
+<!-- Footer -->
+<div id="site-footer" class="skeleton"></div>
+<script>
+fetch('/templates/footer.html')
+  .then(r => r.text())
+  .then(html => {
+    const el = document.getElementById('site-footer');
+    el.innerHTML = html;
+    el.classList.remove('skeleton');
+  });
+</script>
 
-  <!-- Feedback JS -->
-  <script src="/js/feedback.js"></script>
+<!-- 核心计算逻辑 -->
+<script src="/js/calculator-core.js"></script>
 
-  <script>
-    // Calculate 按钮逻辑
-    document.getElementById('calculateBtn').addEventListener('click', function () {
-      const result = calculatePaycheck({
-        wage: Number(document.getElementById('wage').value),
-        hours: Number(document.getElementById('hours').value),
-        otHours: Number(document.getElementById('otHours').value),
-        frequency: document.getElementById('frequency').value,
-        taxes: {
-          federal: Number(document.getElementById('taxFederal').value),
-          state: Number(document.getElementById('taxState').value)
-        }
-      });
+<!-- Feedback JS -->
+<script src="/js/feedback.js"></script>
 
-      document.getElementById('gross').innerText = result.grossPay.toFixed(2);
-      document.getElementById('tax').innerText = result.breakdown.taxAmount.toFixed(2);
-      document.getElementById('net').innerText = result.netPay.toFixed(2);
+<script>
+document.getElementById('calculateBtn').addEventListener('click', function () {
+  const result = calculatePaycheck({
+    wage: Number(document.getElementById('wage').value),
+    hours: Number(document.getElementById('hours').value),
+    otHours: Number(document.getElementById('otHours').value),
+    frequency: document.getElementById('frequency').value,
+    taxes: {
+      federal: Number(document.getElementById('taxFederal').value),
+      state: Number(document.getElementById('taxState').value)
+    }
+  });
 
-      document.getElementById('output').style.display = 'block';
+  document.getElementById('gross').innerText = result.grossPay.toFixed(2);
+  document.getElementById('tax').innerText = result.breakdown.taxAmount.toFixed(2);
+  document.getElementById('net').innerText = result.netPay.toFixed(2);
 
-      // 触发 feedback 显示
-      document.dispatchEvent(new Event('calculator:result-ready'));
-    });
-  </script>
+  document.getElementById('output').style.display = 'block';
+  document.dispatchEvent(new Event('calculator:result-ready'));
+});
+</script>
 
 </body>
 </html>
